@@ -1,0 +1,21 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Exercise 1.2-2}
+
+Insertion sort beats merge sort when the number of steps taken for insertion sort is fewer than the number of steps taken for merge sort. Mathematically,
+\begin{eqnarray*}
+	8 n^2 & < & 64 n \log_2 n \\
+	n^2 & < & 8 n \log_2 n \\
+	n & < & 8 \log_2 n \\
+	\frac{n}{\log_2 n} & < & 8
+\end{eqnarray*}
+Since I know of no way to solve for $n$ symbolically, using a binary search to solve for $n$ (see \texttt{1\_2-2.c}) gives:
+\begin{eqnarray*}
+	n & \leq & 43
+\end{eqnarray*}
+
+\end{document}
