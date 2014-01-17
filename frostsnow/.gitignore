@@ -2,3 +2,5 @@
 *.ps
 *.aux
 *.log
+*.pdf
+.*.swp

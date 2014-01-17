@@ -1,10 +1,10 @@
 compiler = gcc
 flags = -Wall -Werror --pedantic-errors -rdynamic --std=c99
 libraries = -lm
-executables = e1_2-2
+executables = e1_2-2 e1_2-3
 sources = ${executables:=.c}
 
-solutions = e1_2-2
+solutions = e1_2-2 e1_2-3
 texs = ${solutions:=.tex}
 pdfs = ${solutions:=.pdf}
 dvis = ${solutions:=.dvi}
@@ -16,19 +16,20 @@ logs = ${solutions:=.log}
 all: ${executables} ${pdfs}
 
 # Compile the programs.
-${executables}: ${sources}
-	${compiler} $@.c -o $@ ${libraries}
+#${executables}: ${sources}
+${executables}: %: %.c
+	${compiler} $< -o $@ ${libraries}
 
 # Compile the PDFs.
-${pdfs}: ${pss}
+${pdfs}: %.pdf: %.ps
 	ps2pdf $<
 
 # Compile the PostScripts
-${pss}: ${dvis}
+${pss}: %.ps: %.dvi
 	dvips -R -Poutline $< -o $@
 
 # Compile the DVIs.
-${dvis}: ${texs}
+${dvis}: %.dvi: %.tex
 	latex $<
 	latex $<
 
