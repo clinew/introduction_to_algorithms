@@ -1,0 +1,24 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Exercise 1.2-3}
+
+The smellest value of $n$ such that an algorithm whose running time is $100n^2$ runs faster than an algorithm whose running time is $2^n$ on the same machine may be found by solving the following for the smallest value of $n$:
+
+\begin{eqnarray*}
+	100n^2 & < & 2^n \\
+	100 & < & \frac{2^n}{n^2} \\
+	\log_2(100) & < & \frac{\log_2(2^n)}{\log_2(n^2)} \\
+	\log_2(100) & < & \frac{n}{\log_2(n^2)} \\
+	\log_2(100) & < & \frac{n}{2\log_2(n)} \\
+	2\log_2(100) & < & \frac{n}{\log_2(n)}
+\end{eqnarray*}
+Since, like the previous exercise, I do not know of a way to solve this equation for $n$ symbolically, using a program (see \texttt{1\_2-3.c}) yields the result:
+\begin{eqnarray*}
+	n & < & 86
+\end{eqnarray*}
+
+\end{document}
