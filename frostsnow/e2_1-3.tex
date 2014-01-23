@@ -1,0 +1,19 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Exercise 2.1-3}
+
+See \texttt{e2\_1-3.c} for the linear search implementation in C (rather than pseudocode).
+\\ \\
+\noindent~\textbf{Loop Invariant}: At the start of each iteration of the for loop, the subarray $A[0 \ldots i-1]$ contains values not equal to $v$.
+\\ \\
+\noindent~\textbf{Initialization}: At the start of the for loop, $i=0$ and the subarray $A=[0 \ldots i-1]$ is empty, or, perhaps more accurately, doesn't exist, and therefore cannot contain the value $v$.
+\\ \\
+\noindent~\textbf{Maintenance}: Suppose that $A[i]$ contains the value $v$; then the loop terminates at index $i$. Otherwise, the item at $A[i]$, which is not equal to $v$, is in effect appended to the array $A=[0 \ldots i-1]$ by incrementing $i$.
+\\ \\
+\noindent~\textbf{Termination}: At $i=n$, the entire array $A[0 \ldots n-1]$ does not contain the value $v$. Since $A[0 \ldots n-1]$ does not contain the value $v$, NIL is returned. Hence, the algorithm is correct.
+
+\end{document}
