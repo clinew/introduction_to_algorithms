@@ -1,0 +1,24 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Exercise 2.2-2}
+
+A C implementation of the selection sort may be found in \texttt{e2\_2-2.c}.
+
+The algorithm mantains the loop invariant that the subarray $A[1 \ldots i-1]$ is sorted and that each element in the aforementioned subarray has a value less than or equal to the subarray $A[i-1 \ldots n]$ where $n$ is the size of the array and $i$ is the current iteration of the loop.
+
+The loop does not need to run for the last element because there is no place to swap the final element, and because it is known that its value is greater than or equal to each of the values in the subarray before it.
+\\ \\
+\noindent~Best case:
+\begin{eqnarray*}
+	\Theta(n^2)
+\end{eqnarray*}
+Worst case:
+\begin{eqnarray*}
+	\Theta(n^2)
+\end{eqnarray*}
+
+\end{document}
