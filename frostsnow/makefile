@@ -4,7 +4,7 @@ libraries = -lm
 executables = e1_2-2 e1_2-3 p1-1 e2_1-2 e2_1-3
 sources = ${executables:=.c}
 
-solutions = e1_2-2 e1_2-3 p1-1 e2_1-2 e2_1-3 e2_1-4
+solutions = e1_2-2 e1_2-3 p1-1 e2_1-2 e2_1-3 e2_1-4 e2_2-1
 texs = ${solutions:=.tex}
 pdfs = ${solutions:=.pdf}
 dvis = ${solutions:=.dvi}
