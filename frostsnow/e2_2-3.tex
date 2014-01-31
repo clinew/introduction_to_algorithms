@@ -1,0 +1,32 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Exercise 2.2-3}
+
+On average, \textit{half} of the elements in the array will need to be checked.
+\\ \\
+\noindent~In the worst case, \textit{all} of the elements in the array will need to be checked.
+\\ \\
+\noindent~The average-case running time would be half of the input sequence, so:
+\begin{eqnarray*}
+	\frac{n}{2}
+\end{eqnarray*}
+...but dropping the coefficient for $\Theta$-notation gives:
+\begin{eqnarray*}
+	\Theta(n)
+\end{eqnarray*}
+\\
+\noindent~The worst-case running time would be the whole input sequence, so:
+\begin{eqnarray*}
+	n
+\end{eqnarray*}
+...there is no coefficienct to drop, but the $\Theta$-notation is the same:
+\begin{eqnarray*}
+	\Theta(n)
+\end{eqnarray*}
+
+
+\end{document}
