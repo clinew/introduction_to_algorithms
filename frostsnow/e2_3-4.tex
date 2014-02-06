@@ -1,0 +1,18 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Exercise 2.3-4}
+
+Let $T(n)$ be the running time on a problem of size $n$. When the problem size is one ($n = 1$), the solution takes a constant amount of time which we write as $\Theta(1)$. The division of the problem then yields $a = 1$ subproblem that is $n - 1$ the size of the original. If it takes $D(n)$ time to divide the problem into subproblems and $C(n)$ time to combine the solution to the subproblem into the solution to the original problem, then the recurrence may be expressed as:
+\begin{equation*}
+	T(n) = \left\{
+	       \begin{array}{ll}
+		\Theta(1) & \text{if } n = 1, \\
+		T(n - 1) + D(n) + C(n) & \text{otherwise}.
+	\end{array} \right.
+\end{equation*}
+
+\end{document}
