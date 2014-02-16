@@ -1,0 +1,52 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Problem 2-1}
+
+\noindent\begin{enumerate}
+	\item[\textbf{\textit{a.}}] Each insertion sort on a sublist of length $k$ will take $\Theta(k^2)$ time. There are $\frac{n}{k}$ sublists. Multiplying the amount of time it takes to sort each sublist by the number of sublists gives:
+	\begin{eqnarray*}
+		k^2 \frac{n}{k} \\
+		nk
+	\end{eqnarray*}
+	Thus it takes time $\Theta(nk)$ to sort all of the sublists.
+
+	\item[\textbf{\textit{b.}}] Assume that $n$ and $k$ are both powers of 2 and that $n < k$. We know that merging an $n$-element sublist takes time $\Theta(n)$ and that for any iteration $0 \leq i < \log_2(\frac{n}{k})$ there are $\frac{n}{2^i k}$ sublists. The amount of time it takes to merge the sublists in an iteration $i$ is the amount of time it takes to merge a sublist of length $2^{i+1} k$ multiplied by the number of sublists to merge:
+	\begin{eqnarray*}
+		2^{i+1} k \cdot \frac{n}{2^i k} \\
+		2n \\
+		\Theta(n)
+	\end{eqnarray*}
+	Since it takes time $\Theta(n)$ to merge all the sublists for an iteration $i$ and there are $\log_2(\frac{n}{k})$ iterations, multiplying the amount of time it takes to merge all of the sublists for an iteration $i$ by the number of iterations to perform gives:
+	\begin{eqnarray*}
+		n \cdot log_2(\frac{n}{k}) \\
+		\Theta(n \log_2(\frac{n}{k}))
+	\end{eqnarray*}
+
+	\item[\textbf{\textit{c.}}] Suppose we were to set $k$ such that $k = n$ (thus running the Insertion Sort on the entire array). Then the worst-case run time would be:
+	\begin{eqnarray*}
+		\Theta(nk + n \log_2(\frac{n}{k})) \\
+		\Theta(n^2 + n \log_2(\frac{n}{n})) \\
+		\Theta(n^2 + n \log_2(1)) \\
+		\Theta(n^2)
+	\end{eqnarray*}
+	\ldots which is the worst-case run time of Insertion Sort. Successively dividing this maximum value of $k$ by 2 for each iteration $i$ such that $k = \frac{n}{2^i}$ yields the analysis:
+	\begin{eqnarray*}
+		\Theta \left ( n \left ( \frac{n}{2^i} \right ) + n \log_2 \left ( \frac{n}{\frac{n}{2^i}} \right ) \right )
+	\end{eqnarray*}
+	For low values of $i$ this yields the worst-case run time of Insertion Sort, but using values of $i$ such that $k \rightarrow 1$ yields the analysis:
+	\begin{eqnarray*}
+		\Theta \left ( nk + n \log_2 \left ( \frac{n}{k} \right ) \right ) \\
+		\Theta \left ( n(1) + n \log_2 \left ( \frac{n}{1} \right ) \right ) \\
+		\Theta \left ( n + n \log_2 \left ( n \right ) \right ) \\
+		\Theta \left (n \log_2 \left ( n \right ) \right )
+	\end{eqnarray*}
+	\ldots which is simply the worst-case runtime of merge sort. Thus the largest value of $k$ as a function of $n$ such that the modified algorithm has the same running time as standard merge sort is $k = 1$.
+
+	\item[\textbf{\textit{d.}}] In practice, we should chose a value of $k$ such that the actual runtime of Insertion Sort on arrays of length $k$ and smaller is less than the runtime of Merge Sort.
+\end{enumerate}
+
+\end{document}
