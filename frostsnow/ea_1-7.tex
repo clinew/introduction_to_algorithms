@@ -1,0 +1,21 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Exercise A.1-7}
+
+Using the Identity of Products stated in the book on a logarithm of the product, simplifying, and then removing the logarithm gives:
+\begin{eqnarray*}
+	\log_2 \left ( \prod_{k=1}^n 2 \cdot 4^k \right ) & = & \sum_{k=1}^n \log_2 \left ( 2 \cdot 4^k \right ) \\
+	& = & \sum_{k=1}^n \left ( \log_2 2 + \log_2 4^k \right ) \\
+	& = & \sum_{k=1}^n \left ( 1 + \log_2 \left ( 2^2 \right )^k \right ) \\
+	& = & \sum_{k=1}^n \left ( 1 + 2k \right ) \\
+	& = & \sum_{k=1}^n 1 + \sum_{k=1}^n 2k \\
+	& = & n + 2 \left ( \frac{1}{2} n \left ( n+1 \right ) \right ) \\
+	& = & n^2 + 2n \\
+	\prod_{k=1}^n 2 \cdot 4^k & = & 2^{n^2 + 2n}
+\end{eqnarray*}
+
+\end{document}
