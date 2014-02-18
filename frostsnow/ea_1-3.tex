@@ -1,0 +1,27 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Exercise A.1-3}
+
+The book states that differentiating the Geometric Series and then multiplying the result by $x$ gives:
+\begin{eqnarray*}
+	\sum_{k=0}^\infty k x^k & = & \frac{x}{\left ( 1-x \right )^2}
+\end{eqnarray*}
+\ldots for $\left | x \right | < 1$. Differentiating again gives:
+\begin{eqnarray*}
+	\partial x \sum_{k=0}^\infty k x^k & = & \partial x \frac{x}{\left ( 1-x \right )^2} \\
+	\sum_{k=0}^\infty k^2 x^{k-1} & = & \frac{\left ( 1-x \right )^2 + 2\left ( 1-x \right )x}{\left ( 1-x \right )^4} \\
+	& = & \frac{\left ( 1-x \right ) + 2x}{\left ( 1-x \right )^4} \\
+	& = & \frac{1+x}{\left ( 1-x \right )^3}
+\end{eqnarray*}
+Multiplying by $x$ again gives:
+\begin{eqnarray*}
+	x \sum_{k=0}^\infty k^2 x^{k-1} & = & x \frac{1+x}{\left ( 1-x \right )^3} \\
+	\sum_{k=0}^\infty k^2 x^k & = & \frac{x \left ( 1+x \right )}{\left ( 1-x \right )^3}
+\end{eqnarray*}
+Again, both of these formulas only apply for $\left | x \right | < 1$.
+
+\end{document}
