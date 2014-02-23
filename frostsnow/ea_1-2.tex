@@ -1,0 +1,40 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Exercise A.1-2}
+
+The \textit{closest} I've been able to come to showing that the summation is $ln(\sqrt{n}) + O(1)$ is to approximate the summation via integrals. Since the equation is monotonically decreasing, the summation is bounded via:
+\begin{eqnarray*}
+	\int_m^{n+1} f(x)dx \leq \sum_{k=m}^n f(k) \leq \int_{m-1}^n f(x)dx
+\end{eqnarray*}
+Both the upper and lower bound can be integrated by substitution such that $u=2x-1$ and $du=2dx$. For the lower bound:
+\begin{eqnarray*}
+	\sum_{k=1}^n \frac{1}{2k-1} \geq \int_1^{n+1} \frac{dx}{2x-1} & = & \int_{u=1}^{u=2n+1} \frac{du}{2u} \\
+	& = & \frac{1}{2} \biggr\vert_{u=1}^{u=2n+1} \ln(u) \\
+	& = & \frac{\ln(2n+1)}{2} - \frac{\ln(1)}{2} + c \\
+	& = & \ln(\sqrt{2n+1}) + c
+\end{eqnarray*}
+For the upper bound:
+\begin{eqnarray*}
+	\sum_{k=1}^n \frac{1}{2k-1} = 1 + \sum_{n=2}^n \frac{1}{2k-1}\leq 1 + \int_1^n \frac{dx}{2x-1} & = & 1 + \int_{u=1}^{u=2n-1} \frac{du}{2u} \\
+	& = & 1 + \frac{1}{2} \int_{u=1}^{2n-1} \frac{du}{u} \\
+	& = & 1 + \frac{1}{2} \biggr\vert_{u=1}^{2n-1} \ln(u) \\
+	& = & 1 + \frac{\ln(2n-1)}{2} - \frac{\ln(1)}{2} + c
+\end{eqnarray*}
+Putting the two inequalities together gives:
+\begin{eqnarray*}
+	\ln(\sqrt{2n+1}) \leq \sum_{k=1}^n \frac{1}{2k-1} \leq \ln(\sqrt{2n-1}) + 1 + c
+\end{eqnarray*}
+This would perfectly match the desired answer without the addition of the positive and negative $1$s within the natural logarithm, because:
+\begin{eqnarray*}
+	\ln(\sqrt{2n}) & = & \ln(\sqrt{2}\sqrt{n}) \\
+	& = & \ln(\sqrt{2}) + \ln(\sqrt{n}) \\
+	& = & \ln(\sqrt{n}) + O(1)
+\end{eqnarray*}
+Alas, that is not the case, and I am not currently aware of how to simplify further.
+	
+
+\end{document}
