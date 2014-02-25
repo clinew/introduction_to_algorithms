@@ -1,0 +1,25 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Problem 2-2}
+
+\noindent\begin{enumerate}
+	\item[\textbf{\textit{a.}}] We need to prove that the algorithm works on any input $A$ that is of length $n$.
+
+	\item[\textbf{\textit{b.}}] \textit{Loop Invariant}: At the start of each iteration of the \texttt{for} loop, $A[j] \leq A[j+1 \ldots A.length]$. \\ \\
+				    \textit{Initialization}: At the start of the \texttt{for} loop, the subarray $A[j+1 \ldots A.length]$ is non-existent and thus $A[j]$ is trivially less than or equal to $A[j+1 \ldots A.length]$. \\ \\
+				    \textit{Maintenance}: Suppose that $A[j] < A[j-1]$, then the two elements are swapped such that $A[j-1] < A[j]$ and then $j$ is decremented such that $A[j] < A[j+1]$, thus maintaining the loop invariant; otherwise, suppose that $A[j] \geq A[j-1]$, then the elements remain in-place and then $j$ is decremented such that $A[j+1] \geq A[j]$, which is equivalent to $A[j] \leq A[j+1]$ and thus also maintains the loop invariant. \\ \\
+				    \textit{Termination}: At termination, $j=i$ and $A[j] \leq A[j+1 \ldots A.length]$.
+
+	\item[\textbf{\textit{c.}}] \textit{Loop Invariant}: At the start of each iteration of the \texttt{for} loop, the subarray $A[1 \ldots i-1]$ contains at least $i-1$ elements sorted such that $A[1] \leq A[2] \leq ... \leq A[i-2] \leq A[i-1]$. \\ \\
+				    \textit{Initialization}: At the start of the \texttt{for} loop, $i=1$ and the subarray $A=[1 \ldots 0]$ is trivially sorted. \\ \\
+				    \textit{Maintenance}: During each iteration of the \texttt{for} loop, the elements are moved such that $A[i = j] \leq A[i+1 \ldots A.length]$, and then $i$ is incremented such that $A[1] \leq A[2] \leq \ldots \leq A[i-2] \leq A[i-1]$, thus maintaining the loop invariant. \\ \\
+				    \textit{Termination}: At $i = A.length$, the entire array $A[1 \ldots i-1]$ contains elements such that $A[1] \leq A[2] \leq \ldots \leq A[i-1]$, and it is known from maintenance of the last loop that $A[i-1] \leq A[i \ldots A.length] = A[i]$. Hence, the algorithm is correct.
+
+	\item[\textbf{\textit{d.}}] The worst-case running time of Bubble Sort is $\Theta(n^2)$, which is equivalent to the worst-case running time of Insertion Sort.
+\end{enumerate}
+
+\end{document}
