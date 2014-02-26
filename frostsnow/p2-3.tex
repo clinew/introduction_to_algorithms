@@ -1,0 +1,46 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Problem 2-3}
+
+\noindent\begin{enumerate}
+	\item[\textbf{\textit{a.}}]
+		The running time of the code fragment is $\Theta(n)$.
+
+	\item[\textbf{\textit{b.}}]
+		See \texttt{p2-2.c} for an implementation in C. The running time of the algorithm is $\Theta(n^2)$. This is \textit{much} worse than Horner's Rule.
+
+	\item[\textbf{\textit{c.}}]
+		\textit{Initialization}: At loop initialization, $i=n$, giving:
+		\begin{eqnarray*}
+			\sum_{k=0}^{n-i+1} a_{k+i+1} x^k & = & \sum_{k=0}^{-1} a_{k+n+1} x^k \\
+			& = & 0
+		\end{eqnarray*}
+		\textit{Maintenance}: Assume that at $i$:
+		\begin{eqnarray*}
+			y & = & \sum_{k=0}^{n-(i+1)} a_{k+i+1} x^k
+		\end{eqnarray*}
+		Then prove that at $i-1$:
+		\begin{eqnarray*}
+			y & = & \sum_{k=0}^{n-i} a_{k+i} x^k
+		\end{eqnarray*}
+		From the structure of the loop in the pseudocode, we know that at $i-1$:
+		\begin{eqnarray*}
+			y & = & a_i + x \sum_{k=0}^{n-(i+1)} a_{k+i+1} x^k \\
+			& = & a_i + x \left ( a_{i+1} + a_{i+2} + \cdots + a_{n+1} x^{n-i-2} + a_n x^{n-i-1} \right ) \\
+			& = & a_i + a_{i+1} x + a_{i+2} x^2 + \cdots + a_{n-1} x^{n-i-1} + a_n x^{n-1} \\
+			& = & \sum_{k=0}^{n-1} a_{k+i} x^k
+		\end{eqnarray*}
+		\textit{Termination}: At loop termination, $i=-1$, giving:
+		\begin{eqnarray*}
+			y & = & \sum_{k=0}^{n-(i+1)} a_{k+i+i} x^k \\
+			& = & \sum_{k=0}^n a_k x^k
+		\end{eqnarray*}
+
+	\item[\textbf{\textit{d.}}] By the Loop Invariant's Termination Condition and Horner's Rule, we know that the given code fragment correctly evaluates the polynomial.
+\end{enumerate}
+
+\end{document}
