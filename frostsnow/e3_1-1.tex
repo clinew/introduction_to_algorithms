@@ -1,0 +1,24 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Exercise 3.1-1}
+
+By definition of $\Theta$:
+\begin{eqnarray*}
+	\Theta(f(n) + g(n)) = \{h(n) \text{: there exist positive constants } c1, c2, \text{ and } n_0 \text{ such that } \\
+	0 \leq c_1 h(n) \leq f(n) + g(n) \leq c_2 h(n) \text{ for all } n \geq n_0\}.
+\end{eqnarray*}
+We know by the definition of max that:
+\begin{eqnarray*}
+	\text{max}(f(n), g(n)) \leq f(n) + g(n) \leq c_2 h(n)
+\end{eqnarray*}
+So choose $c_1$ such that:
+\begin{eqnarray*}
+	c_1 h(n) \leq \text{max}(f(n),g(n)) \text{ for all } n_0 \text{ sufficiently large}
+\end{eqnarray*}
+I'm not sure if this is a mathematically-valid proof; what I'm trying to prove makes sense, but actually proving it is more difficult.
+
+\end{document}
