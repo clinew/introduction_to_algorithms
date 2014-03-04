@@ -8,17 +8,40 @@
 
 By definition of $\Theta$:
 \begin{eqnarray*}
-	\Theta(f(n) + g(n)) = \{h(n) \text{: there exist positive constants } c1, c2, \text{ and } n_0 \text{ such that } \\
-	0 \leq c_1 h(n) \leq f(n) + g(n) \leq c_2 h(n) \text{ for all } n \geq n_0\}.
+	\Theta(f(n)) = \{g(n) \text{: there exist positive constants } c_1, c_2, \text{ and } n_0 \text{ such that } \\
+	0 \leq c_1 g(n) \leq f(n) \leq c_2 g(n) \text{ for all } n \geq n_0\}.
 \end{eqnarray*}
-We know by the definition of max that:
+Assume that there exist positive constants $c_1$, $c_2$, $c_3$, and $c_4$ such that:
 \begin{eqnarray*}
-	\text{max}(f(n), g(n)) \leq f(n) + g(n) \leq c_2 h(n)
+	c_1 h(n) \leq f(n) \leq c_2 h(n) & = & \Theta(f(n)) \\
+	c_3 i(n) \leq g(n) \leq c_4 i(n) & = & \Theta(g(n))
 \end{eqnarray*}
-So choose $c_1$ such that:
+Then we know that:
 \begin{eqnarray*}
-	c_1 h(n) \leq \text{max}(f(n),g(n)) \text{ for all } n_0 \text{ sufficiently large}
+	c_1 h(n) + c_3 i(n) \leq f(n) + g(n) \leq c_2 h(n) + c_4 i(n) & = & \Theta(f(n) + g(n))
 \end{eqnarray*}
-I'm not sure if this is a mathematically-valid proof; what I'm trying to prove makes sense, but actually proving it is more difficult.
+Since $f(n)$ and $g(n)$ are both asymptotically nonnegative functions, we also know that:
+\begin{eqnarray*}
+	\text{max}(f(n), g(n)) \leq f(n) + g(n) \leq c_2 h(n) + c_4 i(n)
+\end{eqnarray*}
+So we just need to prove that there exist positive constants $c_1$ and $c_3$ such that:
+\begin{eqnarray*}
+	c_1 h(n) & \leq & f(n) \\
+	c_3 i(n) & \leq & g(n) \\
+	c_1 h(n) + c_3 i(n) & \leq & \text{max}(f(n), g(n))
+\end{eqnarray*}
+Suppose for the sake of contradiction that there do not exist positive constants $c_1$ and $c_3$ such that $c_1 h(n) + c_3 i(n) \leq \text{max}(f(n), g(n))$ but such that $c_1 h(n) \leq f(n)$ and $c_3 i(n) \leq g(n)$; we then know that:
+\begin{eqnarray*}
+	c_1 h(n) + c_3 i(n) \leq 2 \text{max}(f(n), g(n)) \\
+	\frac{c_1}{2} h(n) + \frac{c_3}{2} i(n) \leq \text{max}(f(n), g(n))
+\end{eqnarray*}
+but then we know that there exist positive constants $c_5$ and $c_6$ such that $c_5 = \frac{c_1}{2}$ and $c_6 = \frac{c_3}{2}$, and we also know that:
+\begin{eqnarray*}
+	c_5 h(n) = \frac{c_1}{2} h(n) \leq c_1 h(n) & \leq & f(n) \\
+	c_6 i(n) = \frac{c_3}{2} i(n) \leq c_3 i(n) & \leq & h(n) \\
+	c_5 h(n) + c_6 i(n) = \frac{c_1}{2} h(n) + \frac{c_3}{2} i(n) & \leq & \text{max}(f(n), g(n))
+\end{eqnarray*}
+which contradicts the assumption that such positive constants for $h(n)$ and $i(n)$ cannot exist, thus proving that the positive constants $c_1$ and $c_3$ exist.
 
+Thus, $\text{max}(f(n), g(n)) = \Theta(f(n) + g(n))$.
 \end{document}
