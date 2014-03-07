@@ -1,0 +1,25 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Exercise 3.1-4}
+
+By definition of $\Theta$:
+\begin{eqnarray*}
+	\Theta(f(n)) = \{g(n) \text{: there exist positive constants } c_1, c_2, \text{ and } n_0 \text{ such that } \\
+	0 \leq c_1 g(n) \leq f(n) \leq c_2 g(n) \text{ for all } n \geq n_0\}.
+\end{eqnarray*}
+First, expand $2^{n+1}$ to give $2 \cdot 2^n$, then let $c_1 = 1.9$ and $c_2 = 2.1$. Plugging this into the equation for $\Theta$ gives:
+\begin{eqnarray*}
+	0 \leq 1.9 \cdot 2^n \leq 2 \cdot 2^n \leq 2.1 \cdot 2^n
+\end{eqnarray*}
+Thus, $2^{n+1} = \Theta(2^n)$.
+
+Next, expand $2^{2n}$ to give $2^n \cdot 2^n$. Plugging this into the equation for $\Theta$ gives:
+\begin{eqnarray*}
+	0 \leq c_1 2^n \leq 2^n \cdot 2^n \leq c_2 2^n
+\end{eqnarray*}
+However, since both $c_1$ and $c_2$ are constants but $2^n$ is a variable, this equation cannot be satisfied and therefore $2^{2n} \neq \Theta(2^n)$.
+\end{document}
