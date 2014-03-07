@@ -1,0 +1,28 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Exercise 3.1-3}
+
+By definition of $O(g(n))$:
+\begin{eqnarray*}
+	O(g(n)) = \{f(n) \text{: there exist positive constants } c \text{ and } n_0 \text{ such that } \\
+	0 \leq f(n) \leq c g(n) \text{ for all } n \geq n_0 \}.
+\end{eqnarray*}
+In this case:
+\begin{eqnarray*}
+	0 \leq f(n) \leq c n^2
+\end{eqnarray*}
+Translating the phrase ``The running time of algorithm $A$ is \textit{at least} $O(n^2)$'' into mathematical symbolism gives:
+\begin{eqnarray*}
+	c n^2 \leq f(n)
+\end{eqnarray*}
+Combining these two gives:
+\begin{eqnarray*}
+	f(n) \leq c n^2 \leq f(n)
+\end{eqnarray*}
+Which provides absolutely no information on the bounds of $f(n)$, and thus is meaningless.
+
+\end{document}
