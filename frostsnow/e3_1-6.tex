@@ -1,0 +1,46 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Exercise 3.1-6}
+
+By definition of $\Theta$:
+\begin{eqnarray*}
+	\Theta(f(n)) = \{g(n) \text{: there exist positive constants } c_1, c_2, \text{ and } n_0 \text{ such that } \\
+	0 \leq c_1 g(n) \leq f(n) \leq c_2 g(n) \text{ for all } n \geq n_0\}.
+\end{eqnarray*}
+By definition of $O$:
+\begin{eqnarray*}
+	O(f(n)) = \{g(n) \text{: there exist positive constants } c \text{ and } n_0 \text{ such that } \\
+	f(n) \leq c g(n) \text{ for all } n \geq n_0\}.
+\end{eqnarray*}
+By definition of $\Omega$:
+\begin{eqnarray*}
+	\Omega(f(n)) = \{g(n) \text{: there exist positive constants } c \text{ and } n_0 \text{ such that } \\
+	0 \leq c g(n) \leq f(n) \text{ for all } n \geq n_0\}.
+\end{eqnarray*}
+First, suppose we know that an algorithm is $\Theta(g(n))$, and assume for the sake of contradiction that the algorithm is neither $O(g(n))$ nor $\Omega(g(n))$. Then we know that there exists a positive constant $c_2$ such that:
+\begin{eqnarray*}
+	f(n) \leq c_2 g(n) \text{ for all } n \geq n_0
+\end{eqnarray*}
+but letting $c_2$ be equal to the $c$ in the definition of $O$-notation shows via contradiction that the algorithm is $O(g(n))$. Similiarly, we know that there also exists a positive constant $c_1$ such that:
+\begin{eqnarray*}
+	0 \leq c_1 g(n) \leq f(n) \text{ for all } n \geq n_0
+\end{eqnarray*}
+but letting $c_1$ be equal to the $c$ in the definition of $\Omega$-notation shows via contradiction that the algorithm is $\Omega(g(n))$. Thus, if the algorithm is $\Theta(g(n))$ then the algorithm is also $O(g(n))$ and $\Omega(g(n))$.
+
+Next, suppose for the sake of contradiction that the algorithm is $O(g(n))$ and $\Omega(g(n))$ but not $\Theta(g(n))$. By definition of $O$ and $\Omega$, we know that:
+\begin{eqnarray*}
+	f(n) \leq c_2 g(n) \text{ for all } n \geq n_0 \\
+	0 \leq c_1 g(n) \leq f(n) \text{ for all } n \geq n_0
+\end{eqnarray*}
+for positive constants $c_1$, $c_2$, and $n_0$. Combining these two equations gives:
+\begin{eqnarray*}
+	0 \leq c_1 g(n) \leq f(n) \leq c_2 g(n) \text{ for all } n \geq n_0
+\end{eqnarray*}
+which is the definition of $\Theta$ and contradicts the assumption. Thus, if the algorithm is $O(g(n))$ and $\Omega(g(n))$ then the algorithm is also $\Theta(g(n))$.
+
+Therefore, an algorithm is $\Theta(g(n))$ if and only if its worst-case running time is $O(g(n))$ and its best-case running time is $\Omega(g(n))$.
+\end{document}
