@@ -1,0 +1,35 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Exercise 3.2-1}
+
+For all of the following solutions, by definition of \textit{monotonically increasing}, if $m \leq n$, then:
+\begin{eqnarray*}
+	f(m) \leq f(n) \\
+	g(m) \leq g(n)
+\end{eqnarray*}
+
+\begin{itemize}
+\item[\textbf{a)}] Let $m \leq n$, then since $f(n)$ and $g(n)$ are monotonically increasing:
+	\begin{eqnarray*}
+		f(m) + g(m) & \leq & f(n) + g(m) \\
+		g(m) + f(m) & \leq & g(n) + f(m) \\
+		f(m) + g(n) & \leq & f(n) + g(n) \\
+		g(m) + f(n) & \leq & f(n) + g(n)
+	\end{eqnarray*}
+	Comparing these equations then shows that $f(m) + g(m) \leq f(n) + g(n)$, thus $f(n) + g(n)$ is also monotonically increasing.
+\item[\textbf{b)}] Let $m \leq n$, then $g(m) \leq g(n)$ since $g(n)$ is monotonically increasing, and since $f(n)$ is also monotonically increasing, $f(g(m)) \leq f(g(n))$, thus $f(g(n))$ is monotonically increasing.
+\item[\textbf{c)}] Let $m \leq n$, then:
+	\begin{eqnarray*}
+		f(m) \cdot g(m) & \leq & f(n) \cdot g(m) \\
+		g(m) \cdot f(m) & \leq & g(n) \cdot f(m) \\
+		f(m) \cdot g(n) & \leq & f(n) \cdot g(n) \\
+		g(m) \cdot f(n) & \leq & g(n) \cdot f(n)
+	\end{eqnarray*}
+	Comparing these equations then shows that $f(m) \cdot g(m) \leq g(n) \cdot f(n)$, thus $f(n) \cdot g(n)$ is also monotonically increasing for nonnegative $f(n)$ and $g(n)$.
+\end{itemize}
+
+\end{document}
