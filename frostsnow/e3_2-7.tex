@@ -1,0 +1,32 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Exercise 3.2-7}
+
+For the Base Case, let $i = 2$ and then let $i = 3$, giving:
+\begin{eqnarray*}
+	F_2 & = & \frac{1.61803^2 - (-0.61803)^2}{\sqrt{5}} = 1.0 \\
+	F_3 & = & \frac{1.61803^3 - (-0.61803)^3}{\sqrt{5}} = 2.0
+\end{eqnarray*}
+\ldots thus the base case holds.
+
+For the Inductive Case, assume that $F_i = \frac{\phi^i - \hat{\phi}^i}{\sqrt{5}}$, and prove that $F_{i+1} = \frac{\phi^{i+1} - \hat{\phi}^{i+1}}{\sqrt{5}}$. By definition of the Fibonacci Numbers, we know that:
+\begin{eqnarray*}
+	F_{i+1} & = & F_i + F_{i-1} \\
+	& = & \frac{\phi^i - \hat{\phi}^i}{\sqrt{5}} + \frac{\phi^{i-1} - \hat{\phi}^{i-1}}{\sqrt{5}} \\
+	& = & \frac{\phi^i + \phi^{i-1} - \hat{\phi}^i - \hat{\phi}^{i-1}}{\sqrt{5}} \\
+	& = & \frac{\phi \phi^{i-1} + \phi^{i-1} - \hat{\phi} \hat{\phi}^{i-1} - \hat{\phi}^{i-1}}{\sqrt{5}} \\
+	& = & \frac{\phi^{i-1} \left(\phi + 1 \right) - \hat{\phi}^{i-1} ( \hat{\phi} + 1)}{\sqrt{5}}
+\end{eqnarray*}
+By definition of the Golden Ratio ($\phi$) and its conjugate ($\hat\phi$), both are roots of the equation $x^2 = x + 1$; substituting then gives:
+\begin{eqnarray*}
+	F_{i+1} & = & \frac{\phi^{i-1} \left(\phi + 1 \right) - \hat{\phi}^{i-1} ( \hat{\phi} + 1)}{\sqrt{5}} \\
+	& = & \frac{\phi^{i-1}(\phi^2) - \hat{\phi}^{i-1}(\hat\phi^2)}{\sqrt{5}} \\
+	& = & \frac{\phi^{i+1} - \hat{\phi}^{i+1}}{\sqrt{5}}
+\end{eqnarray*}
+Thus $F_i = \frac{\phi^i - \hat{\phi}^i}{\sqrt{5}}$ for $i \geq 2$.
+
+\end{document}
