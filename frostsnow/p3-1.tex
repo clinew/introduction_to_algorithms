@@ -1,0 +1,44 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Problem 3-1}
+
+\noindent\begin{enumerate}
+	\item[\textbf{\textit{a.}}] By definition of $O$, a function is $O(g(n))$ if there exists positive constants $c$ and $n_0 > 0$ such that $f(n) \leq c g(n)$ for all $n \geq n_0$. Let $g(n) = n^k$ where $k$ is a positive constant and $k \geq d$. Since:
+		\begin{eqnarray*}
+			p(n) & = & \sum_{i=0}^d a_i n^i \\
+			& = & a_0 + a_1 n + a_2 n^2 + \cdots + a_d n^d
+		\end{eqnarray*}
+		\ldots we need to find positive constants $c$ and $n_0$ such that:
+		\begin{eqnarray*}
+			a_0 + a_1 n + a_2 n^2 + \cdots + a_d n^d \leq c n^k
+		\end{eqnarray*}
+		Suppose that $k = d$, then:
+		\begin{eqnarray*}
+			a_0 + a_1 n + a_2 n^2 + \cdots + a_d n^k \leq c n^k \\
+			\frac{a_0}{n^k} + \frac{a_1 n}{n^k} + \frac{a_2 n^2}{n^k} + \cdots + \frac{a_d n^k}{n^k} \leq \frac{c n^k}{n^k} \\
+			\frac{a_0}{n^k} + \frac{a_1}{n^{k-1}} + \frac{a_2}{n^{k-2}} + \cdots + a_d \leq c
+		\end{eqnarray*}
+		It should be clear that as $n \rightarrow \infty$, the left-hand terms approach zero, leaving:
+		\begin{eqnarray*}
+			a_d \leq c
+		\end{eqnarray*}
+		Then choosing a value of $c$ such that $c \geq a_d$ guarantees the existence of a $n_0$, abeit sometimes very large, such that $p(n) = O(n^k)$ when $k = d$. Alternatively, if $k > d$ then as $n \rightarrow \infty$:
+		\begin{eqnarray*}
+			\frac{a_0}{n^k} + \frac{a_1 n}{n^k} + \frac{a_2 n^2}{n^k} + \cdots + \frac{a_d n^d}{n^k} \leq \frac{c n^k}{n^k} \\
+			\frac{a+0}{n^k} + \frac{a_1}{n^{k-1}} + \frac{a_2}{n^{k-2}} + \cdots + \frac{a_d}{n^{k-d}} \leq c \\
+			0 \leq c
+		\end{eqnarray*}
+		\ldots and then any positive value of $c$ will suffice for $n$ sufficiently large.
+		
+		Thus, $p(n) = O(g(n))$.
+	\item[\textbf{\textit{b.}}]
+	\item[\textbf{\textit{c.}}]
+	\item[\textbf{\textit{d.}}] 
+	\item[\textbf{\textit{e.}}]
+\end{enumerate}
+
+\end{document}
