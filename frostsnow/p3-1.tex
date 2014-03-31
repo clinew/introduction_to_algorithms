@@ -7,7 +7,7 @@
 \section*{Problem 3-1}
 
 \noindent\begin{enumerate}
-	\item[\textbf{\textit{a.}}] By definition of $O$, a function is $O(g(n))$ if there exists positive constants $c$ and $n_0 > 0$ such that $f(n) \leq c g(n)$ for all $n \geq n_0$. Let $g(n) = n^k$ where $k$ is a positive constant and $k \geq d$. Since:
+	\item[\textbf{\textit{a.}}] By definition of $O$, a function is $O(g(n))$ if there exist positive constants $c$ and $n_0$ such that $f(n) \leq c g(n)$ for all $n \geq n_0$. Let $g(n) = n^k$ where $k$ is a positive constant and $k \geq d$. Since:
 		\begin{eqnarray*}
 			p(n) & = & \sum_{i=0}^d a_i n^i \\
 			& = & a_0 + a_1 n + a_2 n^2 + \cdots + a_d n^d
@@ -34,11 +34,64 @@
 		\end{eqnarray*}
 		\ldots and then any positive value of $c$ will suffice for $n$ sufficiently large.
 		
-		Thus, $p(n) = O(g(n))$.
-	\item[\textbf{\textit{b.}}]
-	\item[\textbf{\textit{c.}}]
-	\item[\textbf{\textit{d.}}] 
-	\item[\textbf{\textit{e.}}]
+		Thus, $p(n) = O(n^k)$ if $k \geq d$.
+	\item[\textbf{\textit{b.}}] By definition of $\Omega$, a function is $\Omega(g(n))$ if there exist positive constants $c$ and $n_0$ such that $0 \leq c g(n) \leq f(n)$ for all $n \geq n_0$. Let $g(n) = n^k$, then if $k \leq d$ we need to show that there exist positive constants $c$ and $n_0$ such that:
+		\begin{eqnarray*}
+			c^k & \leq & a_0 + a_1 n + a_2 n^2 + \cdots + a_d n^d \\
+			\frac{c n^k}{n^k} & \leq & \frac{a_0}{n^k} + \frac{a_1 n}{n^k} + \frac{a_2 n^2}{n^k} + \cdots + \frac{a_d n^d}{n^k} \\
+			c & \leq & \frac{a_0}{n^k} + \frac{a_1}{n^{k-1}} + \frac{a_2}{n^{k-2}} + \cdots + \frac{a_d}{n^{k-d}}
+		\end{eqnarray*}
+		If $k = d$ then as $n \rightarrow \infty$:
+		\begin{eqnarray*}
+			c \leq a_d
+		\end{eqnarray*}
+		works for an arbitrarily large $n$; alternatively, if $k < d$, then as $n \rightarrow \infty$:
+		\begin{eqnarray*}
+			c \leq a_k + a_{k+1}n + \cdots a_d n^{d-k}
+		\end{eqnarray*}
+		in which case any positive constant $c$ will suffice for an arbitrarily large $n$.
+
+		Thus, $p(n) = \Omega(n^k)$ if $k \leq d$.
+	\item[\textbf{\textit{c.}}] By definition of $\Theta$, a function is $\Theta(g(n))$ if there exist positive constants $c_1$, $c_2$, and $n_0$ such that $0 \leq c_1 g(n) \leq f(n) \leq c_2 g(n)$ for all $n_0 \geq n$. If $g(n) = n^k$ and $k = d$ then we need to show that:
+		\begin{eqnarray*}
+			c_1 n^k & \leq & a_0 + a_1 n + a_2 n^2 + \cdots + a_d n^d \leq c_2 n^k \\
+			c_1 n^k & \leq & a_0 + a_1 n + a_2 n^2 + \cdots + a_k n^k \leq c_2 n^k \\
+			\frac{c_1 n^k}{n^k} & \leq & \frac{a_0}{n^k} + \frac{a_1 n}{n^k} + \frac{a_2 n^2}{n^k} + \cdots + \frac{a_k n^k}{n^k} \leq \frac{c_2 n^k}{n^k} \\
+			c_1 & \leq & \frac{a_0}{n^k} + \frac{a_1}{n^{k-1}} + \frac{a_2}{n^{k-2}} + \cdots + a_k \leq c_2
+		\end{eqnarray*}
+		Then as $n \rightarrow \infty$:
+		\begin{eqnarray*}
+			c_1 & \leq & a_k \leq c_2
+		\end{eqnarray*}
+		for some arbitrarily large $n = n_0$.
+
+		Thus $p(n) = \Theta(n^k)$ if $k = d$.
+	\item[\textbf{\textit{d.}}] By definition of $o$, a function is $o(g(n))$ if for any positive constant $c > 0$ there exists a constant $n_0 > 0$ such that $0 \leq f(n) < c g(n)$ for all $n \geq n_0$. If $g(n) = n^k$ and $k > d$, then we need to show that:
+		\begin{eqnarray*}
+			a_0 + a_1 n + a_2 n^2 + \cdots + a_d n^d & < & c n^k \\
+			\frac{a_0}{n^k} + \frac{a_1 n}{n^k} + \frac{a_2 n^2}{n^k} + \cdots + \frac{a_d n^d}{n^k} & < & \frac{c n^k}{n^k} \\
+			\frac{a_0}{n^k} + \frac{a_1}{n^{k-1}} + \frac{a_2}{n^{k-2}} + \cdots + \frac{a_d}{n^{k-d}} & < & c
+		\end{eqnarray*}
+		Since $k > d$ then as $n \rightarrow \infty$:
+		\begin{eqnarray*}
+			0 < c
+		\end{eqnarray*}
+		for some arbitrarily large $n = n_0$ and any positive constant $c$.
+
+		Thus $p(n) = o(n^k)$ if $k > d$.
+	\item[\textbf{\textit{e.}}] By definition of $\omega$, a function is $\omega(g(n))$ if for any positive constant $c > 0$ there exists a constant $n_0 > 0$ such that $0 \leq c g(n) < f(n)$ for all $n \geq n_0$. If $g(n) = n^k$ and $k < d$, then we need to show that:
+		\begin{eqnarray*}
+			c n^k & < & a_0 + a_1 n + a_2 n^2 + \cdots + a_d n^d \\
+			\frac{c n^k}{n^k} & < & \frac{a_0}{n^k} + \frac{a_1 n}{n^k} + \frac{a_2 n^2}{n^k} + \cdots + \frac{a_d n^d}{n^k} \\
+			c & < & \frac{a_0}{n^k} + \frac{a_1}{n^{k-1}} + \frac{a_2}{n^{k-2}} + \cdots + \frac{a_d}{n^{k-d}}
+		\end{eqnarray*}
+		Since $k < d$ then as $n \rightarrow \infty$:
+		\begin{eqnarray*}
+			c & < & a_k + a_{k+1} n + \cdots + a_d n^{d-k}
+		\end{eqnarray*}
+		then for any value of the positive constant $c > 0$, it should be clear that an $n_0 > 0$ can be choosen such that the previous equation is true.
+
+		Thus $p(n) = \omega(n^k)$ if $k < d$.
 \end{enumerate}
 
 \end{document}
