@@ -1,0 +1,35 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Problem 3-2}
+
+The actual table is below the following enumeration (which shows the work for each step).
+
+\noindent\begin{enumerate}
+	\item[\textbf{\textit{a.}}]
+		\begin{eqnarray*}
+			\log_2 ^k n & & n^\epsilon \\
+			\log_2 n & & \sqrt[k]{n^\epsilon} \\
+			\log_2 n & & n^{\epsilon / k}
+		\end{eqnarray*}
+	\item[\textbf{\textit{b.}}]
+	\item[\textbf{\textit{c.}}]
+	\item[\textbf{\textit{d.}}]
+	\item[\textbf{\textit{e.}}]
+	\item[\textbf{\textit{f.}}]
+\end{enumerate}
+
+\noindent\begin{tabular}{c c|c|c|c|c|c|}
+	$A$ & $B$ & $O$ & $o$ & $\Omega$ & $\omega$ & $\Theta$ \\ \hline
+	$\log_2 ^k n$ & $n^\epsilon$ & Yes & Yes & No & No & No \\ \hline
+	$n^k$ & $c^n$ & & & & & \\ \hline
+	$\sqrt{n}$ & $n^{\sin n}$ & & & & & \\ \hline
+	$2^n$ & $2^{n / 2}$ & & & & & \\ \hline
+	$n^{\log_2 c}$ & $c^{\log_2 n}$ & & & & & \\ \hline
+	$\log_2 (n!)$ & $\log_2 (n^n)$ & & & & & \\ \hline
+\end{tabular}
+
+\end{document}
