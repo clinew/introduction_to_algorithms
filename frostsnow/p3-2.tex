@@ -6,7 +6,7 @@
 
 \section*{Problem 3-2}
 
-The actual table is below the following enumeration (which shows the work for each step).
+The actual table is below the following enumeration (which shows the work for some steps).
 
 \noindent\begin{enumerate}
 	\item[\textbf{\textit{a.}}]
@@ -15,21 +15,26 @@ The actual table is below the following enumeration (which shows the work for ea
 			\log_2 n & & \sqrt[k]{n^\epsilon} \\
 			\log_2 n & & n^{\epsilon / k}
 		\end{eqnarray*}
-	\item[\textbf{\textit{b.}}]
-	\item[\textbf{\textit{c.}}]
 	\item[\textbf{\textit{d.}}]
+		\begin{eqnarray*}
+			2^n & & 2^{n/2} \\
+			2^n & & \sqrt{2^n}
+		\end{eqnarray*}
 	\item[\textbf{\textit{e.}}]
-	\item[\textbf{\textit{f.}}]
+		\begin{eqnarray*}
+			n^{\log_2 c} & & c^{\log_2 n} \\
+			n^{\log_2 c} & & n^{\log_2 c}
+		\end{eqnarray*}
 \end{enumerate}
 
 \noindent\begin{tabular}{c c|c|c|c|c|c|}
 	$A$ & $B$ & $O$ & $o$ & $\Omega$ & $\omega$ & $\Theta$ \\ \hline
 	$\log_2 ^k n$ & $n^\epsilon$ & Yes & Yes & No & No & No \\ \hline
-	$n^k$ & $c^n$ & & & & & \\ \hline
-	$\sqrt{n}$ & $n^{\sin n}$ & & & & & \\ \hline
-	$2^n$ & $2^{n / 2}$ & & & & & \\ \hline
-	$n^{\log_2 c}$ & $c^{\log_2 n}$ & & & & & \\ \hline
-	$\log_2 (n!)$ & $\log_2 (n^n)$ & & & & & \\ \hline
+	$n^k$ & $c^n$ & Yes & Yes & No & No & No \\ \hline
+	$\sqrt{n}$ & $n^{\sin n}$ & No & No & Yes & Yes & No \\ \hline
+	$2^n$ & $2^{n / 2}$ & No & No & Yes & Yes & No \\ \hline
+	$n^{\log_2 c}$ & $c^{\log_2 n}$ & Yes & No & Yes & No & Yes \\ \hline
+	$\log_2 (n!)$ & $\log_2 (n^n)$ & Yes & Yes & No & No & No \\ \hline
 \end{tabular}
 
 \end{document}
