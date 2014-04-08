@@ -1,0 +1,51 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Problem 3-3}
+
+\noindent\textbf{\textit{a.}} Not remembering how to asymptotically compare growth rates of functions very well, I'm not very confident in some of these answers. Redefine $>$ into $\Omega$ and redefine $=$ into $\Theta$, for brevity.
+
+First, I placed all functions into rough ``categories'', giving:
+\begin{multline}
+	\text{Factorial:} ~ (n+1)! ,~ (\log_2 n)! ,~ (n+1)! \\
+	\text{Exponential:} ~ 2^{\log_2^* n} ,~ (\sqrt{2})^{\log_2 n} ,~ \left(\frac{3}{2}\right)^n ,~ 2^{2^n} ,~ n \cdot 2^n ,~ 2^{\log_2 n} ,~ e^n ,~ 4^{\log_2 n} ,~ 2^{\sqrt{2 \log_2 n}} ,~ 2^n ,~ 2^{2^{n+1}} \\
+	\text{Polynomial:} ~ n^2 ,~ n^3 ,~ n^{\frac{1}{\log_2 n}} ,~ n^{\log_2 \log_2 n} ,~ \left(\log_2 n\right)^{\log_2 n} ,~ \sqrt{\log_2 n} ,~ n ,~ n \log_2 n \\
+	\text{Logarithmic:} ~ \log_2 \left(\log^*_2 n\right) ,~ \log^2_2 n ,~ \log_2 (n!) ,~ \ln \ln n ,~ \log^*_2 n ,~ \ln n ,~ \log^*_2 \log_2 n \\
+	\text{Constant:} ~ 1 \\
+\end{multline}
+Second, some work to simplify complex functions:
+\begin{eqnarray*}
+	4^{\log_2 n} & = & (2^2)^{\log_2 n} \\
+	& = & 2^{2 \cdot \log_2 n} \\
+	& = & 2^{\log_2 n^2} \\
+	& = & n^2 \\
+	2^{\log_2 n} & = & n \\
+	\sqrt{2}^{\log_2 n} & = & \left(2^{\frac{1}{2}}\right)^{\log_2 n} \\
+	& = & 2^{\frac{\log_2 n}{2}} \\
+	& = & 2^{\log_2 \sqrt{n}} \\
+	& = & \sqrt{n}
+\end{eqnarray*}
+Third, I sorted the functions as best I could within their categories, giving:
+\begin{multline}
+	(n+1)! > n! > (\log_2 n)! \\
+	2^{2^{n+1}} > 2^{2^n} > e^n > n \cdot 2^n > 2^n > \left(\frac{3}{2}\right)^n > 2^{\sqrt{2 \log_2 n}} > 4^{\log_2 n} > 2^{\log_2 n} > \sqrt{2}^{\log_2 n} \\
+	n^{\log_2 \log_2 n} = (\log_2 n)^{\log_2 n} > n^3 > n^2 > n \log_2 n > n > \sqrt{\log_2 n} > n^{\frac{1}{\log_2 n}} \\
+	\log_2 (n!) > \log^2_2 n > \ln n > \ln \ln n > \log^*_2 n > \log^*_2 \log_2 n > \log_2 \log^*_2 n \\
+	1 \\
+\end{multline}
+Last, attempting, somewhat blindly, to sort the functions gives:
+\begin{multline}
+	(n+1)! > n! > 2^{2^{n+1}} > 2^{2^n} > e^n > n \cdot 2^n > \\
+	2^n > \left(\frac{3}{2}\right)^n > 2^{\sqrt{2 \log_2 n}} > n^{\log_2 \log_2 n} = \left(\log_2 n\right)^{\log_2 n} > n^3 > \\
+	n^2 = 4^{\log_2 n} > n \log_2 n = \log_2 (n!) = \left(\log_2 n\right)! > n = \\
+	2^{\log_2 n} > \sqrt{2}^{\log_2 n} > \log^2_2 n > \ln n > \sqrt{\log_2 n} > \ln \ln n > \\
+	2^{\log^*_2 n} > \log^*_2 n > \log^*_2 \log_2 n > \log_2 \log^*_2 n > n^{\frac{1}{\log_2 n}} > 1 \\
+\end{multline}
+...and, though it's probably wrong, I'm going to call that ``good enough'' unless the book cares to instruct me in the finer points of comparing asymptotic growth of slightly-more esoteric equations.
+
+\noindent\textbf{\textit{b.}} $| \arctan n |$.
+
+\end{document}
