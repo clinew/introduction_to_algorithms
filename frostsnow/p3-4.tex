@@ -1,0 +1,36 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Problem 3-4}
+
+\noindent\textbf{\textit{a.}} By definition of $O$-notation, $f(n) = O(g(n))$ if there exist constants $c_0$ and $n_0$ such that $0 \leq f(n) \leq c_0 g(n)$ for all $n \geq n_0$. Then, assuming for the sake of contradiction that if $g(n) = O(f(n))$, there exist positive constants $c_1$ and $n_1$ such that $0 \leq g(n) \leq c_1 f(n)$ for all $n \geq n_1$. But suppose that $f(n) = o(g(n))$, then for any constant $c_2 > 0$, there exists an $n_2$ such that $0 \leq f(n) < c_2 g(n)$ for all $n \geq n_2$. However, since we \textit{assumed} that:
+\begin{eqnarray*}
+	g(n) & \leq & c_1 f(n) \\
+	\frac{g(n)}{c_1} & \leq & f(n)
+\end{eqnarray*}
+and $\frac{1}{c_1}$ is a positive constant $c_2 > 0$ and we \textit{know} that $f(n) < c_2 g(n)$, then:
+\begin{eqnarray*}
+	f(n) < c_2 g(n) \leq f(n)
+\end{eqnarray*}
+which makes no sense and thus contradicts the assumption.
+
+Therefore, $f(n) = O(g(n))$ does not imply $g(n) = O(g(n))$.
+
+\noindent\textbf{\textit{b.}}
+
+\noindent\textbf{\textit{c.}}
+
+\noindent\textbf{\textit{d.}}
+
+\noindent\textbf{\textit{e.}}
+
+\noindent\textbf{\textit{f.}}
+
+\noindent\textbf{\textit{g.}}
+
+\noindent\textbf{\textit{h.}}
+
+\end{document}
