@@ -19,7 +19,25 @@ which makes no sense and thus contradicts the assumption.
 
 Therefore, $f(n) = O(g(n))$ does not imply $g(n) = O(g(n))$.
 
-\noindent\textbf{\textit{b.}}
+\noindent\textbf{\textit{b.}} By definition of $\Theta$-notation, $f(n) + g(n) = \Theta(\min(f(n),g(n)))$ if there exist positive constants $c_1$, $c_2$, and $n_0$ such that $0 \leq c_1 \min(f(n),g(n)) \leq f(n) + g(n) \leq c_2 \min(f(n),g(n))$. Assume for the sake of contradiction that this is true. Then suppose that $f(n) = o(g(n))$; by definition of $o$-notation, for all $c_3 > 0$ there exists some $n_3 > 0$ such that $0 \leq f(n) < c_3 g(n)$ for all $n \geq n_3$. Then:
+\begin{eqnarray*}
+	0 \leq c_1 \min(f(n),g(n)) \leq f(n) + g(n) & \leq & c_2 \min(f(n),g(n)) \\
+	f(n) + g(n) & \leq & c_2 \min(f(n),g(n)) \leq c_2 (f(n) + g(n)) \\
+	1 & \leq & c_2 \\
+	c_2 & \geq & 1
+\end{eqnarray*}
+Furthermore, for all $c_3 \geq 1$, if $n \geq n_3$ then by the assumption:
+\begin{eqnarray*}
+	f(n) + g(n) & \leq & c_2 \min(f(n),g(n)) \leq c_2 \min(f(n),c_3 g(n)) \\
+	f(n) + g(n) & \leq & c_2 \min(f(n),c_3 g(n)) \\
+	f(n) + g(n) & \leq & c_2 f(n) \text{ (By $f(n) = o(g(n))$.)} \\
+	g(n) & \leq & c_2 f(n) - f(n) \\
+	g(n) & \leq & f(n)(c_2 - 1) \\
+	\frac{g(n)}{c_2 - 1} & \leq & f(n)
+\end{eqnarray*}
+...but for all $c_2 \geq 1, \frac{1}{c_2 - 1}$ is a constant greater than zero which contradicts the fact that $f(n) = o(g(n))$.
+
+Therefore, $f(n) + g(n) \neq \Theta(\min(f(n),g(n)))$.
 
 \noindent\textbf{\textit{c.}}
 
