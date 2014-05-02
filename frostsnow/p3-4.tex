@@ -39,7 +39,16 @@ Furthermore, for all $c_3 \geq 1$, if $n \geq n_3$ then by the assumption:
 
 Therefore, $f(n) + g(n) \neq \Theta(\min(f(n),g(n)))$.
 
-\noindent\textbf{\textit{c.}}
+\noindent\textbf{\textit{c.}} By definition of $O$-notation,  $f(n) = O(g(n))$ if there exist positive constants $c$ and $n_0$ such that $0 \leq f(n) \leq c g(n)$ for all $n \geq n_0$. Then:
+\begin{eqnarray*}
+	0 \leq \log_2(f(n)) & \leq & \log_2(c g(n)) \\
+	0 \leq \log_2(f(n)) & \leq & \log_2(c) + \log_2(g(n))
+\end{eqnarray*}
+As $n \rightarrow \infty$, $\log_2 c$ becomes insignificant, leaving:
+\begin{eqnarray*}
+	0 \leq \log_2(f(n)) \leq \log_2(g(n))
+\end{eqnarray*}
+Thus, $f(n) = O(g(n))$ implies $\log_2(f(n)) = O(\log_2(g(n)))$.
 
 \noindent\textbf{\textit{d.}}
 
