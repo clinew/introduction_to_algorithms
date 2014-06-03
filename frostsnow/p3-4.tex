@@ -50,7 +50,21 @@ As $n \rightarrow \infty$, $\log_2 c$ becomes insignificant, leaving:
 \end{eqnarray*}
 Thus, $f(n) = O(g(n))$ implies $\log_2(f(n)) = O(\log_2(g(n)))$.
 
-\noindent\textbf{\textit{d.}}
+\noindent\textbf{\textit{d.}} Assume for the sake of contradiction that $f(n) = O(g(n))$ implies $ 2^{f(n)} = O(2^{g(n)})$. Then, by definition of $O$, there exists a positive constant $c_0$ such that:
+\begin{eqnarray*}
+	2^{f(n)} & \leq & c_0 2^{g(n)} \\
+	\frac{2^{f(n)}}{2^{g(n)}} & \leq & c_0 \\
+	2^{f(n) - g(n)} & \leq & c_0
+\end{eqnarray*}
+Now suppose that $f(n) = 3n$ and $g(n) = 2n$. Then for all $c > \frac{3}{2}$ and $n \geq 0$, $f(n) = O(g(n))$. However, solving for $c_0$ in the preceding equation array gives:
+\begin{eqnarray*}
+	2^{f(n) - g(n)} & \leq & c_0 \\
+	2^{3n - 2n} & \leq & c_0 \\
+	2^n & \leq & c_0
+\end{eqnarray*}
+Which is a contradiction, since a constant always has a value smaller than that of a variable which goes towards infinity (let alone a variable which goes towards infinity expoentially).
+
+Therefore, $f(n) = O(g(n))$ does not imply $2^{f(n)} = O(2^{g(n)})$.
 
 \noindent\textbf{\textit{e.}}
 
