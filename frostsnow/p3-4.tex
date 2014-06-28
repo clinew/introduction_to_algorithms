@@ -66,7 +66,16 @@ Which is a contradiction, since a constant always has a value smaller than that 
 
 Therefore, $f(n) = O(g(n))$ does not imply $2^{f(n)} = O(2^{g(n)})$.
 
-\noindent\textbf{\textit{e.}}
+\noindent\textbf{\textit{e.}} By definition of $O$-notation, $f(n) = O((f(n))^2)$ if there exist positive constants $c$ and $n_0$ such that $0 \leq f(n) \leq c (f(n))^2$ for all $n \geq n_0$. Suppose for the sake of contradiction that $f(n) = O((f(n))^2)$ and that the $n^{\text{th}}$ term of $f(n)$ represents the $n^{\text{th}}$ term of the Haromic Series, i.e. $f(n) = \frac{1}{n}$. Then:
+\begin{eqnarray*}
+	0 \leq f(n) & \leq & c (f(n))^2 \\
+	0 \leq 1 & \leq & c f(n) \\
+	0 \leq \frac{1}{f(n)} & \leq & c \\
+	0 \leq n & \leq & c
+\end{eqnarray*}
+But $n$ cannot possibly be less than some constant $c$ for some arbitrarily large $n$, thus the assumption is contradicted.
+
+Therefore, $f(n) \neq O((f(n))^2)$ for some arbitrary, asymptotically positive function $f(n)$.
 
 \noindent\textbf{\textit{f.}}
 
