@@ -89,7 +89,17 @@ Which, letting $c_1 = \frac{1}{c_0}$, fits the definition of $g(n) = \Omega(f(n)
 
 Therefore $f(n) = O(g(n))$ implies $g(n) = \Omega(f(n))$.
 
-\noindent\textbf{\textit{g.}}
+\noindent\textbf{\textit{g.}} By definition of $\Theta$, $f(n) = \Theta(f(n/2))$ if there exist positive constants $c_1$, $c_2$, and $n_0$ such that $0 \leq c_1 f(n/2) \leq f(n) \leq c_2 f(n/2)$. Suppose for the sake of counter-example that $f(n) = 2^n$, then:
+\begin{eqnarray*}
+	0 \leq c_1 f(n/2) \leq f(n) \leq c_2 f(n/2) \\
+	0 \leq c_1 \leq \frac{f(n)}{f(n/2)} \leq c_2 \\
+	0 \leq c_1 \leq \frac{2^n}{2^{n/2}} \leq c_2 \\
+	0 \leq c_1 \leq 2^{n - n/2} \leq c_2 \\
+	0 \leq c_1 \leq 2^{n/2} \leq c_2
+\end{eqnarray*}
+However, $2^{n/2}$ cannot be less than $c_2$ for some arbitrarily large value of $n$.
+
+Therefore $f(n) \neq \Theta(f(n/2))$ for some arbitrary asymptotically positive $f(n)$.
 
 \noindent\textbf{\textit{h.}}
 
