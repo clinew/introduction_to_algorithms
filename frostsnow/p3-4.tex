@@ -39,16 +39,45 @@ Furthermore, for all $c_3 \geq 1$, if $n \geq n_3$ then by the assumption:
 
 Therefore, $f(n) + g(n) \neq \Theta(\min(f(n),g(n)))$.
 
-\noindent\textbf{\textit{c.}} By definition of $O$-notation,  $f(n) = O(g(n))$ if there exist positive constants $c$ and $n_0$ such that $0 \leq f(n) \leq c g(n)$ for all $n \geq n_0$. Then:
+\noindent\textbf{\textit{c.}} By definition of $O$, $\log_2(f(n)) = O(\log_2(g(n)))$, if there exist positive constants $c_1$ and $n_1$ such that $0 \leq \log_2(f(n)) \leq c_1 \log_2(g(n))$ for all $n \geq n_1$. It is given that $f(n) = O(g(n))$, so it follows that there exist positive constants $c_0$ and $n_0$ such that:
 \begin{eqnarray*}
-	0 \leq \log_2(f(n)) & \leq & \log_2(c g(n)) \\
-	0 \leq \log_2(f(n)) & \leq & \log_2(c) + \log_2(g(n))
+	0 \leq f(n) \leq c_0 g(n)
 \end{eqnarray*}
-As $n \rightarrow \infty$, $\log_2 c$ becomes insignificant, leaving:
+\ldots for all $n \geq n_0$. Then:
 \begin{eqnarray*}
+	0 \leq f(n) \leq c_0 g(n) \\
+	0 \leq \log_2(f(n)) \leq \log_2(c_0g(n)) \\
+	0 \leq \log_2(f(n)) \leq \log_2(c_0) + \log_2(g(n))
+\end{eqnarray*}
+What now follows is a proof by cases.
+
+First, if $c_0 \leq 1$ then $\log_2(c_0) \leq 0$ and so:
+\begin{eqnarray*}
+	\log_2(c_0) + \log_2(g(n)) \leq \log_2(g(n))
+\end{eqnarray*}
+\ldots and thus:
+\begin{eqnarray*}
+	0 \leq \log_2(f(n)) \leq \log_2(c_0) + \log_2(g(n)) \leq \log_2(g(n)) \\
 	0 \leq \log_2(f(n)) \leq \log_2(g(n))
 \end{eqnarray*}
-Thus, $f(n) = O(g(n))$ implies $\log_2(f(n)) = O(\log_2(g(n)))$.
+\ldots with $c_1 = 1$.
+
+Next, if $c_1 \geq 1$ then $\log_2(c_0) \geq 0$. Then, since it is given in the problem definition that $\log_2(g(n)) \geq 1$, it follows that:
+\begin{eqnarray*}
+	1 \leq \log_2(g(n)) \\
+	\log_2(c_0) \leq \log_2(c_0)\log_2(g(n))
+\end{eqnarray*}
+\ldots then:
+\begin{eqnarray*}
+	0 \leq \log_2(f(n)) \leq \log_2(c_0) + \log_2(g(n)) \\
+	0 \leq \log_2(f(n)) \leq \log_2(c_0) + \log_2(g(n)) \leq \log_2(c_0)\log_2(g(n)) + \log_2(g(n)) \\
+	0 \leq \log_2(f(n)) \leq \log_2(c_0) + \log_2(g(n)) \leq (\log_2(c_0) + 1)\log_2(g(n)) \\
+	0 \leq \log_2(f(n)) \leq (\log_2(c_0) + 1)\log_2(g(n))
+\end{eqnarray*}
+\ldots with $c_1 = (\log_2(c_0) + 1)$.
+
+Therefore, $f(n) = O(g(n))$ implies $\log_2(f(n)) = O(\log_2(g(n)))$ where $\log_2(g(n)) \geq 1$ and $f(n) \geq 1$ for all sufficiently large $n$.
+
 
 \noindent\textbf{\textit{d.}} Assume for the sake of contradiction that $f(n) = O(g(n))$ implies $ 2^{f(n)} = O(2^{g(n)})$. Then, by definition of $O$, there exists a positive constant $c_0$ such that:
 \begin{eqnarray*}
