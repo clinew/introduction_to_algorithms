@@ -1,0 +1,54 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+\usepackage[usenames,dvipsnames]{color}
+
+\begin{document}
+
+\section*{Problem 3-5}
+
+\noindent\textbf{\textit{a.}} The best solution I've managed to find for this problem is a proof by parts. The question makes the most sense with regards to ``multi-way'' functions, for example:
+\begin{eqnarray*}
+	f(n) =
+	\begin{cases}
+		x^2 & \text{if } x \% 2 = 0,\\
+		x & \text{if } x \%2 = 1.
+	\end{cases}
+\end{eqnarray*}
+In this case, $f(n)$ is both $O(n^2)$ and $\Omega(n)$.
+
+In order to make this proof, I'm going to make a fairly large, but, in my opinion, reasonable, assumption. That assumption is that, for any function $f(n)$, there exist functions $f_a(n)$ and $f_b(n)$ such that $f(n) = O(f_a(n))$ and $f(n) = \Omega(f_b(n))$.
+
+Now, suppose that there exist two asymptotically non-negative functions $f(n)$ and $g(n)$. Then there also exist functions $f_a(n)$, $f_b(n)$, $g_a(n)$, and $g_b(n)$ such that:
+\begin{eqnarray*}
+	f(n) & = & O(f_a(n)) \\
+	f(n) & = & \Omega(f_b(n)) \\
+	g(n) & = & O(g_a(n)) \\
+	g(n) & = & \Omega(g_b(n))
+\end{eqnarray*}
+So, construct a truth table of all possible relations between the aforementioned functions and their respective notations:
+
+
+\noindent\begin{tabular}{c c c c|c|c|c}
+	$f_a = ?g_a$ & $f_b = ?g_a$ & $f_a = ?g_b$ & $f_b = ?g_b$ & $f(n) = O(g(n))$ & $f(n) = \overset{\small\infty}{\Omega}(g(n))$ & $f(n) = \Omega(g(n))$ \\ \hline
+	{\color{Gray}$\omega$} & $\omega$ & {\color{Gray}$\omega$} & {\color{Gray}$\omega$} & {\color{Red}No} & {\color{Green}Yes} & {\color{Green}Yes} \\
+	$\omega$ & $\Theta$ & {\color{Gray}$\omega$} & $\omega$ & {\color{Red}No} & {\color{Green}Yes} & {\color{Green}Yes} \\
+	$\Theta$ & $\Theta$ & {\color{Gray}$\omega$} & $\omega$ & {\color{Red}No} & {\color{Green}Yes} & {\color{Green}Yes} \\
+	$\omega$ & $o$ & {\color{Gray}$\omega$} & $\omega$ & {\color{Red}No} & {\color{Green}Yes} & {\color{Red}No} \\
+	$\Theta$ & $o$ & {\color{Gray}$\omega$} & $\omega$ & {\color{Red}No} & {\color{Green}Yes} & {\color{Red}No} \\
+	$o$ & {\color{Gray}$o$} & {\color{Gray}$\omega$} & $\omega$ & {\color{Red}No} & {\color{Green}Yes} & {\color{Red}No} \\
+	$\omega$ & $\Theta$ & $\omega$ & $\Theta$ & {\color{Red}No} & {\color{Green}Yes} & {\color{Green}Yes} \\
+	$\omega$ & $o$ & $\omega$ & $\Theta$ & {\color{Red}No} & {\color{Green}Yes} & {\color{Red}No} \\
+	$\Theta$ & $o$ & $\omega$ & $\Theta$ & {\color{Red}No} & {\color{Green}Yes} & {\color{Red}No} \\
+	$o$ & {\color{Gray}$o$} & $\omega$ & $\Theta$ & {\color{Red}No} & {\color{Green}Yes} & {\color{Red}No} \\
+	$\omega$ & {\color{Gray}$o$} & $\omega$ & $o$ & {\color{Red}No} & {\color{Green}Yes} & {\color{Red}No} \\
+	$\Theta$ & {\color{Gray}$o$} & $\omega$ & $o$ & {\color{Red}No} & {\color{Green}Yes} & {\color{Red}No} \\
+	$o$ & {\color{Gray}$o$} & $\omega$ & $o$ & {\color{Red}No} & {\color{Green}Yes} & {\color{Red}No} \\
+	$\Theta$ & $\Theta$ & $\Theta$ & $\Theta$ & {\color{Green}Yes} & {\color{Green}Yes} & {\color{Green}Yes} \\
+	$o$ & {\color{Gray}$o$} & $\Theta$ & $\Theta$ & {\color{Green}Yes} & {\color{Green}Yes} & {\color{Red}No} \\
+	$\Theta$ & {\color{Gray}$o$} & $\Theta$ & $o$ & {\color{Green}Yes} & {\color{Green}Yes} & {\color{Red}No} \\
+	$o$ & {\color{Gray}$o$} & $\Theta$ & $o$ & {\color{Green}Yes} & {\color{Green}Yes} & {\color{Red}No} \\
+	{\color{Gray}$o$} & {\color{Gray}$o$} & $o$ & {\color{Gray}$o$} & {\color{Green}Yes} & {\color{Red}No} & {\color{Red}No} \\
+\end{tabular}
+From inspecting the truth table, it is apparent that either $f(n) = O(g(n))$, $f(n) = \overset{\small\infty}{\Omega}(g(n))$, or both, but this is not true if we use $\Omega$ in place of $\overset{\small\infty}{\Omega}$.
+\end{document}
