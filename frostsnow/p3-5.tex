@@ -51,4 +51,10 @@ So, construct a truth table of all possible relations between the aforementioned
 	{\color{Gray}$o$} & {\color{Gray}$o$} & $o$ & {\color{Gray}$o$} & {\color{Green}Yes} & {\color{Red}No} & {\color{Red}No} \\
 \end{tabular}
 From inspecting the truth table, it is apparent that either $f(n) = O(g(n))$, $f(n) = \overset{\small\infty}{\Omega}(g(n))$, or both, but this is not true if we use $\Omega$ in place of $\overset{\small\infty}{\Omega}$.
+
+\noindent\textbf{\textit{b.}} The set of all functions such that $f(n) = \overset{\small\infty}{\Omega}(g(n))$ is a superset of all functions such that $f(n) = \Omega(g(n))$. The former notation may be useful if one needs a less strict approximation of a lower bound.
+
+\noindent\textbf{\textit{c.}} Assume that $f(n) = \Omega(g(n))$. Then, by definition of $\Omega$, there exist positive constants $c_1$, $c_2$, and $n_0$ such that $0 \leq c_1 g(n) \leq f(n) \leq c_2 g(n)$ for all $n \geq n_0$. Assume for the sake of contradiction that $f(n) = O'(g(n))$, then, by defintiion of $O'$, there exist some positive constants $c_3$ and $n_1$ such that $0 \leq | f(n) | \leq c_3 g(n)$ for all $n \geq n_1$. Suppose then that $f(n) = -n^3$ and that $g(n) = -n^3$, then the statement $0 \leq | f(n) | \leq c_3 g(n)$ is false for all values of $n$ besides $0$, thus $f(n) = \Omega(g(n))$ does not imply $f(n) = O'(g(n))$. However, now assume that $f(n) = O'(g(n))$ and $f(n) = \Theta(g(n))$. Then there exist some positive constants $c_3$ and $n_1$ such that $0 \leq | f(n) | \leq c_3 g(n)$ for all $n \geq n_1$ and there exist some positive constants $c_4$ and $n_2$ such that $0 \leq c_4 g(n) \leq f(n)$ for all $n \geq n_2$. Since $f(n) \leq | f(n) |$, it follows that $0 \leq c_4 g(n) \leq f(n) \leq | f(n) | \leq c_3 g(n)$ for all $n \geq \max(n_1, n_2)$, thus $f(n) = O'(g(n))$ and $f(n) = \Theta(g(n))$ implies that $f(n) = \Omega(g(n))$.
+
+Therefore, Theorum 3.1 becomes, ``for any two functions, $f(n)$ and $g(n)$, if $f(n) = O'(g(n))$ and $f(n) = \Omega(g(n))$ then $f(n) = \Theta(g(n))$.'' The two expression are not, however, equivalent.
 \end{document}
