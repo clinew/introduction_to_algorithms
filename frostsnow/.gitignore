@@ -4,3 +4,15 @@
 *.log
 *.pdf
 .*.swp
+
+# Compiled output.
+# There's probably a better way to do this.
+e1_2-2
+e1_2-3
+e2_1-2
+e2_1-3
+e2_2-2
+e2_3-1
+p1-1
+p2-3
+p2-4
