@@ -1,0 +1,12 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Exercise 6.1-3}
+
+% This proof is a little sketchy.
+An Inductive proof will be used to show that in any subtree of a max-heap, the root of the subtree contains the largest value occurring anywhere in that subtree. For the Base Case, assume that the height of the subtree, $h$, is zero; then $A[x]$ is trivially the largest value in that subtree. For the Inductive Case, assume that the root of the subtree of height $h$ contains the largest value anywhere in that subtree, and prove that holds for the subtree of height $h + 1$. For the node $y$ above the root of the subtree at height $h$, by definition of max-heap, $A[y] = A[\text{PARENT}(x)] = A[\lfloor x / 2 \rfloor] \geq A[x]$, thus the root of the subtree at height $h + 1$ is larger than its child node. Therefore, in any subtree of a max-heap, the root of that subtree contains the largest value occurring anywhere in that subtree.
+
+\end{document}
