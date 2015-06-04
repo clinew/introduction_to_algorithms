@@ -1,0 +1,98 @@
+graph "" {
+	subgraph step1 {
+		n127 [label="27"];
+
+		n117 [label="17"];
+		n103 [label="3",style=filled];
+		n127 -- n117;
+		n127 -- n103;
+
+		n116 [label="16"];
+		n113 [label="13"];
+		n110 [label="10"];
+		n101 [label="1"];
+		n117 -- n116;
+		n117 -- n113;
+		n103 -- n110;
+		n103 -- n101;
+
+		n105 [label="5"];
+		n107 [label="7"];
+		n112 [label="12"];
+		n104 [label="4"];
+		n108 [label="8"];
+		n109 [label="9"];
+		n100 [label="0"];
+		n116 -- n105;
+		n116 -- n107;
+		n113 -- n112;
+		n113 -- n104;
+		n110 -- n108;
+		n110 -- n109;
+		n101 -- n100;
+	}
+	subgraph step2 {
+		n227 [label="27"];
+
+		n217 [label="17"];
+		n210 [label="10"];
+		n227 -- n217;
+		n227 -- n210;
+
+		n216 [label="16"];
+		n213 [label="13"];
+		n203 [label="3",style=filled];
+		n201 [label="1"];
+		n217 -- n216;
+		n217 -- n213;
+		n210 -- n203;
+		n210 -- n201;
+
+		n205 [label="5"];
+		n207 [label="7"];
+		n212 [label="12"];
+		n204 [label="4"];
+		n208 [label="8"];
+		n209 [label="9"];
+		n200 [label="0"];
+		n216 -- n205;
+		n216 -- n207;
+		n213 -- n212;
+		n213 -- n204;
+		n203 -- n208;
+		n203 -- n209;
+		n201 -- n200;
+	}
+	subgraph step3 {
+		n327 [label="27"];
+
+		n317 [label="17"];
+		n310 [label="10"];
+		n327 -- n317;
+		n327 -- n310;
+
+		n316 [label="16"];
+		n313 [label="13"];
+		n309 [label="9"];
+		n301 [label="1"];
+		n317 -- n316;
+		n317 -- n313;
+		n310 -- n309;
+		n310 -- n301;
+
+		n305 [label="5"];
+		n307 [label="7"];
+		n312 [label="12"];
+		n304 [label="4"];
+		n308 [label="8"];
+		n303 [label="3",style=filled];
+		n300 [label="0"];
+		n316 -- n305;
+		n316 -- n307;
+		n313 -- n312;
+		n313 -- n304;
+		n309 -- n308;
+		n309 -- n303;
+		n301 -- n300;
+	}
+}

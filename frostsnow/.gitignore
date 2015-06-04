@@ -4,6 +4,7 @@
 *.log
 *.pdf
 .*.swp
+*.png
 
 # Compiled output.
 # There's probably a better way to do this.
