@@ -1,0 +1,11 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Exercise 6.2-6}
+
+Let $n$ denote the size of a heap and let $f(n)$ denote that number of times that $\texttt{MAX-HEAPIFY}$ is called on a heap of size $n$ (this is a reasonable assumption since the \texttt{MAX-HEAPIFY} algorithm runs in constant time sans recursive calls). By definition of $\Omega$, $f(n) = \Omega(\log_2(n))$ if there exist positive constants $c$ and $n_0$ such that $0 \leq c \log_2(n) \leq f(n)$ for all $n \geq n_0$. In order to find the maximum runtime, run the call \texttt{MAX-HEAPIFY(A, 1)} on a heap where all nodes $> A[1]$ and assume that the algorithm traverses to the bottom of the tree (i.e., the algorithm traverses the left-side of the tree if the right-side of the tree would end before traversing the longest simple downward path). Since we know that a heap has height $\lfloor \log_2(n) \rfloor$ and that all nodes are $> A[1]$, \texttt{MAX-HEAPIFY} will be called recursively $\lfloor \log_2(n) \rfloor$ times, plus one additional time for the initial call, giving $f(n) = \lfloor \log_2(n) \rfloor + 1$. By the definition of floor, $c \log_2(n) \leq \log_2(n) \leq \lfloor \log_2(n) \rfloor + 1 = f(n)$ for all $0 \leq c \leq 1$. Thus, $f(n) = \Omega(\log_2(n))$.
+
+\end{document}
