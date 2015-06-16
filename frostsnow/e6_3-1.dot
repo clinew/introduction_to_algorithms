@@ -1,0 +1,114 @@
+graph "" {
+	// It's kind of weird how the graphs overlap but I don't know how to
+	// remove that right now.
+	subgraph step1 {
+		n005 [label="5"];
+
+		n003 [label="3"];
+		n017 [label="17"];
+		n005 -- n003;
+		n005 -- n017;
+
+		n010 [label="10",style=filled];
+		n084 [label="84"];
+		n019 [label="19"];
+		n006 [label="6"];
+		n003 -- n010;
+		n003 -- n084;
+		n017 -- n019;
+		n017 -- n006;
+
+		n022 [label="22"];
+		n009 [label="9"];
+		n010 -- n022;
+		n010 -- n009;
+	}
+	subgraph step2 {
+		n105 [label="5"];
+
+		n103 [label="3"];
+		n117 [label="17", style=filled];
+		n105 -- n103;
+		n105 -- n117;
+
+		n122 [label="22"];
+		n184 [label="84"];
+		n119 [label="19"];
+		n106 [label="6"];
+		n103 -- n122;
+		n103 -- n184;
+		n117 -- n119;
+		n117 -- n106;
+
+		n110 [label="10"];
+		n109 [label="9"];
+		n122 -- n110;
+		n122 -- n109;
+	}
+	subgraph step3 {
+		n205 [label="5"];
+
+		n203 [label="3",style=filled];
+		n219 [label="19"];
+		n205 -- n203;
+		n205 -- n219;
+
+		n222 [label="22"];
+		n284 [label="84"];
+		n217 [label="17"];
+		n206 [label="6"];
+		n203 -- n222;
+		n203 -- n284;
+		n219 -- n217;
+		n219 -- n206;
+
+		n210 [label="10"];
+		n209 [label="9"];
+		n222 -- n210;
+		n222 -- n209;
+	}
+	subgraph step4 {
+		n305 [label="5",style=filled];
+
+		n384 [label="84"];
+		n319 [label="19"];
+		n305 -- n384;
+		n305 -- n319;
+
+		n322 [label="22"];
+		n303 [label="3"];
+		n317 [label="17"];
+		n306 [label="6"];
+		n384 -- n322;
+		n384 -- n303;
+		n319 -- n317;
+		n319 -- n306;
+
+		n310 [label="10"];
+		n309 [label="9"];
+		n322 -- n310;
+		n322 -- n309;
+	}
+	subgraph step5 {
+		n484 [label="84"];
+
+		n422 [label="22"];
+		n419 [label="19"];
+		n484 -- n422;
+		n484 -- n419;
+
+		n410 [label="10"];
+		n403 [label="3"];
+		n417 [label="17"];
+		n406 [label="6"];
+		n422 -- n410;
+		n422 -- n403;
+		n419 -- n417;
+		n419 -- n406;
+
+		n405 [label="5"];
+		n409 [label="9"];
+		n410 -- n405;
+		n410 -- n409;
+	}
+}
