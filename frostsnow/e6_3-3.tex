@@ -1,0 +1,25 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Exercise 6.3-3}
+
+A Proof by Induction is given. Assume a heap of size $n$.
+
+For the Base Case, let $h = 0$ and show that the number of leaf nodes is at most $\lceil n / 2^{h+1} \rceil$. From Exercise 6.1-7, nodes $\lfloor n / 2 \rfloor + 1$, $\lfloor n / 2 \rfloor + 2$, \ldots, $n$ are leaf nodes while $1$, $2$, \ldots, $\lfloor n / 2 \rfloor$ are non-leaf nodes, giving $n - \lfloor n / 2 \rfloor = \lceil n / 2 \rceil$ and $\lfloor n / 2 \rfloor$ leaf nodes and non-leaf nodes, respectively. Since $h = 0$, $\lceil n / 2^{h+1} \rceil = \lceil n / 2^{0+1} \rceil = \lceil n / 2 \rceil$, which is the number of leaf nodes, as previously shown. Thus the Base Case is satisfied.
+
+For the Inductive Case, assume that there are at most $\lceil n / 2^{i+1} \rceil$ leaf nodes at height $i$ and show that there are at most $\lceil n / 2^{i+2} \rceil$ leaf nodes at height $i + 1$. In order to find all leaf nodes at height $i + 1$, successively discard the leaf nodes from the heap $i+1$ times and then find the number of leaf nodes in the resulting heap. Since discarding the leaf nodes from a heap of size $n$ gives a heap of size $\lfloor n / 2 \rfloor$, discarding $i + 1$ times gives a heap of size $\lfloor n / 2^{i+1} \rfloor$. By Exercise 6.1-7, this new heap then has non-leaf nodes $1$, $2$, \ldots, $\lfloor \frac{\lfloor n / 2^{i+1} \rfloor}{2} \rfloor = \lfloor n / 2^{i+2} \rfloor$ and leaf nodes $\lfloor \frac{\lfloor n / 2^{i+1} \rfloor}{2} \rfloor + 1 = \lfloor n / 2^{i+2} \rfloor + 1$, \ldots, $\lfloor n / 2^{i+1} \rfloor$. In order to calculate the number of leaf nodes in the new heap, use the fact that for any integer $x$, $x = \lfloor x \rfloor + \lceil x \rceil$ and then subtract the number of non-leaf nodes from the number of nodes in the new heap:
+\begin{eqnarray*}
+	\lfloor n / 2^{i+1} \rfloor & = & \lfloor \frac{\lfloor n / 2^{i+1} \rfloor}{2} \rfloor + \lceil \frac{\lfloor n / 2^{i+1} \rfloor}{2} \rceil \\
+	& = & \lfloor n / 2^{i+2} \rfloor + \lceil \frac{ \lfloor n / 2^{i+1} \rfloor}{2} \rceil \\
+	\lfloor n / 2^{i+1} \rfloor - \lfloor n / 2^{i+2} \rfloor & = & \lceil \frac{\lfloor n / 2^{i+1} \rfloor}{2} \rceil \\
+	& \leq & \lceil \frac{\lceil n / 2^{i+1} \rceil}{2} \rceil \\
+	& \leq & \lceil n / 2^{i+2} \rceil
+\end{eqnarray*}
+Thus the Inductive Case is satisfied.
+
+Therefore, there are at most $\lceil n / 2^{h+1} \rceil$ nodes of height $h$ in any $n$-element heap.
+
+\end{document}
