@@ -1,0 +1,294 @@
+graph "" {
+	// Why the hell is it so difficult to properly separate subgraphs?!
+	subgraph step1 {
+		n005 [label="5"];
+
+		n013 [label="13"];
+		n002 [label="2"];
+		n005 -- n013;
+		n005 -- n002;
+
+		n025 [label="25", style=filled];
+		n007 [label="7"];
+		n017 [label="17"];
+		n020 [label="20"];
+		n013 -- n025;
+		n013 -- n007;
+		n002 -- n017;
+		n002 -- n020;
+
+		n008 [label="8"];
+		n004 [label="4"];
+		n025 -- n008;
+		n025 -- n004;
+	}
+	subgraph step2 {
+		n105 [label="5"];
+
+		n113 [label="13"];
+		n102 [label="2", style=filled];
+		n105 -- n113;
+		n105 -- n102;
+
+		n125 [label="25"];
+		n107 [label="7"];
+		n117 [label="17"];
+		n120 [label="20"];
+		n113 -- n125;
+		n113 -- n107;
+		n102 -- n117;
+		n102 -- n120;
+
+		n108 [label="8"];
+		n104 [label="4"];
+		n125 -- n108;
+		n125 -- n104;
+	}
+	subgraph step3 {
+		n205 [label="5"];
+
+		n213 [label="13", style=filled];
+		n220 [label="20"];
+		n205 -- n213;
+		n205 -- n220;
+
+		n225 [label="25"];
+		n207 [label="7"];
+		n217 [label="17"];
+		n202 [label="2"];
+		n213 -- n225;
+		n213 -- n207;
+		n220 -- n217;
+		n220 -- n202;
+
+		n208 [label="8"];
+		n204 [label="4"];
+		n225 -- n208;
+		n225 -- n204;
+	}
+	subgraph step4 {
+		n305 [label="5", style=filled];
+
+		n325 [label="25"];
+		n320 [label="20"];
+		n305 -- n325;
+		n305 -- n320;
+
+		n313 [label="13"];
+		n307 [label="7"];
+		n317 [label="17"];
+		n302 [label="2"];
+		n325 -- n313;
+		n325 -- n307;
+		n320 -- n317;
+		n320 -- n302;
+
+		n308 [label="8"];
+		n304 [label="4"];
+		n313 -- n308;
+		n313 -- n304;
+	}
+	subgraph step5 {
+		n425 [label="25"];
+
+		n413 [label="13"];
+		n420 [label="20"];
+		n425 -- n413;
+		n425 -- n420;
+
+		n408 [label="8"];
+		n407 [label="7"];
+		n417 [label="17"];
+		n402 [label="2"];
+		n413 -- n408;
+		n413 -- n407;
+		n420 -- n417;
+		n420 -- n402;
+
+		n405 [label="5"];
+		n404 [label="4"];
+		n408 -- n405;
+		n408 -- n404;
+	}
+	subgraph step6 {
+		n520 [label="20"];
+
+		n513 [label="13"];
+		n517 [label="17"];
+		n520 -- n513;
+		n520 -- n517;
+
+		n508 [label="8"];
+		n507 [label="7"];
+		n504 [label="4"];
+		n502 [label="2"];
+		n513 -- n508;
+		n513 -- n507;
+		n517 -- n504;
+		n517 -- n502;
+
+		n505 [label="5"];
+		n525 [label="25 (i)", style=filled];
+		n508 -- n505;
+		n508 -- n525 [color=white];
+	}
+	// Nooo stop overlapping QQ.
+	subgraph step7 {
+		n617 [label="17"];
+
+		n613 [label="13"];
+		n605 [label="5"];
+		n617 -- n613;
+		n617 -- n605;
+
+		n608 [label="8"];
+		n607 [label="7"];
+		n604 [label="4"];
+		n602 [label="2"];
+		n613 -- n608;
+		n613 -- n607;
+		n605 -- n604;
+		n605 -- n602;
+
+		n620 [label="20 (i)", style=filled];
+		n625 [label="25", style=filled];
+		n608 -- n625 [color=white];
+		n608 -- n620 [color=white];
+	}
+	subgraph step8 {
+		n713 [label="13"];
+
+		n708 [label="8"];
+		n705 [label="5"];
+		n713 -- n708;
+		n713 -- n705;
+
+		n702 [label="2"];
+		n707 [label="7"];
+		n704 [label="4"];
+		n717 [label="17 (i)", style=filled];
+		n708 -- n702;
+		n708 -- n707;
+		n705 -- n704;
+		n705 -- n717 [color=white];
+
+		n720 [label="20", style=filled];
+		n725 [label="25", style=filled];
+		n702 -- n725 [color=white];
+		n702 -- n720 [color=white];
+	}
+	subgraph step9 {
+		n808 [label="8"];
+
+		n807 [label="7"];
+		n805 [label="5"];
+		n808 -- n807;
+		n808 -- n805;
+
+		n802 [label="2"];
+		n804 [label="4"];
+		n813 [label="13 (i)", style=filled];
+		n817 [label="17", style=filled];
+		n807 -- n802;
+		n807 -- n804;
+		n805 -- n813 [color=white];
+		n805 -- n817 [color=white];
+
+		n820 [label="20", style=filled];
+		n825 [label="25", style=filled];
+		n802 -- n825 [color=white];
+		n802 -- n820 [color=white];
+	}
+	subgraph step10 {
+		n907 [label="7"];
+
+		n904 [label="4"];
+		n905 [label="5"];
+		n907 -- n904;
+		n907 -- n905;
+
+		n902 [label="2"];
+		n908 [label="8 (i)", style=filled];
+		n913 [label="13", style=filled];
+		n917 [label="17", style=filled];
+		n904 -- n902;
+		n904 -- n908 [color=white];
+		n905 -- n913 [color=white];
+		n905 -- n917 [color=white];
+
+		n920 [label="20", style=filled];
+		n925 [label="25", style=filled];
+		n902 -- n925 [color=white];
+		n902 -- n920 [color=white];
+	}
+	subgraph step11 {
+		n1005 [label="5"];
+
+		n1004 [label="4"];
+		n1002 [label="2"];
+		n1005 -- n1004;
+		n1005 -- n1002;
+
+		n1007 [label="7 (i)", style=filled];
+		n1008 [label="8", style=filled];
+		n1013 [label="13", style=filled];
+		n1017 [label="17", style=filled];
+		n1004 -- n1007 [color=white];
+		n1004 -- n1008 [color=white];
+		n1002 -- n1013 [color=white];
+		n1002 -- n1017 [color=white];
+
+		n1020 [label="20", style=filled];
+		n1025 [label="25", style=filled];
+		n1007 -- n1025 [color=white];
+		n1007 -- n1020 [color=white];
+	}
+	subgraph step12 {
+		n1104 [label="4"];
+
+		n1102 [label="2"];
+		n1105 [label="5 (i)", style=filled];
+		n1104 -- n1102;
+		n1104 -- n1105 [color=white];
+
+		n1107 [label="7", style=filled];
+		n1108 [label="8", style=filled];
+		n1113 [label="13", style=filled];
+		n1117 [label="17", style=filled];
+		n1102 -- n1107 [color=white];
+		n1102 -- n1108 [color=white];
+		n1105 -- n1113 [color=white];
+		n1105 -- n1117 [color=white];
+
+		n1120 [label="20", style=filled];
+		n1125 [label="25", style=filled];
+		n1107 -- n1125 [color=white];
+		n1107 -- n1120 [color=white];
+	}
+	subgraph step13 {
+		n1202 [label="2"];
+
+		n1204 [label="4 (i)", style=filled];
+		n1205 [label="5", style=filled];
+		n1202 -- n1204 [color=white];
+		n1202 -- n1205 [color=white];
+
+		n1207 [label="7", style=filled];
+		n1208 [label="8", style=filled];
+		n1213 [label="13", style=filled];
+		n1217 [label="17", style=filled];
+		n1204 -- n1207 [color=white];
+		n1204 -- n1208 [color=white];
+		n1205 -- n1213 [color=white];
+		n1205 -- n1217 [color=white];
+
+		n1220 [label="20", style=filled];
+		n1225 [label="25", style=filled];
+		n1207 -- n1225 [color=white];
+		n1207 -- n1220 [color=white];
+	}
+	subgraph final {
+		node [shape=record];
+		struct1 [label="<f0>2 | <f1>4 | <f2>5 | <f3>7 | <f4>8 | <f5>13 | <f6>17 | <f7>20 | <f8>25"];
+	}
+}
