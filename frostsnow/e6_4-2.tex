@@ -1,0 +1,15 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Exercise 6.4-2}
+
+\textit{Initialization}: At the start of the first iteration of the for loop, $i = A.length$ and we know from running \texttt{BUILD-MAX-HEAP(A)} that $A[1..A.length]$ is a max-heap. Since $n-i = n - A.length = n - n = 0$, the empty subarray $A[i+1 .. n]$ trivially contains 0 largest elements, sorted.
+
+\textit{Maintenance}: Since, by the max-heap property, $A[1]$ is either the largest element or equal to the largest element in the array $A[1..i]$ and less than or equal to the elements in the sorted array $A[i+1..n]$, swapping $A[1]$ and $A[i]$ maintains the sorted property for the subarray $A[i..n]$. Decrmenting $i$ by $1$ and calling \texttt{MAX-HEAPIFY} on the subarray $A[1..i]$ at index $1$ then maintains the max-heap property for the subarray $A[1..i]$.
+
+\textit{Termination}: At loop termination, $i=1$ and $A[i..n] = A[1..n]$ contains the the sorted elements.
+
+\end{document}
