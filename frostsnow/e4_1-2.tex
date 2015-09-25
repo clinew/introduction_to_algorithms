@@ -1,0 +1,23 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Exercise 4.1-2}
+
+\begin{verbatim}
+sum_end = -1
+sum_start = -1
+maxsum = -infinity
+for i = low upto high
+        sum = 0
+        for j = i upto high
+                sum += A[j]
+                if sum > maxsum
+                        maxsum = sum
+                        sum_start = i
+                        sum_end = j
+\end{verbatim}
+
+\end{document}
