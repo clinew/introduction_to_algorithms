@@ -1,7 +1,76 @@
 #include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 
+// Arguments to the program.
+struct arguments {
+	// Use brute-force rather than recursive method.
+	int brute;
+	// Array size.
+	int count;
+};
+
+/**
+ * Parse arguments into the specified structure.
+ */
+int arguments_parse(struct arguments* arguments, int argc, char* argv[]) {
+	int ret;
+
+	// Set default arguments.
+	arguments->brute = 0;
+	arguments->count = 32;
+
+	// Parse arguments.
+	while ((ret = getopt(argc, argv, "bn:")) != -1) {
+		// Parsing error.
+		if (ret == '?' || ret == ':') {
+			return -1;
+		}
+
+		switch (ret) {
+		case 'b':
+			arguments->brute = 1;
+			break;
+		case 'n':
+			arguments->count = atoi(optarg);
+			if (arguments->count < 1) {
+				fprintf(stderr, "Count must be greater than 1"
+					", recieved: %i\n", arguments->count);
+				return -1;
+			}
+			break;
+		default:
+			return -1;
+		}
+	}
+	return 0;
+}
+
+/**
+ * Print usage message and exit the program.
+ */
+void arguments_usage(char* message) {
+	FILE* stream;
+	// Print error message.
+	if (message) {
+		stream = stderr;
+		fprintf(stream, "ERROR: %s\n\n", message);
+	} else {
+		stream = stdout;
+	}
+
+	// Print usage message.
+	fprintf(stream, "USAGE: e4_1-3 [-b] [-n INT]\n\n");
+	fprintf(stream, "  -b     Use brute-force rather than recursive algorithm\n");
+	fprintf(stream, "  -n INT Use array of size INT (default: 32)\n");
+
+	// Exit the program.
+	if (message) {
+		exit(EXIT_FAILURE);
+	}
+	exit(EXIT_SUCCESS);
+}
 
 /**
  * Brute-force implementation of the maximum subarray problem.
@@ -114,15 +183,14 @@ int maxsubarray_recur(int* array, int low, int high,
 }
 
 int main(int argc, char* argv[]) {
+	struct arguments arguments;
 	int* array;
-	int array_count;
 	int high;
 	int i;
 	int low;
 	int sum;
 
 	// TODO:
-	// - Choose method.
 	// - Allow book's array.
 	// - Print brute to Graphviz.
 	// - Print recursive to Graphviz.
@@ -131,33 +199,34 @@ int main(int argc, char* argv[]) {
 	// - Use modified implementation.
 	// - Find new cross-over point.
 
-	// Validate arguments.
-	if (argc > 1) {
-		array_count = atoi(argv[1]);
-	} else {
-		array_count = 32;
+	// Parse arguments.
+	if (arguments_parse(&arguments, argc, argv) == -1) {
+		arguments_usage("Parsing arguments");
 	}
 
 	// Generate array.
-	array = malloc(sizeof(int) * array_count);
+	array = malloc(sizeof(int) * arguments.count);
 	if (!array) {
 		fprintf(stderr, "Unable to allocate array.\n");
 		exit(EXIT_FAILURE);
 	}
 	srand(0xDEADBEEF);
-	for (i = 0; i < array_count; i++) {
+	for (i = 0; i < arguments.count; i++) {
 		array[i] = (rand() % 64) - 32;
 		printf("%i ", array[i]);
 	}
 	printf("\n");
 
-	// Brute-force.
-	sum = maxsubarray_brute(array, array_count, &low, &high);
-	printf("Brute: '%i','%i','%i', ", sum, low, high);
-
-	// Recursive.
-	sum = maxsubarray_recur(array, 0, array_count - 1, &low, &high);
-	printf("Recursive: '%i','%i','%i'.\n", sum, low, high);
+	// Solve max-aubarray problem.
+	if (arguments.brute) {
+		// Brute-force.
+		sum = maxsubarray_brute(array, arguments.count, &low, &high);
+		printf("Brute: '%i','%i','%i', ", sum, low, high);
+	} else {
+		// Recursive.
+		sum = maxsubarray_recur(array, 0, arguments.count - 1, &low, &high);
+		printf("Recursive: '%i','%i','%i'.\n", sum, low, high);
+	}
 
 	// Exit the program.
 	exit(EXIT_SUCCESS);
