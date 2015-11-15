@@ -11,6 +11,8 @@ struct arguments {
 	int brute;
 	// Array size.
 	int count;
+	// Print graph.
+	int print;
 };
 
 /**
@@ -23,9 +25,10 @@ int arguments_parse(struct arguments* arguments, int argc, char* argv[]) {
 	arguments->book = 0;
 	arguments->brute = 0;
 	arguments->count = 32;
+	arguments->print = 0;
 
 	// Parse arguments.
-	while ((ret = getopt(argc, argv, "bkn:")) != -1) {
+	while ((ret = getopt(argc, argv, "bkn:p")) != -1) {
 		// Parsing error.
 		if (ret == '?' || ret == ':') {
 			return -1;
@@ -45,6 +48,9 @@ int arguments_parse(struct arguments* arguments, int argc, char* argv[]) {
 					", recieved: %i\n", arguments->count);
 				return -1;
 			}
+			break;
+		case 'p':
+			arguments->print = 1;
 			break;
 		default:
 			return -1;
@@ -70,7 +76,8 @@ void arguments_usage(char* message) {
 	fprintf(stream, "USAGE: e4_1-3 [-b] [-k] [-n INT]\n\n");
 	fprintf(stream, "  -b     Use brute-force rather than recursive algorithm\n");
 	fprintf(stream, "  -k     Use book's subarray instead of generated one. Overrides '-n'.\n");
-	fprintf(stream, "  -n INT Use array of size INT (default: 32)\n");
+	fprintf(stream, "  -n INT Use array of size INT (default: 32).\n");
+	fprintf(stream, "  -p     Print graph output.\n");
 
 	// Exit the program.
 	if (message) {
@@ -103,6 +110,71 @@ int maxsubarray_brute(int* array, int array_count,
 	}
 	*out_high = high;
 	*out_low = low;
+	return sum_max;
+}
+
+/**
+ * Brute-force implementation of the maximum subarray problem;
+ * also writes graph output.
+ */
+int maxsubarray_brute_print(int* array, int array_count,
+	int* out_low, int* out_high) {
+	FILE* file;
+	int high = -1;
+	int low = -1;
+	int sum_max = INT_MIN;
+	int i;
+	int j;
+
+	// Open dot file.
+	file = fopen("e4_1-3.dot", "w");
+	if (!file) {
+		fprintf(stderr, "Error opening output file");
+		return -1;
+	}
+	fprintf(file, "graph \"\" {\n");
+	fprintf(file, "\tnode [shape=record];\n");
+
+	// Run sort.
+	for (i = 0; i < array_count; i++) {
+		int sum_cur = 0;
+		int sum_max_local = INT_MIN;
+		int sum_cur_local = 0;
+		int high_local;
+		int low_local;
+
+		// Sort.
+		for (j = i; j < array_count; j++) {
+			sum_cur += array[j];
+			if (sum_cur > sum_max) {
+				sum_max = sum_cur;
+				high = j;
+				low = i;
+			}
+			sum_cur_local += array[j];
+			if (sum_cur_local > sum_max_local) {
+				sum_max_local = sum_cur_local;
+				high_local = j;
+				low_local = i;
+			}
+		}
+
+		// Graph.
+		fprintf(file, "\tstruct%i [label=\"", i, i);
+		for (j = 0; j < array_count; j++) {
+			fprintf(file, "<f%i> %i %s", j, array[j], j == (array_count - 1) ? "\"" : "|");
+		}
+		fprintf(file, "];\n");
+		if (i) {
+			fprintf(file, "\tstruct%i -- struct%i [color=white];\n", i - 1, i);
+		}
+	}
+	*out_high = high;
+	*out_low = low;
+
+	// Close dot file.
+	fprintf(file, "}\n");
+	fclose(file);
 	return sum_max;
 }
 
@@ -198,7 +270,8 @@ int main(int argc, char* argv[]) {
 	int sum;
 
 	// TODO:
-	// - Print brute to Graphviz.
+	// + Print brute to Graphviz.
+	//  - Label max-subarray using HTML-like labels
 	// - Print recursive to Graphviz.
 	// - Time run.
 	// - Find cross-over point.
@@ -240,7 +313,11 @@ int main(int argc, char* argv[]) {
 	// Solve max-aubarray problem.
 	if (arguments.brute) {
 		// Brute-force.
-		sum = maxsubarray_brute(array, arguments.count, &low, &high);
+		if (arguments.print) {
+			sum = maxsubarray_brute_print(array, arguments.count, &low, &high);
+		} else {
+			sum = maxsubarray_brute(array, arguments.count, &low, &high);
+		}
 		printf("Brute: '%i','%i','%i'.\n", sum, low, high);
 	} else {
 		// Recursive.
