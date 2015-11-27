@@ -133,7 +133,7 @@ int maxsubarray_brute_print(int* array, int array_count,
 		return -1;
 	}
 	fprintf(file, "graph \"\" {\n");
-	fprintf(file, "\tnode [shape=record];\n");
+	fprintf(file, "\tnode [shape=plaintext];\n");
 
 	// Run sort.
 	for (i = 0; i < array_count; i++) {
@@ -160,13 +160,30 @@ int maxsubarray_brute_print(int* array, int array_count,
 		}
 
 		// Graph.
-		fprintf(file, "\tstruct%i [label=\"", i, i);
+		fprintf(file, "\tstruct%i [label=<<table border=\"0\" "
+			"cellborder=\"1\" cellspacing=\"0\"><tr>", i);
 		for (j = 0; j < array_count; j++) {
-			fprintf(file, "<f%i> %i %s", j, array[j], j == (array_count - 1) ? "\"" : "|");
+			if (j < i) {
+				// Entry out of bounds.
+				fprintf(file, "<td color=\"gray\">"
+					"<font color=\"gray\">%i</font></td>",
+					array[j]);
+			} else if (j >= low_local && j <= high_local) {
+				// Max-subarray entry.
+				fprintf(file, "<td bgcolor=\"darkgreen\">"
+					"<font color=\"white\">%i</font></td>",
+					array[j]);
+			} else {
+				// Not max subarray.
+				fprintf(file, "<td>%i</td>", array[j]);
+			}
 		}
-		fprintf(file, "];\n");
+		fprintf(file, "</tr><tr><td colspan=\"%i\" color=\"none\">"
+			"Max: %i</td></tr></table>>];\n", array_count,
+			sum_max_local);
 		if (i) {
-			fprintf(file, "\tstruct%i -- struct%i [color=white];\n", i - 1, i);
+			fprintf(file, "\tstruct%i -- struct%i [color=white];\n",
+				i - 1, i);
 		}
 	}
 	*out_high = high;
@@ -270,8 +287,6 @@ int main(int argc, char* argv[]) {
 	int sum;
 
 	// TODO:
-	// + Print brute to Graphviz.
-	//  - Label max-subarray using HTML-like labels
 	// - Print recursive to Graphviz.
 	// - Time run.
 	// - Find cross-over point.
