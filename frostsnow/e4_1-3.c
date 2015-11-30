@@ -278,6 +278,122 @@ int maxsubarray_recur(int* array, int low, int high,
 	return cross_sum;
 }
 
+int _maxsubarray_recur_print(int * array, int low, int high,
+	int* out_low, int* out_high, FILE* file) {
+	int cross_high;
+	int cross_low;
+	int cross_sum;
+	int i;
+	int left_high;
+	int left_low;
+	int left_sum;
+	int mid;
+	int right_high;
+	int right_low;
+	int right_sum;
+	int sum;
+
+	// Print top array node.
+	fprintf(file, "\tstruct_t_%i_%i [label = <<table border=\"0\" "
+		"cellborder=\"1\" cellspacing=\"0\"><tr>", low, high);
+	for (i = low; i <= high; i++) {
+		fprintf(file, "<td>%i</td>", array[i]);
+	}
+	fprintf(file, "</tr></table>>];\n");
+
+	// Base case.
+	if (low == high) {
+		*out_low = low;
+		*out_high = high;
+		return array[low];
+	}
+
+	// Recursive case.
+	mid = (low + high) / 2;
+	left_sum = _maxsubarray_recur_print(array, low, mid,
+		&left_low, &left_high, file);
+	right_sum = _maxsubarray_recur_print(array, mid + 1, high,
+		&right_low, &right_high, file);
+	cross_sum = maxsubarray_recur_crossing(array, low, mid, high,
+		&cross_low, &cross_high);
+	if (left_sum > right_sum && left_sum > cross_sum) {
+		// Left-size largest.
+		*out_low = left_low;
+		*out_high = left_high;
+		sum = left_sum;
+	} else if (right_sum > left_sum && right_sum > cross_sum) {
+		// Right-side largest.
+		*out_low = right_low;
+		*out_high = right_high;
+		sum = right_sum;
+	} else {
+		*out_low = cross_low;
+		*out_high = cross_high;
+		sum = cross_sum;
+	}
+
+	// Print bottom node.
+	fprintf(file, "\tstruct_b_%i_%i [label = <<table border=\"0\" "
+		"cellborder=\"1\" cellspacing=\"0\"><tr>", low, high);
+	for (i = low; i <= high; i++) {
+		if (i == mid + 1) {
+			fprintf(file, "<td width=\"1\" color=\"none\"></td>");
+		}
+		fprintf(file, "<td%s>%i</td>",
+			(i >= *out_low) && (i <= *out_high) ?
+			" bgcolor=\"darkgreen\"" : "", array[i]);
+	}
+	fprintf(file, "</tr><tr><td color=\"none\" colspan=\"%i\">",
+		high - low + 2);
+	if (sum == left_sum) {
+		fprintf(file, "Left");
+	} else if (sum == right_sum) {
+		fprintf(file, "Right");
+	} else {
+		fprintf(file, "Crossing");
+	}
+	fprintf(file, "</td></tr></table>>];\n");
+
+	// Print links between top and bottom nodes.
+	fprintf(file, "\tstruct_t_%i_%i -- struct_t_%i_%i;\n", low, high,
+		low, mid);
+	fprintf(file, "\tstruct_t_%i_%i -- struct_t_%i_%i;\n", low, high,
+		mid + 1, high);
+	fprintf(file, "\tstruct_%s_%i_%i -- struct_b_%i_%i;\n",
+		low - mid == 0 ? "t" : "b", low, mid,
+		low, high);
+	fprintf(file, "\tstruct_%s_%i_%i -- struct_b_%i_%i;\n",
+		mid + 1 - high == 0 ? "t" : "b", mid + 1, high,
+		low, high);
+
+	// Return current sum.
+	return sum;
+}
+int maxsubarray_recur_print(int * array, int low, int high,
+	int* out_low, int* out_high) {
+	FILE* file;
+	int sum;
+
+	// Create graph file.
+	file = fopen("e4_1-3.dot", "w");
+	if (!file) {
+		fprintf(stderr, "Error opening output file");
+		return -1;
+	}
+	fprintf(file, "graph \"\" {\n");
+	fprintf(file, "\tnode [shape=plaintext];\n");
+
+	// Call function.
+	sum = _maxsubarray_recur_print(array, low, high, out_low, out_high,
+		file);
+
+	// Close graph file.
+	fprintf(file, "}\n");
+	fclose(file);
+
+	return sum;
+}
+
 int main(int argc, char* argv[]) {
 	struct arguments arguments;
 	int* array;
@@ -287,7 +403,6 @@ int main(int argc, char* argv[]) {
 	int sum;
 
 	// TODO:
-	// - Print recursive to Graphviz.
 	// - Time run.
 	// - Find cross-over point.
 	// - Use modified implementation.
@@ -336,7 +451,13 @@ int main(int argc, char* argv[]) {
 		printf("Brute: '%i','%i','%i'.\n", sum, low, high);
 	} else {
 		// Recursive.
-		sum = maxsubarray_recur(array, 0, arguments.count - 1, &low, &high);
+		if (arguments.print) {
+			sum = maxsubarray_recur_print(array, 0,
+				arguments.count - 1, &low, &high);
+		} else {
+			sum = maxsubarray_recur(array, 0, arguments.count - 1,
+				&low, &high);
+		}
 		printf("Recursive: '%i','%i','%i'.\n", sum, low, high);
 	}
 
