@@ -1,6 +1,7 @@
 #include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include <unistd.h>
 
 // Arguments to the program.
@@ -13,6 +14,8 @@ struct arguments {
 	int count;
 	// Print graph.
 	int print;
+	// Measure duration.
+	int time;
 };
 
 /**
@@ -26,9 +29,10 @@ int arguments_parse(struct arguments* arguments, int argc, char* argv[]) {
 	arguments->brute = 0;
 	arguments->count = 32;
 	arguments->print = 0;
+	arguments->time = 0;
 
 	// Parse arguments.
-	while ((ret = getopt(argc, argv, "bkn:p")) != -1) {
+	while ((ret = getopt(argc, argv, "bkn:pt")) != -1) {
 		// Parsing error.
 		if (ret == '?' || ret == ':') {
 			return -1;
@@ -51,6 +55,9 @@ int arguments_parse(struct arguments* arguments, int argc, char* argv[]) {
 			break;
 		case 'p':
 			arguments->print = 1;
+			break;
+		case 't':
+			arguments->time = 1;
 			break;
 		default:
 			return -1;
@@ -401,9 +408,10 @@ int main(int argc, char* argv[]) {
 	int i;
 	int low;
 	int sum;
+	struct timespec time_start;
+	struct timespec time_end;
 
 	// TODO:
-	// - Time run.
 	// - Find cross-over point.
 	// - Use modified implementation.
 	// - Find new cross-over point.
@@ -440,6 +448,14 @@ int main(int argc, char* argv[]) {
 	}
 	printf("\n");
 
+	// Start time measurement.
+	if (arguments.time) {
+		if (clock_gettime(CLOCK_MONOTONIC, &time_start) == -1) {
+			perror("Unable to start timer");
+			exit(EXIT_FAILURE);
+		}
+	}
+
 	// Solve max-aubarray problem.
 	if (arguments.brute) {
 		// Brute-force.
@@ -459,6 +475,31 @@ int main(int argc, char* argv[]) {
 				&low, &high);
 		}
 		printf("Recursive: '%i','%i','%i'.\n", sum, low, high);
+	}
+
+	// End time measurement.
+	if (arguments.time) {
+		if (clock_gettime(CLOCK_MONOTONIC, &time_end) == -1) {
+			perror("Unable to end timer");
+			exit(EXIT_FAILURE);
+		}
+	}
+
+	// Print time difference.
+	if (arguments.time) {
+		struct timespec time_diff;
+
+		// Calculate difference.
+		time_diff.tv_sec = time_end.tv_sec - time_start.tv_sec;
+		if ((time_diff.tv_nsec = time_end.tv_nsec - time_start.tv_nsec)
+			< 0) {
+			time_diff.tv_nsec += 1000000000;
+			time_diff.tv_sec -= 1;
+		}
+
+		// Print difference.
+		fprintf(stderr, "Elapsed time: %li.%010li\n", time_diff.tv_sec,
+			time_diff.tv_nsec);
 	}
 
 	// Exit the program.
