@@ -8,6 +8,6 @@
 
 For implementation, see \texttt{e4\_1-3.c}.
 
-Other answers pending.
+The cross-over point at which the recursive algorithm beats the brute-force algorithm is at approximately 64 elements, however the measurement is dubious given the relatively large fluctuations in wall time for such a small number of elements. Implementing the hybrid algorithm does not appear to change the cross-over point, which makes sense, since, when run at the cross-over point, the hybrid algorithm's runtime is simply that of the brute-force algorithm, which is equal in performance to the recursive algorithm.
 
 \end{document}
