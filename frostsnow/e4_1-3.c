@@ -12,6 +12,8 @@ struct arguments {
 	int brute;
 	// Array size.
 	int count;
+	// Use hybrid algorithm.
+	int hybrid;
 	// Print graph.
 	int print;
 	// Measure duration.
@@ -28,11 +30,12 @@ int arguments_parse(struct arguments* arguments, int argc, char* argv[]) {
 	arguments->book = 0;
 	arguments->brute = 0;
 	arguments->count = 32;
+	arguments->hybrid = 0;
 	arguments->print = 0;
 	arguments->time = 0;
 
 	// Parse arguments.
-	while ((ret = getopt(argc, argv, "bkn:pt")) != -1) {
+	while ((ret = getopt(argc, argv, "bhkn:pt")) != -1) {
 		// Parsing error.
 		if (ret == '?' || ret == ':') {
 			return -1;
@@ -41,6 +44,9 @@ int arguments_parse(struct arguments* arguments, int argc, char* argv[]) {
 		switch (ret) {
 		case 'b':
 			arguments->brute = 1;
+			break;
+		case 'h':
+			arguments->hybrid = 1;
 			break;
 		case 'k':
 			arguments->book = 1;
@@ -63,6 +69,18 @@ int arguments_parse(struct arguments* arguments, int argc, char* argv[]) {
 			return -1;
 		}
 	}
+
+	// Check for contradictory option.
+	if (arguments->hybrid) {
+		if (arguments->brute) {
+			fprintf(stderr, "Cannot run brute and hybrid solutions "
+				"at once\n");
+			exit(EXIT_FAILURE);
+		} else if (arguments->print) {
+			fprintf(stderr, "Cannot print hybrid algorithm\n");
+			exit(EXIT_FAILURE);
+		}
+	}
 	return 0;
 }
 
@@ -80,11 +98,13 @@ void arguments_usage(char* message) {
 	}
 
 	// Print usage message.
-	fprintf(stream, "USAGE: e4_1-3 [-b] [-k] [-n INT]\n\n");
-	fprintf(stream, "  -b     Use brute-force rather than recursive algorithm\n");
+	fprintf(stream, "USAGE: e4_1-3 [-bhkt] [-n INT]\n\n");
+	fprintf(stream, "  -b     Use brute-force rather than recursive algorithm.\n");
+	fprintf(stream, "  -h     Use hybrid solution.\n");
 	fprintf(stream, "  -k     Use book's subarray instead of generated one. Overrides '-n'.\n");
 	fprintf(stream, "  -n INT Use array of size INT (default: 32).\n");
 	fprintf(stream, "  -p     Print graph output.\n");
+	fprintf(stream, "  -t     Time algorithm run-time.\n");
 
 	// Exit the program.
 	if (message) {
@@ -200,6 +220,60 @@ int maxsubarray_brute_print(int* array, int array_count,
 	fprintf(file, "}\n");
 	fclose(file);
 	return sum_max;
+}
+
+/**
+ * Hybrid implementation of the maximum subarray problem.
+ */
+int maxsubarray_hybrid(int* array, int low, int high,
+	int* out_low, int* out_high) {
+	int mid;
+	int cross_high;
+	int cross_low;
+	int cross_sum;
+	int left_high;
+	int left_low;
+	int left_sum;
+	int right_high;
+	int right_low;
+	int right_sum;
+
+	// Base case.
+	if (low == high) {
+		*out_low = low;
+		*out_high = high;
+		return array[low];
+	}
+
+	// Recursive case.
+	mid = (low + high) / 2;
+	if (high - mid >= 32) {
+		left_sum = maxsubarray_recur(array, low, mid,
+			&left_low, &left_high);
+		right_sum = maxsubarray_recur(array, mid + 1, high,
+			&right_low, &right_high);
+	} else {
+		left_sum = maxsubarray_brute(&array[low], mid - low + 1,
+			&left_low, &left_high);
+		right_sum = maxsubarray_brute(&array[mid + 1], high - mid,
+			&right_low, &right_high);
+	}
+	cross_sum = maxsubarray_recur_crossing(array, low, mid, high,
+		&cross_low, &cross_high);
+	if (left_sum > right_sum && left_sum > cross_sum) {
+		// Left-size largest.
+		*out_low = left_low;
+		*out_high = left_high;
+		return left_sum;
+	} else if (right_sum > left_sum && right_sum > cross_sum) {
+		// Right-side largest.
+		*out_low = right_low;
+		*out_high = right_high;
+		return right_sum;
+	}
+	*out_low = cross_low;
+	*out_high = cross_high;
+	return cross_sum;
 }
 
 /**
@@ -443,10 +517,10 @@ int main(int argc, char* argv[]) {
 			array[i] = (rand() % 64) - 32;
 		}
 	}
-	for (i = 0; i < arguments.count; i++) {
-		printf("%i ", array[i]);
-	}
-	printf("\n");
+//	for (i = 0; i < arguments.count; i++) {
+//		printf("%i ", array[i]);
+//	}
+//	printf("\n");
 
 	// Start time measurement.
 	if (arguments.time) {
@@ -457,12 +531,19 @@ int main(int argc, char* argv[]) {
 	}
 
 	// Solve max-aubarray problem.
-	if (arguments.brute) {
+	if (arguments.hybrid) {
+		// Hybrid approach.
+		sum = maxsubarray_hybrid(array, 0, arguments.count - 1, &low,
+			&high);
+		printf("Hybrid: '%i','%i','%i'.\n", sum, low, high);
+	} else if (arguments.brute) {
 		// Brute-force.
 		if (arguments.print) {
-			sum = maxsubarray_brute_print(array, arguments.count, &low, &high);
+			sum = maxsubarray_brute_print(array, arguments.count,
+				&low, &high);
 		} else {
-			sum = maxsubarray_brute(array, arguments.count, &low, &high);
+			sum = maxsubarray_brute(array, arguments.count, &low,
+				&high);
 		}
 		printf("Brute: '%i','%i','%i'.\n", sum, low, high);
 	} else {
