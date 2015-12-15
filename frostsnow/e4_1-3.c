@@ -14,6 +14,8 @@ struct arguments {
 	int count;
 	// Use hybrid algorithm.
 	int hybrid;
+	// Use linear algorithm.
+	int linear;
 	// Print graph.
 	int print;
 	// Measure duration.
@@ -31,11 +33,12 @@ int arguments_parse(struct arguments* arguments, int argc, char* argv[]) {
 	arguments->brute = 0;
 	arguments->count = 32;
 	arguments->hybrid = 0;
+	arguments->linear = 0;
 	arguments->print = 0;
 	arguments->time = 0;
 
 	// Parse arguments.
-	while ((ret = getopt(argc, argv, "bhkn:pt")) != -1) {
+	while ((ret = getopt(argc, argv, "bhkln:pt")) != -1) {
 		// Parsing error.
 		if (ret == '?' || ret == ':') {
 			return -1;
@@ -50,6 +53,9 @@ int arguments_parse(struct arguments* arguments, int argc, char* argv[]) {
 			break;
 		case 'k':
 			arguments->book = 1;
+			break;
+		case 'l':
+			arguments->linear = 1;
 			break;
 		case 'n':
 			arguments->count = atoi(optarg);
@@ -71,15 +77,16 @@ int arguments_parse(struct arguments* arguments, int argc, char* argv[]) {
 	}
 
 	// Check for contradictory option.
-	if (arguments->hybrid) {
-		if (arguments->brute) {
-			fprintf(stderr, "Cannot run brute and hybrid solutions "
-				"at once\n");
-			exit(EXIT_FAILURE);
-		} else if (arguments->print) {
-			fprintf(stderr, "Cannot print hybrid algorithm\n");
+	if (arguments->hybrid || arguments->linear) {
+		if (arguments->print) {
+			fprintf(stderr, "Cannot print neither hybrid nor "
+				"linear algorithm\n");
 			exit(EXIT_FAILURE);
 		}
+	}
+	if (arguments->hybrid + arguments->linear + arguments->brute > 1) {
+		fprintf(stderr, "Must select a single algorithm\n");
+		exit(EXIT_FAILURE);
 	}
 	return 0;
 }
@@ -98,10 +105,11 @@ void arguments_usage(char* message) {
 	}
 
 	// Print usage message.
-	fprintf(stream, "USAGE: e4_1-3 [-bhkt] [-n INT]\n\n");
+	fprintf(stream, "USAGE: e4_1-3 [-bhklt] [-n INT]\n\n");
 	fprintf(stream, "  -b     Use brute-force rather than recursive algorithm.\n");
 	fprintf(stream, "  -h     Use hybrid solution.\n");
 	fprintf(stream, "  -k     Use book's subarray instead of generated one. Overrides '-n'.\n");
+	fprintf(stream, "  -l     Use linear solution.\n");
 	fprintf(stream, "  -n INT Use array of size INT (default: 32).\n");
 	fprintf(stream, "  -p     Print graph output.\n");
 	fprintf(stream, "  -t     Time algorithm run-time.\n");
@@ -274,6 +282,43 @@ int maxsubarray_hybrid(int* array, int low, int high,
 	*out_low = cross_low;
 	*out_high = cross_high;
 	return cross_sum;
+}
+
+/**
+ * Find maximum crossing subarray in linear time.
+ */
+int maxsubarray_linear(int* array, int array_count,
+	int* out_low, int* out_high) {
+	int i;
+	int j;
+	int sum_max;
+	int sum_cur;
+
+	// Calculate max subarray.
+	(*out_low) = (*out_high) = i = 0;
+	sum_max = sum_cur = array[0];
+	for (j = 1; j < array_count; j++) {
+		// Merge elements.
+		if ((sum_cur += array[j]) < 0) {
+			// New minimum point. Reset current array as it will
+			// not become a larger maximum subarray before the
+			// new one will.
+			i = j + 1;
+			sum_cur = 0;
+			continue;
+		}
+		if (array[j] < 0) {
+			// Negative elements won't increase max subarray.
+			continue;
+		}
+		if (sum_cur >= sum_max) {
+			// New max-crossing subarray.
+			sum_max = sum_cur;
+			(*out_low) = i;
+			(*out_high) = j;
+		}
+	}
+	return sum_max;
 }
 
 /**
@@ -546,6 +591,10 @@ int main(int argc, char* argv[]) {
 				&high);
 		}
 		printf("Brute: '%i','%i','%i'.\n", sum, low, high);
+	} else if (arguments.linear) {
+		// Linear.
+		sum = maxsubarray_linear(array, arguments.count, &low, &high);
+		printf("Linear: '%i','%i','%i'.\n", sum, low, high);
 	} else {
 		// Recursive.
 		if (arguments.print) {
