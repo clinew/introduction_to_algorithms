@@ -1,0 +1,18 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Exercise 4.2-4}
+
+Since the number of multiplications for a $3 \times 3$ matrix with an algorithm of running time $n^{\log_2(7)}$ is $3^{\log_2(7)} \approx 21.85$, the largest number of multiplications $k$ with a smaller runtime must be the floor of this number, thus $k = \lfloor 21.85 \rfloor = 21$. In order to put this in terms of the original equation, $n^{\log_2(7)} = k$, substitute $x$ for $\log_2(7)$, $3$ for $n$, and $21$ for $k$ and then solve for $x$, giving:
+\begin{eqnarray*}
+	n^{\log_2(7)} &=& k \\
+	3^x &=& 21 \\
+	x &=& \log_3(21) \\
+	x &\approx& 2.77
+\end{eqnarray*}
+Thus giving a running time of $O(n^{2.77})$.
+
+\end{document}
