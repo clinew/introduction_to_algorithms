@@ -1,0 +1,23 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Exercise 4.2-5}
+
+In order to determine the running time of V. Pan's algorithm, place it in terms of Strassen's Algorithm by solving for $x$ in $n^x = k$. To denote the three matrices and their multiplication count, use subscripts and solve each of the following equations:
+\begin{eqnarray*}
+	n_1 = 68 & & k_1 = 132,464 \\
+	n_2 = 70 & & k_2 = 143,640 \\
+	n_3 = 72 & & k_3 = 155,424
+\end{eqnarray*}
+Solving the previous equation with these values gives:
+\begin{eqnarray*}
+	x_1 = \log_{68}{132,464} & \approx & 2.795 \\
+	x_2 = \log_{70}{143,640} & \approx & 2.795 \\
+	x_3 = \log_{72}{155,424} & \approx & 2.795
+\end{eqnarray*}
+Thus all methods have the same asymptotic running time. Compared to Strassen's Algorithm, which runs in $n^{2.81}$ time, V. Pan's algorithm runs asymptotically faster.
+
+\end{document}
