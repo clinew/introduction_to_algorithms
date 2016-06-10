@@ -1,0 +1,60 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Exercise 4.2-6}
+
+In order to multiply a $k n \times n$ matrix by an $n \times k n$ matrix using Strassen's algorithm as a subroutine, note that the matrix product is comprised of submatrices:
+\begin{eqnarray*}
+\left (
+	\begin{array}{c}
+	a_1 \\
+	a_2 \\
+	\vdots \\
+	a_k
+	\end{array}
+\right )
+\left (
+	\begin{array}{cccc}
+	b_1 & b_2 & \ldots & b_k
+	\end{array}
+\right )
+=
+\left (
+	\begin{array}{cccc}
+	a_1 b_1 & a_1 b_2 & \ldots & a_1 b_k \\
+	a_2 b_1 & a_2 b_2 & \ldots & a_2 b_k \\
+	\vdots  & \vdots  & \ddots & \vdots \\
+	a_k b_1 & a_k b_2 & \ldots & a_k b_k
+	\end{array}
+\right )
+\end{eqnarray*}
+Thus an additional $k \times k$ multiplications would be needed, giving a runtime of $\Theta(k^2 n^{\log_2{7}})$.
+
+For multiplying an $n \times k n$ matrix by a $k n \times n$ matrix:
+\begin{eqnarray*}
+\left (
+	\begin{array}{cccc}
+	a_1 & a_2 & \ldots & a_k
+	\end{array}
+\right )
+\left (
+	\begin{array}{c}
+	b_1 \\
+	b_2 \\
+	\vdots \\
+	b_k
+	\end{array}
+\right )
+=
+\left (
+	\begin{array}{c}
+	a_1 b_1 + a_2 b_2 + \ldots + a_k b_k
+	\end{array}
+\right )
+\end{eqnarray*}
+Thus only an additional $k$ multiplications are needed, giving a runtime of $\Theta(k n^{\log_2{7}})$.
+
+\end{document}
