@@ -1,0 +1,40 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Exercise 4.2-7}
+
+In order to multiply the complex numbers $a + bi$ and $c + di$ using only three multiplications, imitate the basic structure of Strassen's algorithm by defining substitution variables:
+\begin{eqnarray*}
+	s_1 & = & a - b \\
+	s_2 & = & c + d
+\end{eqnarray*}
+Then create product variables:
+\begin{eqnarray*}
+	p_1 & = & s_1 s_2 \\
+	p_2 & = & ad \\
+	p_3 & = & bc
+\end{eqnarray*}
+Finally, create the components from the product variables:
+\begin{eqnarray*}
+	c_1 & = & p_1 - p_2 + p_3 \\
+	c_2 & = & p_2 + p_3
+\end{eqnarray*}
+This gives:
+\begin{eqnarray*}
+	c_1 & = & p_1 - p_2 + p_3 \\
+	c_1 & = & s_1 s_2 - ad + bc \\
+	c_1 & = & (a - b)(c + d) - ad + bc \\
+	c_1 & = & ac + ad - bc - bd - ad + bc \\
+	c_1 & = & ac - bd
+\end{eqnarray*}
+and:
+\begin{eqnarray*}
+	c_2 & = & p_2 + p_3 \\
+	c_2 & = & ad + bc
+\end{eqnarray*}
+Thus giving the real component $ac - bd$ and the imaginary component $ad + bc$ with only three multiplications.
+
+\end{document}
