@@ -1,0 +1,42 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Exercise 4.3-1}
+
+In order to prove that $T(n) = T(n - 1) + n$ is $O(n^2)$, attempt to use the Substitution Method on the bound as-is by trying to prove $T(n) \leq cn^2$ for an appropriate constant $c > 0$.
+Assume that this bound holds for all $m < n$, in particular for $m = n - 1$, in which case:
+\begin{eqnarray*}
+	T(n - 1) &\leq& c(n - 1)^2
+\end{eqnarray*}
+Substituting into the recurrence then yields:
+\begin{eqnarray*}
+	T(n) &\leq& c(n - 1)^2 + n \\
+	 &\leq& c(n^2 - 2n + 1) + n
+\end{eqnarray*}
+...which is basically impenetrable, so another guess is warranted. This time try to prove that $T(n) \leq cn^2 + cn$ for an approrpiate constant $c > 0$, again assuming that this bound holds for all $m < n$ and, in particular, for $m = n - 1$, gives:
+\begin{eqnarray*}
+	T(n - 1) &\leq& c(n - 1)^2 + c(n - 1)
+\end{eqnarray*}
+Substituting into the recurrence then yields:
+\begin{eqnarray*}
+	T(n) &\leq& c(n - 1)^2 + c(n - 1) + n \\
+	 &\leq& cn^2 - 2cn + c + cn - c + n \\
+	 &\leq& cn^2 - cn + n \\
+	 &\leq& cn^2 + (-c - 1)n \\
+	 &\leq& cn^2 + cn
+\end{eqnarray*}
+where the last step holds as long as $c \geq \frac{1}{2}$.
+For the Base Case, use the boundary condition by assuming that $T(1) = 1$. Then we have:
+\begin{eqnarray*}
+	T(1) &\leq& cn^2 + cn \\
+	 &\leq& c1^2 + c1 \\
+	 &\leq& 2c \\
+	1 &\leq& 2c
+\end{eqnarray*}
+...which holds for all $c \geq \frac{1}{2}$.
+Thus, $T(n) = T(n - 1) + n$ is $O(n^2)$.
+
+\end{document}
