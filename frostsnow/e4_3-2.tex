@@ -1,0 +1,32 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Exercise 4.3-2}
+
+In order to prove that $T(n) = T(\lceil \frac{n}{2} \rceil) + 1$ is $O(\log_2(n))$, use the Substitution Method by trying to prove that $T(n) \leq c \log_2(n)$ for an appropriate constant $c > 0$.
+Assume that this bound holds for all $m < n$, in particular for $m = \lceil \frac{n}{2} \rceil$, in which case:
+\begin{eqnarray*}
+	T\left(\left\lceil \frac{n}{2} \right\rceil\right) &\leq& c \log_2\left(\left\lceil \frac{n}{2} \right\rceil\right)
+\end{eqnarray*}
+Substituting into the recurrence then yields:
+\begin{eqnarray*}
+	T(n) &\leq& c\log_2\left(\left\lceil \frac{n}{2} \right\rceil\right) + 1 \\
+	 &\leq& c\log_2\left(\frac{n + 1}{2}\right) + 1 \\
+	 &\leq& c(\log_2(n + 1) - 1) + 1 \\
+	 &\leq& c\left(\log_2\left(\sqrt{2}n\right) - 1\right) + 1 \text{  // for $n \geq 3$} \\
+	 &\leq& c\left(\log_2\left(n\right) + \log_2\left(\sqrt{2}\right) - 1\right) + 1 \\
+	 &\leq& c\left(\log_2\left(n\right) + \frac{1}{2} - 1\right) + 1 \\
+	 &\leq& c\left(\log_2\left(n\right) - \frac{1}{2}\right) + 1 \\
+	 &\leq& c\log_2(n) - \frac{c}{2} + 1 \\
+	 &\leq& c\log_2(n) \text{  // for $c \geq 2$} \\
+\end{eqnarray*}
+Using $n_0 = 3$ from the inductive case gives base cases of $n = 3$ and $n = 4$, and, assuming that the base case of the recurrence is $T(1) = 1$, this gives $T(2) = 2$, $T(3) = 3$, and $T(4) = 3$.
+Next, a constant $c$ must be found such that $T(3) \leq c \log_2(3)$ and $T(4) \leq c \log_2(4)$.
+Since the constant $c \geq 2$ from the inductive case satisfies these equations, the base cases holds.
+
+Therefore, $T(n) = O(\log_2(n))$.
+
+\end{document}
