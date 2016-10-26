@@ -1,0 +1,36 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Exercise 4.3-3}
+
+In order to prove that the recurrence $T(n) = 2T(\lfloor \frac{n}{2} \rfloor) + n$ is $\Omega (n \log_2(n))$, use the Substitution Method by trying to prove that $T(n) \geq cn\log_2(n)$ for appropriate positive constants $c$ and $n_0$ for all $n \geq n_0$
+Assume that the bound holds for all $m < n$, in particular for $m = \lfloor \frac{n}{2} \rfloor$, in which case:
+\begin{eqnarray*}
+	T\left(\left\lfloor \frac{n}{2} \right\rfloor\right) &\geq& c \left\lfloor \frac{n}{2} \right\rfloor \log_2\left(\left\lfloor \frac{n}{2} \right\rfloor\right)
+\end{eqnarray*}
+Substituting into the recurrence then yields:
+\begin{eqnarray*}
+	T(n) &\geq& 2c\left\lfloor \frac{n}{2} \right\rfloor \log_2\left(\left\lfloor \frac{n}{2} \right\rfloor\right) + n \\
+	 &\geq& 2c \left( \frac{n - 1}{2} \right) \log_2 \left( \frac{n - 1}{2} \right) + n \\
+	 &=& c (n - 1) (\log_2(n - 1) - 1) + n \\
+	 &\geq& c (n - 1) \left(\log_2\left( \frac{n}{2}\right) - 1\right) + n \text{  // for $n \geq 2$} \\
+	 &\geq& c (n - 1) (\log_2(n) - 2) + n \\
+	 &=& cn \log_2(n) - 2cn - c\log_2(n) + 2c + n \\
+\end{eqnarray*}
+Consider all but the first term of this equation.  For $c = \frac{1}{4}$, $-2cn - c\log_2(n) + 2c + n = -\frac{1}{2}n - \frac{1}{4}\log_2(n) + \frac{1}{2} + n = \frac{n}{2} - \frac{1}{4} \log_2(n) + \frac{1}{2}$.  For all $n \geq 2$ (as was assumed previously), this equation is $> 0$, thus:
+\begin{eqnarray*}
+	T(n) &=& cn \log_2(n) - 2cn - c\log_2(n) + 2c + n \\
+	 &\geq& cn \log_2(n)
+\end{eqnarray*}
+Thus the Inductive Case holds.
+
+For the Base Case, assume that $T(1) = 1$ is the sole boundary condition of the recurrence.  Then it must be shown that $T(1) \geq c 1 \log_2(1)$, which is just $1 \geq 0$, thus the Base Case holds.
+
+Thus the recurrence $T(n) = 2T(\lfloor \frac{n}{2} \rfloor) + n$ is $\Omega (n \log_2(n))$.
+
+Since the recurrence $T(n)$ is both $O(n \log_2(n))$ and $\Omega(n \log_2(n))$, the recurrence is also $\Theta(n \log_2(n))$.
+
+\end{document}
