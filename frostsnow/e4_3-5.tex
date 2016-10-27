@@ -1,0 +1,93 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Exercise 4.3-5}
+
+% I'm not sure if its correct to choose different equations for $\Theta(n)$
+% in $O$ and $\Omega$.... would be good to try and get it to work with one
+% choosen equation, but does that really tell us anything?
+
+The ``exact'' recurrence for Merge Sort is:
+\begin{equation*} T(n) = \begin{cases} \Theta(1) & \text{if } x=1,\\ T\left(\left\lceil \frac{n}{2} \right\rceil\right) + T\left(\left\lfloor \frac{n}{2} \right\rfloor\right) + \Theta(n) & \text{if } n > 1.
+	\end{cases}
+\end{equation*}
+First, prove that Merge Sort is $O(n\log_2(n))$ by showing that $T(n) \leq cn\log_2(n)$.  Make the assumption that Merge Sort is $O(n\log_2(n))$ for all positive $m < n$, in particular both $m = \lceil \frac{n}{2} \rceil$ and $m = \lfloor \frac{n}{2} \rfloor$, in which case:
+\begin{eqnarray*}
+	T\left(\left\lceil \frac{n}{2} \right\rceil\right) &\leq& c\left\lceil\frac{n}{2}\right\rceil \log_2\left(\left\lceil\frac{n}{2}\right\rceil\right) \\
+	T\left(\left\lfloor \frac{n}{2} \right\rfloor\right) &\leq& c\left\lfloor\frac{n}{2}\right\rfloor \log_2\left(\left\lfloor\frac{n}{2}\right\rfloor\right) \\
+\end{eqnarray*}
+Substituting into the main equation then gives:
+\begin{eqnarray*}
+	T(n) &\leq& c\left\lceil \frac{n}{2} \right\rceil \log_2\left(\left\lceil \frac{n}{2} \right\rceil\right) + c\left\lfloor \frac{n}{2} \right\rfloor \log_2\left(\left\lfloor \frac{n}{2} \right\rfloor\right) + \Theta(n) \\
+	 &\leq& c\left\lceil \frac{n}{2} \right\rceil \log_2\left(\left\lceil \frac{n}{2} \right\rceil\right) + \frac{cn}{2} \log_2\left(\frac{n}{2}\right) + \Theta(n) \\
+	 &\leq& c\left(\frac{n+1}{2}\right) \log_2\left(\frac{n+1}{2}\right) + \frac{cn}{2} \log_2\left(\frac{n}{2}\right) + \Theta(n) \\
+	 &=& c\left(\frac{n+1}{2}\right)(\log_2(n+1)-1) + \frac{cn}{2}(\log_2(n)-1) + \Theta(n) \\
+	 &\leq& c\left(\frac{n+1}{2}\right)(\log_2(2n)-1) + \frac{cn}{2}(\log_2(n)-1) + \Theta(n) \text{ // for }n \geq 1 \\
+	 &=& c\left(\frac{n+1}{2}\right)\log_2(n) + \frac{cn}{2}(\log_2(n)-1) + \Theta(n) \\
+	 &=& \frac{cn}{2}\log_2(n) + \frac{c\log_2(n)}{2} + \frac{cn}{2}\log_2(n) - \frac{cn}{2} + \Theta(n) \\
+	 &=& cn\log_2(n) + \frac{c\log_2(n)}{2} - \frac{cn}{2} + \Theta(n) \\
+\end{eqnarray*}
+Let $\Theta(n) = \frac{cn}{4}$ and let $n \geq 4$, in which case:
+\begin{eqnarray*}
+	T(n) &\leq& cn\log_2(n) + \frac{cn}{4} - \frac{cn}{2} + \frac{cn}{4} \\
+	 &\leq& cn\log_2(n)
+\end{eqnarray*}
+Thus the Inductive Case holds for $O$.  For the Base Case, using $n_0 = 4$ and $\Theta(n) = \frac{cn}{4}$ from the induction, then:
+\begin{eqnarray*}
+	T(2) &=& 2 + \frac{2c}{4} \\
+	T(3) &=& 3 + \frac{5c}{4} \\
+	T(4) &=& 4 + 2c \\
+	T(5) &=& 5 + 3c \\
+	T(6) &=& 6 + 4c \\
+	T(7) &=& 7 + 5c
+\end{eqnarray*}
+Then it must be shown there exists a positive constant $c$ such that:
+\begin{eqnarray*}
+	T(2) &\leq& 2c\log_2(2) \\
+	T(3) &\leq& 3c\log_2(3) \\
+	T(4) &\leq& 4c\log_2(4) \\
+	T(5) &\leq& 5c\log_2(5) \\
+	T(6) &\leq& 6c\log_2(6) \\
+	T(7) &\leq& 7c\log_2(7)
+\end{eqnarray*}
+Rather than meticulously find the smallest value of $c$ that will suffice, just pick a large value of $c$, say, $10$, and thus the Base Case holds.  Thus, Merge Sort is $O(n\log_2(n))$.
+
+Second, prove that Merge Sort is $\Omega(n\log_2(n))$ by showing that $T(n) \geq cn\log_2(n)$.  Make the assumption that Merge Sort is $\Omega(n\log_2(n))$ for all positive $m < n$, in particular both $m = \lceil \frac{n}{2} \rceil$ and $m = \lfloor \frac{n}{2} \rfloor$, in which case:
+\begin{eqnarray*}
+	T\left(\left\lceil \frac{n}{2} \right\rceil\right) &\geq& c\left\lceil\frac{n}{2}\right\rceil \log_2\left(\left\lceil\frac{n}{2}\right\rceil\right) \\
+	T\left(\left\lfloor \frac{n}{2} \right\rfloor\right) &\geq& c\left\lfloor\frac{n}{2}\right\rfloor \log_2\left(\left\lfloor\frac{n}{2}\right\rfloor\right)
+\end{eqnarray*}
+Substituting into the main equation then gives:
+\begin{eqnarray*}
+	T(n) &\geq& c\left\lceil\frac{n}{2}\right\rceil \log_2\left(\left\lceil\frac{n}{2}\right\rceil\right) + c \left\lfloor\frac{n}{2}\right\rfloor \log_2\left(\left\lfloor\frac{n}{2}\right\rfloor\right) + \Theta(n) \\
+	 &\geq& \frac{cn}{2}\log_2\left(\frac{n}{2}\right) + c\left\lfloor\frac{n}{2}\right\rfloor \log_2\left(\left\lfloor\frac{n}{2}\right\rfloor\right) + \Theta(n) \\
+	 &\geq& \frac{cn}{2}\log_2\left(\frac{n}{2}\right) + c\left(\frac{n-1}{2}\right)\log_2\left(\frac{n-1}{2}\right) + \Theta(n) \\
+	 &=& \frac{cn}{2}\log_2\left(\frac{n}{2}\right) + c\left(\frac{n-1}{2}\right)(\log_2(n-1)-1) + \Theta(n) \\
+	 &\geq& \frac{cn}{2}\log_2\left(\frac{n}{2}\right) + c\left(\frac{n-1}{2}\right)\left(\log_2\left(\frac{n}{2}\right)-1\right) + \Theta(n) \text{ // for } n \geq 2 \\
+	 &=& \frac{cn}{2}(\log_2(n)-1) + c\left(\frac{n-1}{2}\right)(\log_2(n)-2) + \Theta(n) \\
+	 &=& \frac{cn}{2}\log_2(n) - \frac{cn}{2} + \frac{cn}{2}\log_2(n) - cn - \frac{c}{2}\log_2(n) + c + \Theta(n) \\
+	 &=& cn\log_2(n) - \frac{3cn}{2} - \frac{c}{2}\log_2(n) + c + \Theta(n)
+\end{eqnarray*}
+Let $\Theta(n) = \frac{3cn}{2} + \frac{c}{2}\log_2(n) - c$, in which case:
+\begin{eqnarray*}
+	T(n) &\geq& cn\log_2(n) - \frac{3cn}{2} - \frac{c}{2}\log_2(n) + c + \frac{3cn}{2} + \frac{c}{2}\log_2(n) - c \\
+	 &\geq& cn\log_2(n)
+\end{eqnarray*}
+Thus the Inductive Case holds for $\Omega$.  For the Base Case, using $n_0 = 2$ and $\Theta(n) = \frac{3cn}{2} + \frac{c}{2}\log_2(n) - c$, it follows that:
+\begin{eqnarray*}
+	T(2) &=& 1 + 1 + \frac{3c2}{2} - \frac{c}{2}\log_2(2) + c \\
+	 &=& 2 + \frac{7c}{2}
+\end{eqnarray*}
+It must then be shown that:
+\begin{eqnarray*}
+	T(1) &\geq& c1\log_2(1) \\
+	T(2) &\geq& c2\log_2(2)
+\end{eqnarray*}
+Any choice of $c > 0$ suffices, thus the Base Case holds.  Thus, Merge Sort is also $\Omega(n\log_2(n))$.
+
+Therefore, since Merge Sort is both $O(n\log_2(n))$ and $\Omega(n\log_2(n))$, Merge Sort is $\Theta(n\log_2(n))$.
+
+\end{document}
