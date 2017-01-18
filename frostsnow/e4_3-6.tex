@@ -1,0 +1,114 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+\usepackage{longtable}
+
+\begin{document}
+
+\section*{Exercise 4.3-6}
+
+In order to prove that $T(n) = 2T(\lfloor n / 2 \rfloor + 17) + n$ is $O(n \log_2(n))$, use the equation $cn\log_2(n) - 34c\log_2(n) - 3nc$ and assume that $T(n)$ is $O(n\log_2(n))$ for all positive $m < n$, in particular $m = \lfloor n / 2 \rfloor + 17$, which gives:
+\begin{equation*}
+	T(\lfloor n / 2 \rfloor + 17) \leq c (\lfloor n / 2 \rfloor + 17)\log_2(\lfloor n / 2 \rfloor + 17) - 34c\log_2(\lfloor n /2 \rfloor + 17) - 3(\lfloor n / 2 \rfloor + 17)c
+\end{equation*}
+Substituting this into the equation for the recurrence gives:
+\begin{eqnarray*}
+	T(n) &\leq& 2(c(\lfloor n / 2 \rfloor + 17)\log_2(\lfloor n / 2 \rfloor + 17) - 34c\log_2(\lfloor n / 2 \rfloor + 17) - 3(\lfloor n / 2 \rfloor + 17)c) + n \\
+	 &=& 2c(\lfloor n / 2 \rfloor + 17)\log_2(\lfloor n / 2 \rfloor + 17) - 68c\log_2(\lfloor n / 2 \rfloor + 17) - 6c(\lfloor n / 2 \rfloor + 17) + n \\
+	 &\leq& 2c(n / 2 + 17)\log_2(n / 2 + 17) - 68c\log_2\left(\frac{n - 1}{2} + 17\right) - 6c\left(\frac{n - 1}{2} + 17\right) + n \\
+	 &=& 2c(n / 2 + 17)\log_2(n / 2 + 17) - 68c\log_2\left(\frac{n - 1}{2} + 17\right) - 3nc - 99c + n \\
+	 &\leq& 2c(n / 2 + 17)\log_2(n / 2 + 17) - 68c\log_2(n/2) - 3nc - 99c + n \\
+	 &=& 2c(n / 2 + 17)\log_2(n / 2 + 17) - 68c\log_2(n) + 68c - 3nc -99c + n \\
+	 &&\text{(for $n \geq 68$)} \\
+	 &\leq& 2c(n / 2 + 17)\log_2\left(\frac{3n}{4}\right) - 68c\log_2(n) + 68c - 3nc - 99c + n \\
+	 &=& 2c(n / 2 + 17)\log_2(n) + 2c(n / 2 + 17)\log_2(3) - 2c(n / 2 + 17)\log_2(4) - 68c\log_2(n) + \\
+	 && 68c - 3nc - 99c + n \\
+	 &=& cn\log_2(n) + 34c\log_2(n) + cn\log_2(3) + 34c\log_2(3) - cn\log_2(4) - 34c\log_2(4) + \\
+	 && - 68c\log_2(n) + 68c - 3nc - 99c + n \\
+	 &=& cn\log_2(n) - 34c\log_2(n) - 3nc + cn\log_2(3) + 34c\log_2(3) - cn\log_2(4) - 34c\log_2(4) + \\
+	 && - 31c + n \\
+	 &\leq& cn\log_2(n) - 34c\log_2(n) - 3nc + cn\log_2(3) + 34c\log_2(3) - cn\log_2(4) - 34c\log_2(4) + n \\
+	 &\leq& cn\log_2(n) - 34c\log_2(n) - 3nc + cn\log_2(3) - cn\log_2(4) + n \\
+	 &&\left(\text{for } c \geq \frac{1}{\log_2(4) - \log_2(3)}\right) \\
+	 &\leq& cn\log_2(n) - 34c\log_2(n) - 3nc
+\end{eqnarray*}
+Thus the Inductive Case holds.
+
+For the Base Cases, assume that $T(34) = 1$ is the sole boundary condition; since $n_0 = 68$, the Base Cases of the Inductive Proof are for all integers $n$ such that $68 \leq n < 102$.  Calculating a value of $c$ such that $T(n_0) \leq cn_0\log_2(n_0) - 34c\log_2(n_0) - 3n_0c$ gives approximately $c \geq 808$.  Using $c = 808$ gives the following table of values for the Base Cases:
+\begin{longtable}{r|r|r}
+	$n$ & $T(n)$ & $cn\log_2(n) - 34c\log_2(n) - 3nc$ \\ \hline
+	 34 &    1.000000 & N/A \\
+	 35 &   37.000000 & N/A \\
+	 36 &  110.000000 & N/A \\
+	 37 &  111.000000 & N/A \\
+	 38 &  258.000000 & N/A \\
+	 39 &  259.000000 & N/A \\
+	 40 &  262.000000 & N/A \\
+	 41 &  263.000000 & N/A \\
+	 42 &  558.000000 & N/A \\
+	 43 &  559.000000 & N/A \\
+	 44 &  562.000000 & N/A \\
+	 45 &  563.000000 & N/A \\
+	 46 &  570.000000 & N/A \\
+	 47 &  571.000000 & N/A \\
+	 48 &  574.000000 & N/A \\
+	 49 &  575.000000 & N/A \\
+	 50 & 1166.000000 & N/A \\
+	 51 & 1167.000000 & N/A \\
+	 52 & 1170.000000 & N/A \\
+	 53 & 1171.000000 & N/A \\
+	 54 & 1178.000000 & N/A \\
+	 55 & 1179.000000 & N/A \\
+	 56 & 1182.000000 & N/A \\
+	 57 & 1183.000000 & N/A \\
+	 58 & 1198.000000 & N/A \\
+	 59 & 1199.000000 & N/A \\
+	 60 & 1202.000000 & N/A \\
+	 61 & 1203.000000 & N/A \\
+	 62 & 1210.000000 & N/A \\
+	 63 & 1211.000000 & N/A \\
+	 64 & 1214.000000 & N/A \\
+	 65 & 1215.000000 & N/A \\
+	 66 & 2398.000000 & N/A \\
+	 67 & 2399.000000 & N/A \\
+	 68 & 2402.000000 & 2402.779175   \\
+	 69 & 2403.000000 & 5493.071638   \\
+	 70 & 2410.000000 & 8608.584397   \\
+	 71 & 2411.000000 & 11748.839885  \\
+	 72 & 2414.000000 & 14913.377244  \\
+	 73 & 2415.000000 & 18101.751499  \\
+	 74 & 2430.000000 & 21313.532777  \\
+	 75 & 2431.000000 & 24548.305579  \\
+	 76 & 2434.000000 & 27805.668096  \\
+	 77 & 2435.000000 & 31085.231570  \\
+	 78 & 2442.000000 & 34386.619685  \\
+	 79 & 2443.000000 & 37709.468004  \\
+	 80 & 2446.000000 & 41053.423431  \\
+	 81 & 2447.000000 & 44418.143710  \\
+	 82 & 2478.000000 & 47803.296947  \\
+	 83 & 2479.000000 & 51208.561166  \\
+	 84 & 2482.000000 & 54633.623880  \\
+	 85 & 2483.000000 & 58078.181696  \\
+	 86 & 2490.000000 & 61541.939934  \\
+	 87 & 2491.000000 & 65024.612266  \\
+	 88 & 2494.000000 & 68525.920384  \\
+	 89 & 2495.000000 & 72045.593672  \\
+	 90 & 2510.000000 & 75583.368903  \\
+	 91 & 2511.000000 & 79138.989949  \\
+	 92 & 2514.000000 & 82712.207509  \\
+	 93 & 2515.000000 & 86302.778843  \\
+	 94 & 2522.000000 & 89910.467529  \\
+	 95 & 2523.000000 & 93535.043223  \\
+	 96 & 2526.000000 & 97176.281436  \\
+	 97 & 2527.000000 & 100833.963319 \\
+	 98 & 4894.000000 & 104507.875459 \\
+	 99 & 4895.000000 & 108197.809687 \\
+	100 & 4898.000000 & 111903.562888 \\
+	101 & 4899.000000 & 115624.936830 \\
+\end{longtable}
+\noindent Thus the Base Cases hold.
+
+Therefore, $T(n) = 2T(\lfloor n / 2 \rfloor) + 17) + n$ is $O(n\log_2(n))$.
+
+
+\end{document}
