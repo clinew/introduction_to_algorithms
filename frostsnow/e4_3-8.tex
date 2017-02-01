@@ -1,0 +1,41 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Exercise 4.3-8}
+
+Using the substitution $T(n) \leq cn^2$, try to prove the Inductive Case for the recurrence $T(n) = 4T(n/2) + n$ by making the assumption that this bound holds for all $m < n$, in particular for $m = n/2$, giving:
+\begin{equation*}
+	T\left(\frac{n}{2}\right) \leq c\left(\frac{n}{2}\right)^2
+\end{equation*}
+Substituting into the recurrence then gives:
+\begin{eqnarray*}
+	T(n) &\leq& 4c\left(\frac{n}{2}\right)^2 + n \\
+	 &=& 4c\frac{n^2}{4} + n \\
+	 &=& cn^2 + n
+\end{eqnarray*}
+\ldots which does not hold.  However, using the substitution $T(n) \leq cn^2 - n$ gives the assumption:
+\begin{equation*}
+	T\left(\frac{n}{2}\right) \leq c\left(\frac{n}{2}\right)^2 - \frac{n}{2}
+\end{equation*}
+Once more, substituting into the recurrence then gives:
+\begin{eqnarray*}
+	T(n) &\leq& 4c\left(\frac{n}{2}\right)^2 - 4\left(\frac{n}{2}\right) + n \\
+	 &=& 4c \frac{n^2}{4} - 2n + n \\
+	 &=& cn^2 - n
+\end{eqnarray*}
+Thus the Inductive Case holds.
+
+For the Base Case, assume that $T(1) = 1$, then prove:
+\begin{eqnarray*}
+	T(n) &\leq& cn^2 - n \\
+	T(1) = 1 &\leq& c1^2 - 1 \\
+	 &\leq& c - 1
+\end{eqnarray*}
+\ldots which is true for any $c \geq 2$, thus the Base Case holds.
+
+Therefore the substitution proof fails for $T(n) \leq cn^2$ but holds for $T(n) \leq cn^2 - n$.
+
+\end{document}
