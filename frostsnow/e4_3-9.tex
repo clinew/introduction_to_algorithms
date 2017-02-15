@@ -1,0 +1,57 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Exercise 4.3-9}
+
+In order to find an asymptotically tight solution for\footnote{This is assuming that the ambiguous ``$\log$'' is supposed to mean ``$\log_2$''} $T(n) = 3T(\sqrt{n}) + \log_2(n)$, use the change of variables:
+\begin{eqnarray*}
+	m = \log_2(n) \text{ , } n = 2^m
+\end{eqnarray*}
+\ldots which transforms the recurrence from $T(2^m) = 3T(2^{m/2}) + m$ to $S(m) = 3S(m/2) + m$.
+
+First, prove that the solution is $O(m^{\log_2(3)})$ with the guess $cm^{\log_2(3)} - 2m$ by assuming that this bound holds for any positive integer less than $m$, in particular $m/2$, in which case:
+\begin{eqnarray*}
+	S(m/2) &\leq& c(m/2)^{\log_2(3)} - 2(m/2)
+\end{eqnarray*}
+Substituting this into the recurrence then gives:
+\begin{eqnarray*}
+	S(m) &\leq& 3(c(m/2)^{\log_2(3)} - 2(m/2)) + m \\
+	 &=& 3c(m/2)^{\log_2(3)} - 3m + m \\
+	 &=& 3c(m^{\log_2(3)}/2^{\log_2(3)}) - 2m \\
+	 &=& 3c(m^{\log_2(3)}/3) - 2m \\
+	 &=& cm^{\log_2(3)} - 2m
+\end{eqnarray*}
+\ldots which proves the Inductive Case.  For the Base Case, Assume that $S(1) = 1$ and solve:
+\begin{eqnarray*}
+	S(1) &\leq& c1^{\log_2(3)} - 2(1) \\
+	1 &\leq& c - 2 \\
+	3 &\leq& c
+\end{eqnarray*}
+\ldots which is true for any $c \geq 3$, proving the Base Case and thus showing $S(m) = O(m^{\log_2(3)})$.
+
+Next, prove that the solution is $\Omega(m^{\log_2(3)})$ with the guess $cm^{\log_2(3)} - 2m$ by assuming that this bound holds for any positive integer less than $m$, in particular $m/2$, in which case:
+\begin{eqnarray*}
+	S(m/2) &\geq& c(m/2)^{\log_2(3)} - 2(m/2)
+\end{eqnarray*}
+Substituting this into the recurrence then gives:
+\begin{eqnarray*}
+	S(m) &\geq& 3(c(m/2)^{\log_2(3)} - 2(m/2)) + m \\
+	 &=& 3c(m/2)^{\log_2(3)} - 3m + m \\
+	 &=& 3c(m^{\log_2(3)}/2^{\log_2(3)}) - 2m \\
+	 &=& 3c(m^{\log_2(3)}/3) - 2m \\
+	 &=& cm^{\log_2(3)} - 2m
+\end{eqnarray*}
+\ldots which proves the Inductive Case.  For the Base Case, assume that $S(1) = 1$ and solve:
+\begin{eqnarray*}
+	S(1) &\geq& c1^{\log_2(3)} - 2(1) \\
+	1 &\geq& c - 2 \\
+	3 &\geq& c
+\end{eqnarray*}
+\ldots which is true for any $c \leq 3$, proving the Base Case and thus showing $S(m) = \Omega(m^{\log_2(3)})$.
+
+Since $S(m)$ is both $O(cm^{\log_2(3)})$ and $\Omega(cm^{\log_2(3)})$ it is therefore $\Theta(cm^{\log_2(3)})$.  Returning to the original recurrence gives the solution $S(m) = \Theta(m^{\log_2(3)}) = \Theta((\log_2(n))^{\log_2(3)})$.
+
+\end{document}
