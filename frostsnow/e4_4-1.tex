@@ -1,0 +1,127 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+\usepackage{forest}
+\usetikzlibrary[intersections]
+\usetikzlibrary[decorations.pathreplacing]
+
+\begin{document}
+
+\section*{Exercise 4.4-1}
+
+In order to generate a recurrence tree, use the simplified equation $3T(n/2) + n$ and assume that $n$ is an exact power of 2.  This gives the recurrence tree:
+\begin{centering}
+\begin{forest}
+[$n$, for tree={s sep=-1mm},name=level1
+	[1/2
+		[1/4,for descendants={edge=dotted}
+			[]
+			[]
+			[]
+		]
+		[1/4,for descendants={edge=dotted}
+			[]
+			[]
+			[]
+		]
+		[1/4,for descendants={edge=dotted}
+			[]
+			[]
+			[]
+		]
+	]
+	[1/2
+		[1/4,for descendants={edge=dotted}
+			[]
+			[]
+			[]
+		]
+		[1/4,for descendants={edge=dotted}
+			[]
+			[]
+			[]
+		]
+		[1/4,for descendants={edge=dotted}
+			[]
+			[]
+			[]
+		]
+	]
+	[1/2,name=level2
+		[1/4,for descendants={edge=dotted}
+			[]
+			[]
+			[]
+		]
+		[1/4,for descendants={edge=dotted}
+			[]
+			[]
+			[]
+		]
+		[1/4,for descendants={edge=dotted},name=level3
+			[]
+			[]
+			[,name=level4]
+		]
+	]
+]
+% Bottom leaves.
+\node(bottombox) at ($(current bounding box.south) - (0, 1)$){};
+\foreach \x in {-3, -2, ..., 0, 2, 3} {
+	\node(leaf\x) at ($(bottombox.west) + (\x, 0)$){$T(1)$};
+	\draw[dotted] (leaf\x) -- +(0, 1);
+}
+\node at ($(bottombox.west) + (1, 0)$){\ldots};
+% Left side arrow thingy.
+\node(leftbox) at ($(current bounding box.west) - (0.75, 0)$){$log_2(n)$};
+\path (current bounding box.north west) -- (current bounding box.north) node(topline){};
+\draw[->] (leftbox) -- (leftbox |- topline);
+\path (current bounding box.south west) -- (current bounding box.south) node(botline){};
+\draw[->] (leftbox) -- (leftbox |- botline);
+% Right side sums.
+\path ($(current bounding box.north east) + (0.5, 0)$) -- ($(current bounding box.south east) + (0.5, 0)$) node(rightline){};
+\draw[-stealth,dotted,thick] (level1) -- (level1 -| rightline) node(l1node){};
+\node at ($(l1node) + (1, 0)$){$n$};
+\draw[-stealth,dotted,thick] (level2) -- (level2 -| rightline) node(l2node){};
+\node at ($(l2node) + (1, 0)$){$\frac{3}{2}n$};
+\draw[-stealth,dotted,thick] (level3) -- (level3 -| rightline) node(l3node){};
+\node at ($(l3node) + (1, 0)$){$\frac{9}{4}n$};
+\path[] (level4) -- (level4 -| rightline) node(l4node){};
+\node at ($(l4node) + (1, 0)$){\vdots};
+\draw[-stealth,dotted,thick] (leaf3) -- (leaf3 -| rightline) node(leafnode){};
+\node (rightleaftotal) at ($(leafnode) + (1, 0)$){$\Theta n^{\log_2 3}$};
+% Bottom brace.
+\draw [decorate,decoration={brace,mirror}] (leaf-3.south west) -- (leaf3.south east) node(leaftotal)[midway,below]{$n^{\log_2(3)}$};
+\end{forest}
+\end{centering} \\
+Summing up the costs of the nodes of the recurrence tree gives:
+\begin{eqnarray*}
+	T(n) &=& n + \frac{3}{2}n + \left(\frac{3}{2}\right)^2n + \cdots + \left(\frac{3}{2}\right)^{\log_2(n) - 1}n + \Theta(n^{\log_2(3)}) \\
+	&=& \sum_{i=0}^{\log_2(n)-1} \left(\frac{3}{2}\right)^in + \Theta(n^{\log_2(3)}) \\
+	&=& \frac{\left(\frac{3}{2}\right)^{\log_2(n)} - 1}{\left(\frac{3}{2}\right) - 1}n + \Theta(n^{\log_2(3)}) \\
+	&=& (2(3/2)^{\log_2(n)} - 2)n + \Theta(n^{\log_2(3)}) \\
+	&=& (2(n)^{\log_2(3/2)} - 2)n + \Theta(n^{\log_2(3)}) \\
+	&=& (2(n)^{\log_2(3) - 1} - 2)n + \Theta(n^{\log_2(3)}) \\
+	&=& 2n(n)^{\log_2(3) - 1} - 2n + \Theta(n^{\log_2(3)}) \\
+	&=& 2n^{\log_2(3)} - 2n + \Theta(n^{\log_2(3)}) \\
+	&=& \Theta(n^{\log_2(3)})
+\end{eqnarray*}
+This gives a guess of $\Theta(n^{\log_2(3)})$.  In order to prove the guess, use the Substitution Method to prove $T(n) \leq cn^{\log_2(3)} - 2n$.  Prove the Inductive Case by assuming $T(n/2) \leq c(n/2)^{\log_2(3)} - n$, substituting this into the recurrence then gives:
+\begin{eqnarray*}
+	T(n) &\leq& 3(c(n/2)^{\log_2(3)} - n) + n \\
+	&=& 3c(n/2)^{\log_2(3)} - 3n + n \\
+	&=& 3c\left(\frac{n^{\log_2(3)}}{2^{\log_2(3)}}\right) - 2n \\
+	&=& 3c\left(\frac{n^{\log_2(3)}}{3}\right) - 2n \\
+	&=& cn^{\log_2(3)} - 2n
+\end{eqnarray*}
+Thus the Inductive Case is proven.  For the Base Case, assume that $T(1) = 1$, then:
+\begin{eqnarray*}
+	1 &\leq& c1^{\log_2(3)} - 2(1) \\
+	1 &\leq& c - 2 \\
+	3 &\leq& c
+\end{eqnarray*}
+Thus the Base Case holds for any $c \geq 3$.
+
+Therefore the recurrence tree's guess of $\Theta(n^{\log_2(3)})$ is verified by the Substitution method.
+
+\end{document}
