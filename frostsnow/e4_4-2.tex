@@ -1,0 +1,69 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+\usepackage{forest}
+\usetikzlibrary[intersections]
+\usetikzlibrary[decorations.pathreplacing]
+
+\begin{document}
+
+\section*{Exercise 4.4-2}
+
+In order to generate a recurrence tree, assume that $n$ is an exact power of 2.  This gives the recurrence tree:
+\begin{center}
+\begin{forest}
+[$n^2$, for tree={s sep=-1mm},name=level1
+	[$\left(\frac{n}{2}\right)^2$,name=level2
+		[$\left(\frac{n}{4}\right)^2$,for descendants={edge=dotted},name=level3
+			[$T(1)$,name=level4]
+		]
+	]
+]
+% Left side arrow thingy.
+\node(leftbox) at ($(current bounding box.west) - (0.75, 0)$){$\lg(n)$};
+\path (current bounding box.north west) -- (current bounding box.north) node(topline){};
+\draw[->] (leftbox) -- (leftbox |- topline);
+\path (current bounding box.south west) -- (current bounding box.south) node(botline){};
+\draw[->] (leftbox) -- (leftbox |- botline);
+% Right side sums.
+\path ($(current bounding box.north east) + (0.5, 0)$) -- ($(current bounding box.south east) + (0.5, 0)$) node(rightline){};
+\draw[-stealth,dotted,thick] (level1) -- (level1 -| rightline) node(l1node){};
+\node at ($(l1node) + (0.7, 0)$){$n^2$};
+\draw[-stealth,dotted,thick] (level2) -- (level2 -| rightline) node(l2node){};
+\node at ($(l2node) + (0.7, 0)$){$\frac{n^2}{4}$};
+\draw[-stealth,dotted,thick] (level3) -- (level3 -| rightline) node(l3node){};
+\node at ($(l3node) + (0.7, 0)$){$\frac{n^2}{16}$};
+\draw[-stealth,dotted,thick] (level4) -- (level4 -| rightline) node(l4node){};
+\node at ($(l4node) + (0.7, 0)$){$\Theta(1)$};
+\end{forest}
+\end{center}
+Which gives the equation:
+\begin{eqnarray*}
+	T(n) &\leq& n^2 + n^2/4 + n^2/16 + \cdots + \Theta(1) \\
+	 &=& \sum^{\lg(n)-1}_{i=0} \frac{n^2}{4^i} + \Theta(1) \\
+	 &=& n^2 \sum^{\lg(n) - 1}_{i=0} \left(\frac{1}{4}\right)^i + \Theta(1)
+\end{eqnarray*}
+Assume the summation is infinite (a reasonable assumption as $n \rightarrow \infty$), then:
+\begin{eqnarray*}
+	T(n) &\leq& n^2 \sum^{\infty}_{i=0} \left(\frac{1}{4}\right)^i + \Theta(1) \\
+	 &=& n^2 \left(\frac{1}{1 - 1/4}\right) + \Theta(1) \\
+	 &=& (4/3)n^2 + \Theta(1) \\
+	 &=& \Theta(n^2)
+\end{eqnarray*}
+This gives the guess $\Theta(n^2)$.  In order to test this guess, use the Substitute Method to show that $T(n) \leq cn^2$; assume that this is true for all $m < n$, in particular for $m = n/2$, then $T(n/2) \leq c(n/2)^2$; substituting this into the recurrence equation then gives:
+\begin{eqnarray*}
+	T(n) &\leq& c(n/2)^2 + n^2 \\
+	 &=& c(n^2/4) + n^2 \\
+	 &\leq& cn^2 \mbox{ for $c \geq 4/3$}
+\end{eqnarray*}
+Thus the Inductive Case is shown.  For the Base Case, assume that $T(1) = 1$, then:
+\begin{eqnarray*}
+	T(1) &\leq& cn^2 \\
+	1 &\leq& c1^2 \\
+	1 &\leq& c
+\end{eqnarray*}
+Which holds for any $c \geq 1$, thus the Base Case is shown.
+
+Therefore the recurrence is $O(n^2)$.
+
+\end{document}
