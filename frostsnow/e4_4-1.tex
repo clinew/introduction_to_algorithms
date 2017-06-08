@@ -1,14 +1,3 @@
-\documentclass{article}
-
-\usepackage{amsmath}
-\usepackage{forest}
-\usetikzlibrary[intersections]
-\usetikzlibrary[decorations.pathreplacing]
-
-\begin{document}
-
-\section*{Exercise 4.4-1}
-
 In order to generate a recurrence tree, use the simplified equation $3T(n/2) + n$ and assume that $n$ is an exact power of 2.  This gives the recurrence tree:
 \begin{centering}
 \begin{forest}
@@ -123,5 +112,3 @@ Thus the Inductive Case is proven.  For the Base Case, assume that $T(1) = 1$, t
 Thus the Base Case holds for any $c \geq 3$.
 
 Therefore the recurrence tree's guess of $\Theta(n^{\log_2(3)})$ is verified by the Substitution method.
-
-\end{document}

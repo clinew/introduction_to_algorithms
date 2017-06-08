@@ -1,11 +1,3 @@
-\documentclass{article}
-
-\usepackage{amsmath}
-
-\begin{document}
-
-\section*{Exercise 4.3-9}
-
 In order to find an asymptotically tight solution for\footnote{This is assuming that the ambiguous ``$\log$'' is supposed to mean ``$\log_2$''} $T(n) = 3T(\sqrt{n}) + \log_2(n)$, use the change of variables:
 \begin{eqnarray*}
 	m = \log_2(n) \text{ , } n = 2^m
@@ -53,5 +45,3 @@ Substituting this into the recurrence then gives:
 \ldots which is true for any $c \leq 3$, proving the Base Case and thus showing $S(m) = \Omega(m^{\log_2(3)})$.
 
 Since $S(m)$ is both $O(cm^{\log_2(3)})$ and $\Omega(cm^{\log_2(3)})$ it is therefore $\Theta(cm^{\log_2(3)})$.  Returning to the original recurrence gives the solution $S(m) = \Theta(m^{\log_2(3)}) = \Theta((\log_2(n))^{\log_2(3)})$.
-
-\end{document}

@@ -1,11 +1,3 @@
-\documentclass{article}
-
-\usepackage{amsmath}
-
-\begin{document}
-
-\section*{Exercise 4.2-6}
-
 In order to multiply a $k n \times n$ matrix by an $n \times k n$ matrix using Strassen's algorithm as a subroutine, note that the matrix product is comprised of submatrices:
 \begin{eqnarray*}
 \left (
@@ -56,5 +48,3 @@ For multiplying an $n \times k n$ matrix by a $k n \times n$ matrix:
 \right )
 \end{eqnarray*}
 Thus only an additional $k$ multiplications are needed, giving a runtime of $\Theta(k n^{\log_2{7}})$.
-
-\end{document}

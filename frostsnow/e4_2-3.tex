@@ -1,11 +1,1 @@
-\documentclass{article}
-
-\usepackage{amsmath}
-
-\begin{document}
-
-\section*{Exercise 4.2-3}
-
 Expand each $n \times n$ matrix intro a matrix of size $N \times N$, where $N$ is a power of $2$ such that $n \leq N < 2n$ and fill the extra entries of the $N \times N$ matirix with zeroes, then run the algorithm as normal, reducing the final product to size $n \times n$ by discarding the extra entries. Since each recursive call still multiplies two $N/2 \times N/2$ matrices, and $N < 2n$, the added size of the zero-padded matrix only contributes at most one extra recursive call and does not affect the overall recurrence of $T(n/2)$, thus the recurrence is still the same and running time is still $\Theta(n^{\log_2 7})$.
-
-\end{document}
