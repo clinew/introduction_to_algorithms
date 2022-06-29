@@ -27,14 +27,15 @@ int main(int argc, char* argv[]) {
 	int min;
 	float left;
 
-	max = 100000;
-	min = 0;
+	max = 1000;
+	min = 1;
 
-	left = 2.0f * log2f(100);
+	left = 100;
 	while ((n = (min + max) / 2) < max) {
 		float right;
 
-		right = ((float)n) / (log2f((float)n));
+		//right = ((float)n) / (log2f((float)n));
+		right = exp2(n) / (n * n);
 
 		if (left < right) {
 			max = n;
@@ -43,6 +44,6 @@ int main(int argc, char* argv[]) {
 		}
 		printf("n: %i, left: %f, right: %f, new max: %i, new min: %i.\n", n, left, right, max, min);
 	}
-	printf("Answer: n <= %i.\n", n);
+	printf("Answer: n = %i.\n", n);
 	return 0;
 }
