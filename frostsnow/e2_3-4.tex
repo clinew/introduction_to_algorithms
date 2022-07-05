@@ -6,7 +6,7 @@
 
 \section*{Exercise 2.3-4}
 
-Let $T(n)$ be the running time on a problem of size $n$. When the problem size is one ($n = 1$), the solution takes a constant amount of time which we write as $\Theta(1)$. The division of the problem then yields $a = 1$ subproblem that is $n - 1$ the size of the original. If it takes $D(n)$ time to divide the problem into subproblems and $C(n)$ time to combine the solution to the subproblem into the solution to the original problem, then the recurrence may be expressed as:
+Let $T(n)$ be the running time on a problem of size $n$. When the problem size is one ($n = 1$), the solution takes a constant amount of time which we write as $\Theta(1)$. The division of the problem then yields a subproblem that is $n - 1$ the size of the original. If it takes $D(n)$ time to divide the problem into subproblems and $C(n)$ time to combine the solution to the subproblem into the solution to the original problem, then the recurrence may be expressed as:
 \begin{equation*}
 	T(n) = \left\{
 	       \begin{array}{ll}
@@ -14,5 +14,19 @@ Let $T(n)$ be the running time on a problem of size $n$. When the problem size i
 		T(n - 1) + D(n) + C(n) & \text{otherwise}.
 	\end{array} \right.
 \end{equation*}
+
+Assuming that solving a problem size of 1 takes $c_1$ time, $D(n)$ takes $c_2$ time, and $C(n)$ takes $c_3 n$ time (where $c_1$, $c_2$ and $c_3$ are all constants), this gives the overall recurrence:
+\begin{eqnarray*}
+	T(n) & = & \left\{
+	       \begin{array}{ll}
+		c_1 & \text{if } n = 1, \\
+		T(n - 1) + c_2 + c_3 n & \text{otherwise}.
+	\end{array} \right. \\
+	 & = & \left\{
+	       \begin{array}{ll}
+		c_1 & \text{if } n = 1, \\
+		T(n - 1) + c_3 n + c_2 & \text{otherwise}.
+	\end{array} \right.
+\end{eqnarray*}
 
 \end{document}
