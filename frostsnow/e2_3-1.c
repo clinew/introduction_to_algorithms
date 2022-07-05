@@ -201,7 +201,7 @@ int main(int argc, char* argv[]) {
 	fprintf(file, "}\n");
 
 	// Close file.
-	close(file);
+	fclose(file);
 
 	// Print and sort doges.
 	/*
