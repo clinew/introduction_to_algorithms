@@ -26,25 +26,19 @@
 		\Theta(n \log_2(\frac{n}{k}))
 	\end{eqnarray*}
 
-	\item[\textbf{\textit{c.}}] Suppose we were to set $k$ such that $k = n$ (thus running the Insertion Sort on the entire array). Then the worst-case run time would be:
+	\item[\textbf{\textit{c.}}] In order to satisfy
 	\begin{eqnarray*}
-		\Theta(nk + n \log_2(\frac{n}{k})) \\
-		\Theta(n^2 + n \log_2(\frac{n}{n})) \\
-		\Theta(n^2 + n \log_2(1)) \\
-		\Theta(n^2)
+		\Theta(n \log_2(n)) & = & \Theta(nk + n \log_2 (\frac{n}{k})) \\
+		 & = & \Theta(nk + n \log_2 (n) - n \log_2 (k))
 	\end{eqnarray*}
-	\ldots which is the worst-case run time of Insertion Sort. Successively dividing this maximum value of $k$ by 2 for each iteration $i$ such that $k = \frac{n}{2^i}$ yields the analysis:
+	the dominant term must be $\leq n \log_2(n)$.  This will be the case so long as $k \leq \log_2(n)$:
 	\begin{eqnarray*}
-		\Theta \left ( n \left ( \frac{n}{2^i} \right ) + n \log_2 \left ( \frac{n}{\frac{n}{2^i}} \right ) \right )
+		\Theta(n \log_2(n)) & = & \Theta(n \log_2(n) + n \log_2(n) + n \log_2 \log_2 (n)) \\
+		 & = & \Theta(n \log_2(n) + n \log_2(n)) \\
+		 & = & \Theta(2n \log_2(n)) \\
+		 & = & \Theta(n \log_2(n))
 	\end{eqnarray*}
-	For low values of $i$ this yields the worst-case run time of Insertion Sort, but using values of $i$ such that $k \rightarrow 1$ yields the analysis:
-	\begin{eqnarray*}
-		\Theta \left ( nk + n \log_2 \left ( \frac{n}{k} \right ) \right ) \\
-		\Theta \left ( n(1) + n \log_2 \left ( \frac{n}{1} \right ) \right ) \\
-		\Theta \left ( n + n \log_2 \left ( n \right ) \right ) \\
-		\Theta \left (n \log_2 \left ( n \right ) \right )
-	\end{eqnarray*}
-	\ldots which is simply the worst-case runtime of merge sort. Thus the largest value of $k$ as a function of $n$ such that the modified algorithm has the same running time as standard merge sort is $k = 1$.
+	Thus the largest value of $k$ as a function of $n$ such that the modified algorithms has the same running time as standard merge sort is $k = 1$.
 
 	\item[\textbf{\textit{d.}}] In practice, we should chose a value of $k$ such that the actual runtime of Insertion Sort on arrays of length $k$ and smaller is less than the runtime of Merge Sort.
 \end{enumerate}
