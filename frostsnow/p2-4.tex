@@ -21,7 +21,7 @@
 		\end{eqnarray*}
 
 	\item[\textbf{\textit{c.}}]
-		They are directly proportional. Each inversion in the array represents a pair that needs to be re-ordered, and, though inversions do not explicitly state the difference in spacing between two numbers, the number of inversions with the same number on the left-hand side ends up expressing this difference.
+		They are directly proportional. Each inversion in the array represents a pair that needs to be re-ordered, though inversions do not explicitly state the difference in spacing between two numbers.
 
 	\item[\textbf{\textit{d.}}] 
 		See \texttt{p2-4.c} for a shoddy implementation of the solution. When merging the arrays, when an element from the right array is added to the array, add the number of items remaining in the left array to the total inversion count. This works because, if the array were perfectly sorted to begin with, each element on the left would be merged before each element on the right; likewise, the number of elements remaining in the left array is the number of inversions created between the element in the right array and the corresponding elements remaining in the left array.
