@@ -30,7 +30,7 @@
 		From the structure of the loop in the pseudocode, we know that at $i-1$:
 		\begin{eqnarray*}
 			y & = & a_i + x \sum_{k=0}^{n-(i+1)} a_{k+i+1} x^k \\
-			& = & a_i + x \left ( a_{i+1} + a_{i+2} + \cdots + a_{n+1} x^{n-i-2} + a_n x^{n-i-1} \right ) \\
+			& = & a_i + x \left ( a_{i+1} + a_{i+2} x + \cdots + a_{n+1} x^{n-i-2} + a_n x^{n-i-1} \right ) \\
 			& = & a_i + a_{i+1} x + a_{i+2} x^2 + \cdots + a_{n-1} x^{n-i-1} + a_n x^{n-1} \\
 			& = & \sum_{k=0}^{n-1} a_{k+i} x^k
 		\end{eqnarray*}
