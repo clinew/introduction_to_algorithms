@@ -6,6 +6,7 @@ double naiveity(double* coefficients, double x, size_t number_count) {
 	int j;
 	double sum;
 
+	sum = 0.0;
 	for (i = 0; i < number_count; i++) {
 		double product;
 
@@ -15,9 +16,8 @@ double naiveity(double* coefficients, double x, size_t number_count) {
 		}
 
 		// Finish calculating the sum.
-		sum += product * x;
+		sum += product * coefficients[i];
 	}
-
 	return sum;
 }
 
