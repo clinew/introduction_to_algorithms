@@ -53,6 +53,8 @@ void inversions_fast(void* array, size_t item_count, size_t item_size, int(*comp
 	if (!array_left || !array_right) {
 		array_left ? free(array_left) : 0;
 		array_right ? free(array_right) : 0;
+		printf("Unable to allocate arrays\n");
+		return;
 	}
 	memcpy(array_left, array, array_left_length * item_size);
 	memcpy(array_right, (void*)(((char*)array) + (array_left_length * item_size)),
@@ -66,7 +68,7 @@ void inversions_fast(void* array, size_t item_count, size_t item_size, int(*comp
 	i = j = merge_index = 0;
 	while (i < array_left_length || j < array_right_length) {
 		if (i >= array_left_length) {
-			(*inversions += (array_left_length - i));
+			//(*inversions += (array_left_length - i));
 			// Merge right item.
 			memcpy((void*)(((char*)array) + (merge_index++ * item_size)),
 			       (void*)(((char*)array_right) + (j++ * item_size)),
