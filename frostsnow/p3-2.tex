@@ -25,16 +25,28 @@ The actual table is below the following enumeration (which shows the work for so
 			n^{\log_2 c} & & c^{\log_2 n} \\
 			n^{\log_2 c} & & n^{\log_2 c}
 		\end{eqnarray*}
+	\item[\textbf{\textit{f.}}]
+		\begin{eqnarray*}
+			\log_2 n^n & = & n \log_2 n \\
+		\end{eqnarray*}
+		As per equation 3.19:
+		\begin{eqnarray*}
+			\log_2 n! & = & \Theta(n \log_2 n)
+		\end{eqnarray*}
+		Thus:
+		\begin{eqnarray*}
+			\log_2 n! & = & \Theta(\log_2 n^n)
+		\end{eqnarray*}
 \end{enumerate}
 
-\noindent\begin{tabular}{c c|c|c|c|c|c|}
-	$A$ & $B$ & $O$ & $o$ & $\Omega$ & $\omega$ & $\Theta$ \\ \hline
-	$\log_2 ^k n$ & $n^\epsilon$ & Yes & Yes & No & No & No \\ \hline
-	$n^k$ & $c^n$ & Yes & Yes & No & No & No \\ \hline
-	$\sqrt{n}$ & $n^{\sin n}$ & No & No & Yes & Yes & No \\ \hline
-	$2^n$ & $2^{n / 2}$ & No & No & Yes & Yes & No \\ \hline
-	$n^{\log_2 c}$ & $c^{\log_2 n}$ & Yes & No & Yes & No & Yes \\ \hline
-	$\log_2 (n!)$ & $\log_2 (n^n)$ & Yes & Yes & No & No & No \\ \hline
+\noindent\begin{tabular}{c|c c|c|c|c|c|c|}
+	 & $A$ & $B$ & $O$ & $o$ & $\Omega$ & $\omega$ & $\Theta$ \\ \hline
+	a. & $\log_2 ^k n$ & $n^\epsilon$ & Yes & Yes & No & No & No \\ \hline
+	b. & $n^k$ & $c^n$ & Yes & Yes & No & No & No \\ \hline
+	c. & $\sqrt{n}$ & $n^{\sin n}$ & No & No & No & No & No \\ \hline
+	d. & $2^n$ & $2^{n / 2}$ & No & No & Yes & Yes & No \\ \hline
+	e. & $n^{\log_2 c}$ & $c^{\log_2 n}$ & Yes & No & Yes & No & Yes \\ \hline
+	f. & $\log_2 (n!)$ & $\log_2 (n^n)$ & Yes & No & Yes & No & Yes \\ \hline
 \end{tabular}
 
 \end{document}
