@@ -130,18 +130,18 @@ However, $2^{n/2}$ cannot be less than $c_2$ for some arbitrarily large value of
 
 Therefore $f(n) \neq \Theta(f(n/2))$ for some arbitrary asymptotically positive $f(n)$.
 
-\noindent\textbf{\textit{h.}} By definition of $\Theta$, $f(n) + o(f(n)) = \Theta(f(n))$ if there exist positive constants $c_0$, $c_1$, and $n_0$ such that:
+\noindent\textbf{\textit{h.}} By definition of $\Theta$, $f(n) + o(f(n)) = \Theta(f(n))$ if there exist positive constants $c_0$, $c_1$, and $n_0$ such that for all $n \geq n_0$:
 \begin{eqnarray*}
 	0 \leq c_0 f(n) \leq f(n) + o(f(n)) \leq c_1 f(n)
 \end{eqnarray*}
-Suppose for the sake of counterexample that $f(n) = n$ and $o(f(n)) = n^2$. Then:
+By definition of $o(f(n))$ for any positive constant $c > 0$, there exists a constant $n_1$ such that for all $n \geq n_1$:
 \begin{eqnarray*}
-	0 \leq c_0 f(n) \leq f(n) + o(f(n)) \leq c_1 f(n) \\
-	0 \leq c_0 n \leq n + n^2 \leq c_1 n \\
-	0 \leq c_0 \leq 1 + n \leq c_1
+	0 \leq g(n) \leq cf(n)
 \end{eqnarray*}
-However, $n + 1$ cannot be less than or equal to some positive constant for arbitrarily large value of $n$.
-
-Therefore, $f(n) + o(f(n)) \neq \Theta(f(n))$.
+Substituting $g(n)$ for $o(f(n))$ gives:
+\begin{eqnarray*}
+	0 \leq c_1 f(n) \leq f(n) + g(n) \leq c_2 f(n)
+\end{eqnarray*}
+Picking $c_1 = 1$ and $c_2 = c + 1$ satisfies this equation; more generally, for any $c_1 \geq 0$, $c_2 \geq c + c_1$ satisfies the equation when $n \geq \text{MAX}(n_0, n_1)$.
 
 \end{document}
