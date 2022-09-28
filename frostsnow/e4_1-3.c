@@ -296,26 +296,23 @@ int maxsubarray_linear(int* array, int array_count,
 
 	// Calculate max subarray.
 	(*out_low) = (*out_high) = i = 0;
-	sum_max = sum_cur = array[0];
-	for (j = 1; j < array_count; j++) {
+	sum_max = INT_MIN;
+	sum_cur = 0;
+	for (j = 0; j < array_count; j++) {
 		// Merge elements.
-		if ((sum_cur += array[j]) < 0) {
-			// New minimum point. Reset current array as it will
-			// not become a larger maximum subarray before the
-			// new one will.
-			i = j + 1;
-			sum_cur = 0;
-			continue;
-		}
-		if (array[j] < 0) {
-			// Negative elements won't increase max subarray.
-			continue;
-		}
+		sum_cur += array[j];
 		if (sum_cur >= sum_max) {
 			// New max-crossing subarray.
 			sum_max = sum_cur;
 			(*out_low) = i;
 			(*out_high) = j;
+		}
+		if (sum_cur < 0) {
+			// New minimum point. Reset current array as it will
+			// not become a larger maximum subarray before the
+			// new one will.
+			i = j + 1;
+			sum_cur = 0;
 		}
 	}
 	return sum_max;
@@ -562,10 +559,10 @@ int main(int argc, char* argv[]) {
 			array[i] = (rand() % 64) - 32;
 		}
 	}
-//	for (i = 0; i < arguments.count; i++) {
-//		printf("%i ", array[i]);
-//	}
-//	printf("\n");
+	for (i = 0; i < arguments.count; i++) {
+		printf("%i ", array[i]);
+	}
+	printf("\n");
 
 	// Start time measurement.
 	if (arguments.time) {
