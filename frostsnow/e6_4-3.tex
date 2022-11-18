@@ -1,11 +1,1 @@
-\documentclass{article}
-
-\usepackage{amsmath}
-
-\begin{document}
-
-\section*{Exercise 6.4-3}
-
 The running time of \texttt{HEAPSORT} on an array of length $n$ is determined from the addition of the running times of one call to \texttt{BUILD-MAX-HEAP} and $n - 1$ calls to \texttt{MAX-HEAPIFY}, the former taking $O(n)$ for one call and the latter taking $O(\log_2(n))$ per call, as previously determined. Having the array $A$ in sorted order at the beginning of the call to \texttt{HEAPSORT} will only affect the running time of the call to \texttt{BUILD-MAX-HEAP}. Since the running time of the call to \texttt{BUILD-MAX-HEAP} is dwarfed by the running time of the $n - 1$ calls to \texttt{MAX-HEAPIFY}, the running time of \texttt{HEAPSORT} is still $O(n \log_2(n))$ whether the array $A$ is sorted in increasing order or decreasing order at the time of the call.
-
-\end{document}

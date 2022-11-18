@@ -1,11 +1,3 @@
-\documentclass{article}
-
-\usepackage{amsmath}
-
-\begin{document}
-
-\section*{Exercise 3.1-6}
-
 By definition of $\Theta$:
 \begin{eqnarray*}
 	\Theta(f(n)) = \{g(n) \text{: there exist positive constants } c_1, c_2, \text{ and } n_0 \text{ such that } \\
@@ -43,4 +35,3 @@ for positive constants $c_1$, $c_2$, and $n_0$. Combining these two equations gi
 which is the definition of $\Theta$ and contradicts the assumption. Thus, if the algorithm is $O(g(n))$ and $\Omega(g(n))$ then the algorithm is also $\Theta(g(n))$.
 
 Therefore, an algorithm is $\Theta(g(n))$ if and only if its worst-case running time is $O(g(n))$ and its best-case running time is $\Omega(g(n))$.
-\end{document}

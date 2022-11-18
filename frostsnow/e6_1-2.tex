@@ -1,11 +1,3 @@
-\documentclass{article}
-
-\usepackage{amsmath}
-
-\begin{document}
-
-\section*{Exercise 6.1-2}
-
 From Exercise 6.1-1, we know that a heap of height $h$ has at minimum $n = 2^h$ and at maximum $n = 2^{h+1} - 1$ elements. Solving for the minimum in terms of $h$ gives:
 \begin{eqnarray*}
 	n & \geq & 2^h \\
@@ -31,5 +23,3 @@ By the definition of Floors and Ceilings, $x - 1 \leq \lfloor x \rfloor \leq x$.
 Combining this equation with the one before it then shows that $h = \lfloor \log_2(n) \rfloor$.
 
 Thus, an $n$-element heap has height $\lfloor \log_2(n) \rfloor$.
-
-\end{document}

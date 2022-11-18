@@ -1,11 +1,3 @@
-\documentclass{article}
-
-\usepackage{amsmath}
-
-\begin{document}
-
-\section*{Exercise 4.3-4}
-
 In order to overcome the difficulty with the boundary condition $T(1) = 1$ for the recurrence $2T\left(\left\lfloor \frac{n}{2} \right\rfloor\right) + n$, use the inductive hypothesis $T(n) \leq cn \log_2(n) + n$ and assume that for all $m < n$, in particular $T\left(\left\lfloor \frac{n}{2} \right\rfloor\right) \leq c \left\lfloor \frac{n}{2} \right\rfloor \log_2 \left(\left\lfloor \frac{n}{2} \right\rfloor\right) + \left\lfloor \frac{n}{2} \right\rfloor$, in which case:
 \begin{eqnarray*}
 	T(n) &\leq& 2c\left\lfloor \frac{n}{2} \right\rfloor \log_2\left(\left\lfloor \frac{n}{2} \right\rfloor\right) + 2\left\lfloor \frac{n}{2} \right\rfloor + n \\
@@ -14,5 +6,3 @@ In order to overcome the difficulty with the boundary condition $T(1) = 1$ for t
 	 &\leq& cn\log_2(n) + n \text{ // for $c \geq 1$}
 \end{eqnarray*}
 Now that the Inductive Case holds, the Base Case is $T(1) = 1 \leq c1\log_2(1) + 1 = 1$, thus the Base Case holds without any difficulties.
-
-\end{document}

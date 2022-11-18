@@ -1,11 +1,1 @@
-\documentclass{article}
-
-\usepackage{amsmath}
-
-\begin{document}
-
-\section*{Exercise 2.3-6}
-
 No. It is true that one could find \textit{where} to place the element in $\log_2(n)$ time rather than $n$ time, but, in order to make room for the new element, each element after the element being inserted must be moved over by one index. Doing a memory copy is infeasible since the source and destination arrays overlap. Therefore, it is not possible to use a binary search to improve the overall worst-case running time of insertion sort to $\Theta(n \log_2(n))$.
-
-\end{document}

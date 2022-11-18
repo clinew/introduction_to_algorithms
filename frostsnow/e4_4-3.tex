@@ -1,0 +1,167 @@
+In order to avoid an infinite loop, assume that the Base Case is $T(5) = 1$, then the recurrence tree for the equation $T(n) = 4T(n/2 + 2) + n$ is: \\
+\newlength{\leafnodelength}
+\settowidth{\leafnodelength}{$\scriptscriptstyle n/4 +$}
+\newsavebox{\leafnode}
+\savebox{\leafnode}{\parbox{\leafnodelength}{$\scriptscriptstyle n/4 +$\vspace{-2mm} \\ $\scriptscriptstyle 1 + 2$}}
+\hspace*{-1in} % Abs value is hacky.
+\begin{forest}
+[$n$, for tree={s sep=-1mm},name=level1
+	[$n/2 + 2$
+		[\usebox{\leafnode},for descendants={edge=dotted}
+			[]
+			[]
+			[]
+			[]
+		][\usebox{\leafnode},for descendants={edge=dotted}
+			[]
+			[]
+			[]
+			[]
+		][\usebox{\leafnode},for descendants={edge=dotted}
+			[]
+			[]
+			[]
+			[]
+		][\usebox{\leafnode},for descendants={edge=dotted}
+			[]
+			[]
+			[]
+			[]
+		]
+	][$n/2 + 2$
+		[\usebox{\leafnode},for descendants={edge=dotted}
+			[]
+			[]
+			[]
+			[]
+		][\usebox{\leafnode},for descendants={edge=dotted}
+			[]
+			[]
+			[]
+			[]
+		][\usebox{\leafnode},for descendants={edge=dotted}
+			[]
+			[]
+			[]
+			[]
+		][\usebox{\leafnode},for descendants={edge=dotted}
+			[]
+			[]
+			[]
+			[]
+		]
+	][$n/2 + 2$
+		[\usebox{\leafnode},for descendants={edge=dotted}
+			[]
+			[]
+			[]
+			[]
+		][\usebox{\leafnode},for descendants={edge=dotted}
+			[]
+			[]
+			[]
+			[]
+		][\usebox{\leafnode},for descendants={edge=dotted}
+			[]
+			[]
+			[]
+			[]
+		][\usebox{\leafnode},for descendants={edge=dotted}
+			[]
+			[]
+			[]
+			[]
+		]
+	][$n/2 + 2$,name=level2
+		[\usebox{\leafnode},for descendants={edge=dotted}
+			[]
+			[]
+			[]
+			[]
+		][\usebox{\leafnode},for descendants={edge=dotted}
+			[]
+			[]
+			[]
+			[]
+		][\usebox{\leafnode},for descendants={edge=dotted}
+			[]
+			[]
+			[]
+			[]
+		][\usebox{\leafnode},for descendants={edge=dotted},name=level3
+			[]
+			[]
+			[]
+			[,name=level4]
+		]
+	]
+]
+% Bottom leaves.
+\node(bottombox) at ($(current bounding box.south) - (0, 1)$){};
+\foreach \x in {-5, -4, ..., 2, 4, 5} {
+	\node(leaf\x) at ($(bottombox.west) + (\x, 0)$){$T(5)$};
+	\draw[dotted] (leaf\x) -- +(0, 1);
+}
+\node at ($(bottombox.west) + (3, 0)$){\ldots};
+% Left side arrow thingy.
+\node(leftbox) at ($(current bounding box.west) - (1, 0)$){$\lg(n - 4)$};
+\path (current bounding box.north west) -- (current bounding box.north) node(topline){};
+\draw[->] (leftbox) -- (leftbox |- topline);
+\path (current bounding box.south west) -- (current bounding box.south) node(botline){};
+\draw[->] (leftbox) -- (leftbox |- botline);
+% Right side sums.
+\path ($(current bounding box.north east) + (0.5, 0)$) -- ($(current bounding box.south east) + (0.5, 0)$) node(rightline){};
+\draw[-stealth,dotted,thick] (level1) -- (level1 -| rightline) node(l1node){};
+\node at ($(l1node) + (1, 0)$){$n$};
+\draw[-stealth,dotted,thick] (level2) -- (level2 -| rightline) node(l2node){};
+\node at ($(l2node) + (1, 0)$){$2n + 8$};
+\draw[-stealth,dotted,thick] (level3) -- (level3 -| rightline) node(l3node){};
+\node at ($(l3node) + (1, 0)$){$4n + 48$};
+\path[] (level4) -- (level4 -| rightline) node(l4node){};
+\node at ($(l4node) + (1, 0)$){\vdots};
+\draw[-stealth,dotted,thick] (leaf5) -- (leaf5 -| rightline) node(leafnode){};
+\node (rightleaftotal) at ($(leafnode) + (1, 0)$){$\Theta(4^{\lg(n-4)})$};
+% Bottom brace.
+\draw [decorate,decoration={brace,mirror}] (leaf-5.south west) -- (leaf5.south east) node(leaftotal)[midway,below]{$4^{\lg(n-4)}$};
+\end{forest} \\
+Totalling up each level of the tree gives:
+\begin{eqnarray*}
+	T(n) & = & n + (2n + 8) + (4n + 48) + \cdots \\
+		& & \mbox{} + \left(2^{\lg(n - 4) - 1}n + 4^{\lg(n - 4) - 1}\sum_{i = 0}^{\lg(n - 4) - 2}(1 / 2)^{i - 1}\right) + 4^{\lg(n - 4)}\Theta(1) \\
+	 & = & n\sum_{i=0}^{\lg(n-4)-1}2^i + \sum_{i=0}^{\lg(n-4)-1}\left(4^i\sum_{j=0}^{i-1}(1/2)^{j-1}\right) + 4^{\lg(n-4)}\Theta(1) \\
+	 &\leq& n\sum_{i=0}^{\lg(n-4)-1}2^i + \sum_{i=0}^{\lg(n-4)-1}4^{i+1} + 4^{\lg(n-4)}\Theta(1) \\
+	 &=& n\sum_{i=0}^{\lg(n-4)-1}2^i + \sum_{i=0}^{\lg(n-4)-1}4^{i+1} + (n-4)^{\lg4}\Theta(1) \\
+	 &\leq& n\sum_{i=0}^{\lg(n)-1}2^i + \sum_{i=0}^{\lg(n)-1}4^{i+1} + n^2\Theta(1) \\
+	 &=& n\sum_{i=0}^{\lg(n)-1}2^i + 4\sum_{i=0}^{\lg(n)-1}4^i + n^2\Theta(1) \\
+	 &=& n\left(\frac{2^{\lg(n)} - 1}{2-1}\right) + 4\left(\frac{4^{\lg(n)} - 1}{4 - 1}\right) + n^2\Theta(1) \\
+	 &=& n2^{\lg(n)} - n + (4/3)4^{\lg(n)} - (4/3) + n^2\Theta(1) \\
+	 &=& nn^{\lg(2)} - n + (4/3)n^{\lg(4)} - (4/3) + n^2\Theta(1) \\
+	 &=& n^2 - n + (4/3)n^2 - (4/3) + n^2\Theta(1) \\
+	 &=& \Theta(n^2)
+\end{eqnarray*}
+This gives a guess of $\Theta(n^2)$.  In order to prove the guess, use the Substitution Method to prove $T(n) \leq cn^2 - 9cn$.  Assume that $T(n/2 + 2) \leq c(n/2 + 2)^2 - 9c(n/2 + 2)$, substituing into the recurrence then gives:
+\begin{eqnarray*}
+	T(n) &\leq& 4T(n/2 + 2) + n \\
+	 &=& 4(c(n/2 + 2)^2 - 9c(n/2 + 2)) + n \\
+	 &=& cn^2 + 8cn + 16c - 18cn - 72c + n \\
+	 &=& cn^2 - 10cn - 56c + n \\
+	 &\leq& cn^2 - 10cn + n \text{ // for } c \geq 1 \text{ \ldots} \\
+	 &\leq& cn^2 - 9cn
+\end{eqnarray*}
+Thus the Inductive Case is proven.  For the Base Case, since it has already been assumed that $T(5) = 1$, it follows that:
+\begin{eqnarray*}
+	T(5) = 1 &\leq& cn^2 - 9cn \\
+	 &\leq& c5^2 - 9c5 \\
+	 &=& 25c - 45c \\
+	 &=& -20c
+\end{eqnarray*}
+\ldots which doesn't work.  Using larger values of $n$ gives:
+\begin{eqnarray*}
+	T(6) = 4T(5) + 6 = 10 &\leq c6^2 - 9c6 = c36 - 54c &= -18c \\
+	T(8) = 4T(6) + 8 = 48 &\leq c8^2 - 9c8 = 64c -72c &= -8c \\
+	T(12) = 4T(8) + 12 = 204 &\leq c12^2 - 9c12 = 144c - 108c &= 36c\\
+	T(20) = 4T(12) + 20 = 836 &\leq c20^2 - 9c20 = 400c - 180c &= 220c
+\end{eqnarray*}
+Assuming $c \geq 6.\overline{1}$, the Base Case is then proven for cases $T(12)$ through $T(20)$, thus the Base Case holds.
+
+Therefore, the recurrence $4T(n/2 + 2) + n$ is $\Theta(n^2)$.

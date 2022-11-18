@@ -1,11 +1,3 @@
-\documentclass{article}
-
-\usepackage{amsmath}
-
-\begin{document}
-
-\section*{Exercise 4.3-2}
-
 In order to prove that $T(n) = T(\lceil \frac{n}{2} \rceil) + 1$ is $O(\log_2(n))$, use the Substitution Method by trying to prove that $T(n) \leq c \log_2(n)$ for an appropriate constant $c > 0$.
 Assume that this bound holds for all $m < n$, in particular for $m = \lceil \frac{n}{2} \rceil$, in which case:
 \begin{eqnarray*}
@@ -28,5 +20,3 @@ Next, a constant $c$ must be found such that $T(3) \leq c \log_2(3)$ and $T(4) \
 Since the constant $c \geq 2$ from the inductive case satisfies these equations, the base cases holds.
 
 Therefore, $T(n) = O(\log_2(n))$.
-
-\end{document}
