@@ -1,9 +1,151 @@
-In order to avoid an infinite loop, assume that the Base Case is $T(5) = 1$, then the recurrence tree for the equation $T(n) = 4T(n/2 + 2) + n$ is: \\
+% Base Case of T(8) == 8 rather than T(5) = 1
+
+No base case for the recurrence was provided, but the recurrence will enter an infinite loop if it tries to converge on $T(4)$, so a base case of $T(8) = 8$ has been assumed.  This gives the recurrence tree:
+% unannotated recurrence tree
 \newlength{\leafnodelength}
 \settowidth{\leafnodelength}{$\scriptscriptstyle n/4 +$}
 \newsavebox{\leafnode}
 \savebox{\leafnode}{\parbox{\leafnodelength}{$\scriptscriptstyle n/4 +$\vspace{-2mm} \\ $\scriptscriptstyle 1 + 2$}}
-\hspace*{-1in} % Abs value is hacky.
+\begin{center}
+\begin{forest}
+[$n$, for tree={s sep=-1mm},name=level1
+	[$n/2 + 2$
+		[\usebox{\leafnode},for descendants={edge=dotted}
+			[]
+			[]
+			[]
+			[]
+		][\usebox{\leafnode},for descendants={edge=dotted}
+			[]
+			[]
+			[]
+			[]
+		][\usebox{\leafnode},for descendants={edge=dotted}
+			[]
+			[]
+			[]
+			[]
+		][\usebox{\leafnode},for descendants={edge=dotted}
+			[]
+			[]
+			[]
+			[]
+		]
+	][$n/2 + 2$
+		[\usebox{\leafnode},for descendants={edge=dotted}
+			[]
+			[]
+			[]
+			[]
+		][\usebox{\leafnode},for descendants={edge=dotted}
+			[]
+			[]
+			[]
+			[]
+		][\usebox{\leafnode},for descendants={edge=dotted}
+			[]
+			[]
+			[]
+			[]
+		][\usebox{\leafnode},for descendants={edge=dotted}
+			[]
+			[]
+			[]
+			[]
+		]
+	][$n/2 + 2$
+		[\usebox{\leafnode},for descendants={edge=dotted}
+			[]
+			[]
+			[]
+			[]
+		][\usebox{\leafnode},for descendants={edge=dotted}
+			[]
+			[]
+			[]
+			[]
+		][\usebox{\leafnode},for descendants={edge=dotted}
+			[]
+			[]
+			[]
+			[]
+		][\usebox{\leafnode},for descendants={edge=dotted}
+			[]
+			[]
+			[]
+			[]
+		]
+	][$n/2 + 2$,name=level2
+		[\usebox{\leafnode},for descendants={edge=dotted}
+			[]
+			[]
+			[]
+			[]
+		][\usebox{\leafnode},for descendants={edge=dotted}
+			[]
+			[]
+			[]
+			[]
+		][\usebox{\leafnode},for descendants={edge=dotted}
+			[]
+			[]
+			[]
+			[]
+		][\usebox{\leafnode},for descendants={edge=dotted},name=level3
+			[]
+			[]
+			[]
+			[,name=level4]
+		]
+	]
+]
+\end{forest}
+\end{center}
+In order to determine the value of a node at a given height, assume an arbitrarily large $n$ and then apply the recurrence to it:
+\begin{eqnarray*}
+	\frac{\frac{n}{2} + 2}{2} + 2 & = & \frac{n}{4} + 1 + 2 = \frac{n}{4} + 3 \\
+	\frac{\frac{n}{4} + 3}{2} + 2 & = & \frac{n}{8} + 1.5 + 2 = \frac{n}{8} + 3.5 \\
+	\frac{\frac{n}{8} + 3.5}{2} + 2 & = & \frac{n}{16} + 1.75 + 2 = \frac{n}{16} + 3.75
+\end{eqnarray*}
+From this can be derived the formula for the value of a node at a given height $i$:
+\begin{eqnarray*}
+	\frac{n}{2^i} + 4 \sum^i_{x=1} \frac{1}{2^i}
+\end{eqnarray*}
+% level i total
+Since a level at height $i$ will have $4^i$ total nodes, the total values of all the nodes at height $i$ is:
+\begin{eqnarray*}
+	4^i \left ( \frac{n}{2^i} + 4 \sum^i_{x=1} \frac{1}{2^i} \right ) & = & \frac{4^i n}{2^i} + 4^i 4 \sum^i_{x=1} \frac{1}{2^i} \\
+	& = & \frac{4^i n}{2^i} + 4^i \cdot 4 \left ( -2 \left ( \frac{1}{2} \right )^{i+1} + 1 \right ) \\
+	& = & 2^i n + 4^i \left ( -8 \left ( \frac{1}{2} \right )^{i+1} + 4 \right ) \\
+	& = & 2^i n - 8 \cdot 4^i \left ( \frac{1}{2} \right )^{i+1} + 4 \cdot 4^i \\
+	& = & 2^i n - 4 \cdot 2^i + 4 \cdot 4^i  \\
+	& = & 2^i n + 4 \left (4^i - 2^i \right )
+\end{eqnarray*}
+% total tree height
+Playing around with tree height given the base case of $n=8$ for the recurrence gives:
+\begin{center}
+\begin{tabular}{c|c}
+	$n$ & $i$ \\
+	8 & 0 \\
+	12 & 1 \\
+	20 & 2 \\
+	36 & 3
+\end{tabular}
+\end{center}
+From which can be derived the total height of the tree: $\log_2(n-4) - 2$.  The total for the leaves of the tree can then be calculated:
+\begin{eqnarray*}
+	n2^{\log_2(n-4)-2} + 4 \left ( 4^{\log_2(n-4)-2} - 2^{\log_2(n-4)-2} \right ) \\
+	\frac{n 2^{\log_2(n-4)}}{4} + 4 \left ( \frac{4^{\log_2(n-4)}}{16} - \frac{2^{\log_2(n-4)}}{4} \right ) \\
+	\frac{n(n-4)}{4} + 4 \left ( \frac{(n-4)^2}{16} - \frac{(n-4)}{4} \right ) \\
+	\frac{n^2 -4n}{4} + 4 \left ( \frac{n^2 - 8n + 16}{16} - \frac{(n-4)}{4} \right ) \\
+	\frac{n^2}{4} - n + \frac{n^2}{4} - 2n + 4 - n + 4 \\
+	\frac{n^2}{2} - 4n + 8
+\end{eqnarray*}
+Using this data to properly annotate the recurrence tree gives:
+\begin{center}
+\settowidth{\leafnodelength}{$\scriptscriptstyle n/4 +$}
+\savebox{\leafnode}{\parbox{\leafnodelength}{$\scriptscriptstyle n/4 +$\vspace{-2mm} \\ $\scriptscriptstyle 1 + 2$}}
+\hspace*{-0.75in} % Push to the left a bit.
 \begin{forest}
 [$n$, for tree={s sep=-1mm},name=level1
 	[$n/2 + 2$
@@ -99,12 +241,12 @@ In order to avoid an infinite loop, assume that the Base Case is $T(5) = 1$, the
 % Bottom leaves.
 \node(bottombox) at ($(current bounding box.south) - (0, 1)$){};
 \foreach \x in {-5, -4, ..., 2, 4, 5} {
-	\node(leaf\x) at ($(bottombox.west) + (\x, 0)$){$T(5)$};
+	\node(leaf\x) at ($(bottombox.west) + (\x, 0)$){$T(8)$};
 	\draw[dotted] (leaf\x) -- +(0, 1);
 }
 \node at ($(bottombox.west) + (3, 0)$){\ldots};
 % Left side arrow thingy.
-\node(leftbox) at ($(current bounding box.west) - (1, 0)$){$\lg(n - 4)$};
+\node(leftbox) at ($(current bounding box.west) - (1.25, 0)$){$\log_2(n - 4) - 2$};
 \path (current bounding box.north west) -- (current bounding box.north) node(topline){};
 \draw[->] (leftbox) -- (leftbox |- topline);
 \path (current bounding box.south west) -- (current bounding box.south) node(botline){};
@@ -120,48 +262,43 @@ In order to avoid an infinite loop, assume that the Base Case is $T(5) = 1$, the
 \path[] (level4) -- (level4 -| rightline) node(l4node){};
 \node at ($(l4node) + (1, 0)$){\vdots};
 \draw[-stealth,dotted,thick] (leaf5) -- (leaf5 -| rightline) node(leafnode){};
-\node (rightleaftotal) at ($(leafnode) + (1, 0)$){$\Theta(4^{\lg(n-4)})$};
-% Bottom brace.
-\draw [decorate,decoration={brace,mirror}] (leaf-5.south west) -- (leaf5.south east) node(leaftotal)[midway,below]{$4^{\lg(n-4)}$};
-\end{forest} \\
-Totalling up each level of the tree gives:
+\node (rightleaftotal) at ($(leafnode) + (1, 0)$){$\frac{n^2}{2} - 4n + 8$};
+\end{forest}
+\end{center}
+Summing up the total for all levels gives:
 \begin{eqnarray*}
-	T(n) & = & n + (2n + 8) + (4n + 48) + \cdots \\
-		& & \mbox{} + \left(2^{\lg(n - 4) - 1}n + 4^{\lg(n - 4) - 1}\sum_{i = 0}^{\lg(n - 4) - 2}(1 / 2)^{i - 1}\right) + 4^{\lg(n - 4)}\Theta(1) \\
-	 & = & n\sum_{i=0}^{\lg(n-4)-1}2^i + \sum_{i=0}^{\lg(n-4)-1}\left(4^i\sum_{j=0}^{i-1}(1/2)^{j-1}\right) + 4^{\lg(n-4)}\Theta(1) \\
-	 &\leq& n\sum_{i=0}^{\lg(n-4)-1}2^i + \sum_{i=0}^{\lg(n-4)-1}4^{i+1} + 4^{\lg(n-4)}\Theta(1) \\
-	 &=& n\sum_{i=0}^{\lg(n-4)-1}2^i + \sum_{i=0}^{\lg(n-4)-1}4^{i+1} + (n-4)^{\lg4}\Theta(1) \\
-	 &\leq& n\sum_{i=0}^{\lg(n)-1}2^i + \sum_{i=0}^{\lg(n)-1}4^{i+1} + n^2\Theta(1) \\
-	 &=& n\sum_{i=0}^{\lg(n)-1}2^i + 4\sum_{i=0}^{\lg(n)-1}4^i + n^2\Theta(1) \\
-	 &=& n\left(\frac{2^{\lg(n)} - 1}{2-1}\right) + 4\left(\frac{4^{\lg(n)} - 1}{4 - 1}\right) + n^2\Theta(1) \\
-	 &=& n2^{\lg(n)} - n + (4/3)4^{\lg(n)} - (4/3) + n^2\Theta(1) \\
-	 &=& nn^{\lg(2)} - n + (4/3)n^{\lg(4)} - (4/3) + n^2\Theta(1) \\
-	 &=& n^2 - n + (4/3)n^2 - (4/3) + n^2\Theta(1) \\
-	 &=& \Theta(n^2)
+	\hspace*{-1in} % Push to the left a bit.
+	\sum_{i=0}^{\log_2(n-4)-2} \left ( 2^i n + 4 \left ( 4^i - 2^i \right ) \right ) & = & n \sum_{i=0}^{\log_2(n-4)-2} 2^i + 4 \sum_{i=0}^{\log_2(n-4)-2} 4^i - 4 \sum_{i=0}^{\log_2(n-4)-2} 2^i \\
+	& = & n \left ( \frac{2^{\log_2(n-4)-1} - 1}{1} \right ) + 4 \left ( \frac{4^{\log_2(n-4)-1} - 1}{3} \right ) - 4 \left ( \frac{2^{\log_2(n-4)-1} - 1}{1} \right ) \\
+	& = & n 2^{\log_2(n-4)-1} - n + \frac{4 \cdot 4^{\log_2(n-4)-1}}{3} - \frac{4}{3} - 4 \cdot 2^{\log_2(n-4)-1} + 4 \\
+	& = & \frac{n 2^{\log_2(n-4)}}{2} - n + \frac{4^{\log_2(n-4)}}{3} - \frac{4}{3} - 2 \cdot 2^{\log_2(n-4)} + 4 \\
+	& = & \frac{n(n-4)}{2} - n + \frac{(n-4)^2}{3} - \frac{4}{3} - 2(n-4) + 4 \\
+	& = & \frac{n^2}{2} - 2n - n + \frac{n^2}{3} - \frac{8n}{3} + \frac{16}{3} - \frac{4}{3} - 2n + 8 + 4 \\
+	& = & \frac{5n^2}{6} - \frac{23n}{3} + 16
 \end{eqnarray*}
-This gives a guess of $\Theta(n^2)$.  In order to prove the guess, use the Substitution Method to prove $T(n) \leq cn^2 - 9cn$.  Assume that $T(n/2 + 2) \leq c(n/2 + 2)^2 - 9c(n/2 + 2)$, substituing into the recurrence then gives:
+% Prove inductive case
+This gives a guess of $O(n^2)$.  In order to verify, use the Substitution Method to show that $T(n) \leq cn^2 - 8cn -n$; assume that this is true for all $m < n$, in particular for $m = \frac{n}{2} + 2$, then $T(\frac{n}{2} + 2) \leq c(\frac{n}{2} + 2)^2 - 8c(\frac{n}{2} + 2) - (\frac{n}{2} + 2)$; substituting this into the recurrence equation then gives:
 \begin{eqnarray*}
-	T(n) &\leq& 4T(n/2 + 2) + n \\
-	 &=& 4(c(n/2 + 2)^2 - 9c(n/2 + 2)) + n \\
-	 &=& cn^2 + 8cn + 16c - 18cn - 72c + n \\
-	 &=& cn^2 - 10cn - 56c + n \\
-	 &\leq& cn^2 - 10cn + n \text{ // for } c \geq 1 \text{ \ldots} \\
-	 &\leq& cn^2 - 9cn
+	T(n) & \leq & 4 \left ( c \left ( \frac{n}{2} + 2 \right )^2 - 8c \left ( \frac{n}{2} + 2 \right ) - \left ( \frac{n}{2} + 2 \right ) \right ) + n \\
+	& = & 4 \left ( \frac{cn^2}{4} + 2cn + 4c - 4cn - 16c - \frac{n}{2} - 2 \right ) + n \\
+	& = & 4 \left ( \frac{cn^2}{4} - 2cn - 12c - \frac{n}{2} - 2 \right ) + n \\
+	& = & cn^2 - 8cn - n - 48c - 8 \\
+	& \leq & cn^2 - 8cn - n
 \end{eqnarray*}
-Thus the Inductive Case is proven.  For the Base Case, since it has already been assumed that $T(5) = 1$, it follows that:
+Thus the Inductive Case is proven.  For the Base Case, note that the recurrence doesn't have a clear definition when $n$ has a fractional part.  One can use the above total for all levels for $8 < n < 12$ to compensate for this, but this proof will ignore those subtleties and focus on whole values.  Trying to prove the Base Case for $T(8) = 8$ gives:
 \begin{eqnarray*}
-	T(5) = 1 &\leq& cn^2 - 9cn \\
-	 &\leq& c5^2 - 9c5 \\
-	 &=& 25c - 45c \\
-	 &=& -20c
+	T(8) & \leq & cn^2 - 8cn - n \\
+	8 & \leq & c8^2 - 8c(8) - 8 \\
+	8 & \leq & 64c - 64c - 8 \\
+	8 & \leq & -8
 \end{eqnarray*}
-\ldots which doesn't work.  Using larger values of $n$ gives:
+\ldots which is clearly false for any value of $c$.  Using the larger values of $n = 12$ and $n = 20$ for the base cases of the inductive proof gives:
 \begin{eqnarray*}
-	T(6) = 4T(5) + 6 = 10 &\leq c6^2 - 9c6 = c36 - 54c &= -18c \\
-	T(8) = 4T(6) + 8 = 48 &\leq c8^2 - 9c8 = 64c -72c &= -8c \\
-	T(12) = 4T(8) + 12 = 204 &\leq c12^2 - 9c12 = 144c - 108c &= 36c\\
-	T(20) = 4T(12) + 20 = 836 &\leq c20^2 - 9c20 = 400c - 180c &= 220c
+	T(12) & \leq & c(12)^2 - 8c(12) - 12 \\
+	44 & \leq & 48c - 12 \\
+	T(20) & \leq & c(20)^2 - 8c(20) - 20 \\
+	196 & \leq & 240c - 20
 \end{eqnarray*}
-Assuming $c \geq 6.\overline{1}$, the Base Case is then proven for cases $T(12)$ through $T(20)$, thus the Base Case holds.
+Where the base case for $n = 12$ holds for $c \geq 1 \frac{1}{6}$ and the base case for $n = 20$ holds for $c \geq \frac{9}{10}$.  Thus for any values $c \geq 1 \frac{1}{6}$ the base cases hold.
 
-Therefore, the recurrence $4T(n/2 + 2) + n$ is $\Theta(n^2)$.
+Therefore the recurrence is $O(n^2)$.
