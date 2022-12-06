@@ -1,0 +1,74 @@
+Assume a base case of $T(1) = 1$.  The recurrence tree is then:
+\begin{center}
+\begin{forest}
+[$1$,name=level1
+	[$1$
+		[$1$,for descendants={edge=dotted}
+			[]
+			[]
+			[]
+			[]
+		][$1$,for descendants={edge=dotted}
+			[]
+			[]
+			[]
+			[]
+		]
+	][$1$,name=level2
+		[$1$,for descendants={edge=dotted}
+			[]
+			[]
+			[]
+			[]
+		][$1$,for descendants={edge=dotted}, name=level3
+			[]
+			[]
+			[]
+			[]
+		]
+	]
+]
+% Bottom leaves.
+\node(bottombox) at ($(current bounding box.south) - (0, 1)$){};
+\foreach \x in {-4, -3, ..., 1, 2, 4} {
+	\node(leaf\x) at ($(bottombox.west) + (\x, 0)$){$1$};
+	\draw[dotted] (leaf\x) -- +(0, 1);
+}
+\node at ($(bottombox.west) + (3, 0)$){\ldots};
+% Left side arrow thingy.
+\node(leftbox) at ($(current bounding box.west) - (1.25, 0)$){$n$};
+\path (current bounding box.north west) -- (current bounding box.north) node(topline){};
+\draw[->] (leftbox) -- (leftbox |- topline);
+\path (current bounding box.south west) -- (current bounding box.south) node(botline){};
+\draw[->] (leftbox) -- (leftbox |- botline);
+% Right side sums.
+\path ($(current bounding box.north east) + (0.5, 0)$) -- ($(current bounding box.south east) + (0.5, 0)$) node(rightline){};
+\draw[-stealth,dotted,thick] (level1) -- (level1 -| rightline) node(l1node){};
+\node at ($(l1node) + (1, 0)$){$1$};
+\draw[-stealth,dotted,thick] (level2) -- (level2 -| rightline) node(l2node){};
+\node at ($(l2node) + (1, 0)$){$2$};
+\draw[-stealth,dotted,thick] (level3) -- (level3 -| rightline) node(l3node){};
+\node at ($(l3node) + (1, 0)$){$4$};
+\path[] (level4) -- (level4 -| rightline) node(l4node){};
+\node at ($(l4node) + (1, 0)$){\vdots};
+\draw[-stealth,dotted,thick] (leaf4) -- (leaf4 -| rightline) node(leafnode){};
+\node (rightleaftotal) at ($(leafnode) + (1, 0)$){$2^{n-1}$};
+\end{forest}
+\end{center}
+It should be apparent from the recurrence tree that the total cost of a level at height $i$ is $2^i$.  Summing up the total cost of all levels gives:
+\begin{eqnarray*}
+	\sum_{i=0}^{n-1} 2^i & = & \frac{2^n - 1}{2 - 1} \\
+	& = & 2^n - 1
+\end{eqnarray*}
+This gives a guess of $O(2^n)$.  In order to verify, use the Substitution Method to show that $T(n) \leq n^2 - 1$; assume that this is true for all $m < n$, in particular for $m = n - 1$, then $T(n-1) \leq 2^{n-1} - 1$; substituting this into the recurrence equation gives:
+\begin{eqnarray*}
+	T(n) & \leq & 2(2^{n-1} - 1) + 1 \\
+	& = & 2^n - 2 + 1 \\
+	& = & 2^n - 1
+\end{eqnarray*}
+Thus the inductive case holds.  For the base case:
+\begin{eqnarray*}
+	T(1) & \leq & 2^1 - 1 \\
+	& = & 1
+\end{eqnarray*}
+Thus the base case holds.  Therefore the recurrence is $O(2^n)$.
