@@ -1,12 +1,3 @@
-\documentclass{article}
-
-\usepackage{amsmath}
-\usepackage[usenames,dvipsnames]{color}
-
-\begin{document}
-
-\section*{Problem 3-5}
-
 \noindent\textbf{\textit{a.}} The best solution I've managed to find for this problem is a proof by parts. The question makes the most sense with regards to ``multi-way'' functions, for example:
 \begin{eqnarray*}
 	f(n) =
@@ -61,4 +52,3 @@ However, using the previous definition of $f(n) = \Theta(g(n))$, now assume that
 Therefore, Theorum 3.1 becomes, ``for any two functions, $f(n)$ and $g(n)$, if $f(n) = O'(g(n))$ and $f(n) = \Omega(g(n))$ then $f(n) = \Theta(g(n))$.'' The two expression are not, however, equivalent.
 
 \noindent\textbf{\textit{d.}} Begin by writing out the definitions. First, $f(n) = \overset{\small\sim}{\Omega}(g(n))$ if there exist positive constants $c_0$, $k_0$, and $n_0$ such that $0 \leq c_0 g(n) \log_2^{k_0}(n) \leq f(n)$ for all $n \geq n_0$. Second, $f(n) = \overset{\small\sim}{O}(g(n))$ if there exist positive constants $c_1$, $k_1$, and $n_1$ such that $0 \leq f(n) \leq c_1 g(n) \log_2^{k_1}(n)$ for all $n \geq n_1$. Last, $f(n) = \overset{\small\sim}{\Theta}(g(n))$ if there exist positive constants $c_2$, $k_2$, $c_3$, $k_3$, and $n_2$ such that $0 \leq c_2 g(n) \log_2^{k_2}(n) \leq f(n) \leq c_3 g(n) \log_2^{k_3}(n)$ for all $n \geq n_2$. Next, begin the Proof of Equivalence by assuming that $f(n) = \overset{\small\sim}{\Theta}(g(n))$. Then let $c_0 = c_2$, $k_0 = k_2$, and $n_0 = n_2$, at which point $f(n) = \overset{\small\sim}{\Omega}(g(n))$. Likewise, let $c_1 = c_3$, $k_1 = k_3$, and $n_1 = n_3$, at which point $f(n) = \overset{\small\sim}{O}(g(n))$. Thus $f(n) = \overset{\small\sim}{\Theta}(g(n))$ implies $f(n) = \overset{\small\sim}{O}(g(n))$ and $f(n) = \overset{\small\sim}{\Omega}(g(n))$. Finally, finish the Proof of Equivalence by assuming that $f(n) = \overset{\small\sim}{O}(g(n))$ and $f(n) = \overset{\small\sim}{\Omega}(g(n))$. Then $0 \leq c_0 g(n) \log_2^{k_0}(n) \leq f(n) \leq c_1 g(n) \log_2^{k_1}(n)$ for all $n \geq \max(n_0, n_1)$. Letting $c_2 = c_0$, $k_2 = k_0$, $c_3 = c_1$, $k_3 = k_1$, and $n_2 = \max(n_0, n_1)$ thus shows that $f(n) = \overset{\small\sim}{O}(g(n))$ and $f(n) = \overset{\small\sim}{\Omega}(g(n))$ implies that $f(n) = \overset{\small\sim}{\Theta}(g(n))$. Therefore, $f(n) = \overset{\small\sim}{\Theta}(g(n))$ if and only if $f(n) = \overset{\small\sim}{O}(g(n))$ and $f(n) = \overset{\small\sim}{\Omega}(g(n))$.
-\end{document}

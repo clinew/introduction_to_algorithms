@@ -1,13 +1,12 @@
 \documentclass{book}
 
 \usepackage{amsmath}
+\usepackage[usenames,dvipsnames]{color}
 \usepackage{forest}
 \usepackage{graphicx}
 \usepackage{longtable}
 \usetikzlibrary[intersections]
 \usetikzlibrary[decorations.pathreplacing]
-
-\renewcommand{\thesubsection}{Exercise \thesection-\arabic{subsection}}
 
 \begin{document}
 
@@ -18,5 +17,8 @@
 
 \setcounter{chapter}{5}
 \include{chapter06}
+
+\appendix
+\include{appendixa}
 
 \end{document}

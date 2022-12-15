@@ -1,11 +1,3 @@
-\documentclass{article}
-
-\usepackage{amsmath}
-
-\begin{document}
-
-\section*{Problem 2-1}
-
 \noindent\begin{enumerate}
 	\item[\textbf{\textit{a.}}] Each insertion sort on a sublist of length $k$ will take $\Theta(k^2)$ time. There are $\frac{n}{k}$ sublists. Multiplying the amount of time it takes to sort each sublist by the number of sublists gives:
 	\begin{eqnarray*}
@@ -42,5 +34,3 @@
 
 	\item[\textbf{\textit{d.}}] In practice, we should chose a value of $k$ such that the actual runtime of Insertion Sort on arrays of length $k$ and smaller is less than the runtime of Merge Sort.
 \end{enumerate}
-
-\end{document}

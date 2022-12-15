@@ -16,6 +16,8 @@ solutions += e3_1-1 e3_1-3 e3_1-4 e3_1-6 e3_2-1 e3_2-2 e3_2-6 e3_2-7 p3-1 p3-2 p
 solutions += e4_1-1 e4_1-2 e4_1-3 e4_1-4 e4_1-5 e4_2-1 e4_2-2 e4_2-3 e4_2-4 e4_2-5 e4_2-6 e4_2-7 e4_3-1 e4_3-2 e4_3-3 e4_3-4 e4_3-5 e4_3-6 e4_3-7 e4_3-8 e4_3-9 e4_4-1 e4_4-2 e4_4-3 e4_4-4
 solutions += e6_1-1 e6_1-2 e6_1-3 e6_1-4 e6_1-5 e6_1-6 e6_1-7 e6_2-1 e6_2-2 e6_2-3 e6_2-4 e6_2-5 e6_2-6 e6_3-1 e6_3-2 e6_3-3 e6_4-1 e6_4-2 e6_4-3
 solutions += ea_1-1 ea_1-2 ea_1-3 ea_1-7
+appendices = appendixa
+chapters = chapter01 chapter02 chapter03 chapter04 chapter06
 texs = all.tex
 pdfs = all.pdf
 dvis = all.dvi
@@ -44,7 +46,7 @@ ${pss}: %.ps: %.dvi
 	dvips -R -Poutline $< -o $@
 
 # Compile the DVIs.
-${dvis}: %.dvi: %.tex ${solutions:=.tex}
+${dvis}: %.dvi: %.tex ${solutions:=.tex} ${chapters:=.tex} ${appendices:=.tex}
 	latex $<
 	latex $<
 

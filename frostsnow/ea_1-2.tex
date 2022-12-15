@@ -1,11 +1,3 @@
-\documentclass{article}
-
-\usepackage{amsmath}
-
-\begin{document}
-
-\section*{Exercise A.1-2}
-
 The \textit{closest} I've been able to come to showing that the summation is $ln(\sqrt{n}) + O(1)$ is to approximate the summation via integrals. Since the equation is monotonically decreasing, the summation is bounded via:
 \begin{eqnarray*}
 	\int_m^{n+1} f(x)dx \leq \sum_{k=m}^n f(k) \leq \int_{m-1}^n f(x)dx
@@ -35,6 +27,3 @@ This would perfectly match the desired answer without the addition of the positi
 	& = & \ln(\sqrt{n}) + O(1)
 \end{eqnarray*}
 Alas, that is not the case, and I am not currently aware of how to simplify further.
-	
-
-\end{document}
