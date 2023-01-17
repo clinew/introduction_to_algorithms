@@ -1,0 +1,96 @@
+Assume a base case of $T(1) = 1$.  The recurrence tree then looks something like:
+
+\begin{center}
+\begin{forest}
+[$n$,
+	[$n-1$
+		[$n-2$
+			[$n-3$,for descendants={edge=dotted}
+				[]
+				[]
+			]
+			[$\frac{n-2}{2}$,for descendants={edge=dotted}
+				[]
+				[]
+			]
+		]
+		[$\frac{n-1}{2}$
+			[$\frac{n-1}{2}-1$,for descendants={edge=dotted}
+				[]
+				[]
+			]
+			[$\frac{n-1}{4}$,for descendants={edge=dotted}
+				[]
+				[]
+			]
+		]
+	][$\frac{n}{2}$
+		[$\frac{n}{2}-1$
+			[$\frac{n}{2}-2$,for descendants={edge=dotted}
+				[]
+				[]
+			]
+			[$\frac{\frac{n}{2}-1}{2}$,for descendants={edge=dotted}
+				[]
+				[]
+			]
+		]
+		[$\frac{n}{4}$
+			[$\frac{n}{4}-1$,for descendants={edge=dotted}
+				[]
+				[]
+			]
+			[$\frac{n}{8}$,for descendants={edge=dotted}
+				[]
+				[]
+			]
+		]
+	]
+]
+% Left side arrow thingy.
+\node(leftbox) at ($(current bounding box.west) - (1, 0)$){$n$};
+\path (current bounding box.north west) -- (current bounding box.north) node(lefttopline){};
+\draw[->] (leftbox) -- (leftbox |- lefttopline);
+\path (current bounding box.south west) -- (current bounding box.south) node(leftbotline){};
+\draw[->] (leftbox) -- (leftbox |- leftbotline);
+% Right side arrow thingy.
+\node(rightbox) at ($(current bounding box.east) + (1, 0)$){$\log_2(n)$};
+\path (current bounding box.north east) -- (current bounding box.north) node(righttopline){};
+\draw[->] (rightbox) -- (rightbox |- righttopline);
+\path (current bounding box.south east) -- (current bounding box.south) node(rightbotline){};
+\draw[->] (rightbox) -- (rightbox |- rightbotline);
+\end{forest}
+\end{center}
+
+The left side of the tree has height $n$ while the right side of the tree has height $\log_2(n)$.  It's not clear to me what the height of the inner nodes is or how many leaf nodes there are.
+
+I made a number of guesses regarding a good asymptotic upper bound, but those ended up ruling functions out rather than revealing a tight upper bound.
+
+For example, consider any polynomial $O(n^x)$ where $x$ is a constant greater than 1.  Assume $T(n) \leq cn^x$ for all $m < n$, in particular $m = n - 1$ and $m = n/2$, then $T(n-1) \leq c(n-1)^x$ and $T(n/2) \leq c(n/2)^x$.  Substituting into the recurrence gives:
+\begin{eqnarray*}
+	T(n) & \leq & c(n-1)^x + c(n/2)^x + n \\
+	 & = & \frac{(2^x + 1)cn^x}{2^x} + \ldots \text{lower-order terms}
+\end{eqnarray*}
+No matter what valid $x$ is chosen, the highest order term $\frac{c(2^x + 1)n^x}{2^x} > cn^x$ because it's always at least $\frac{cn^x}{2^x}$ larger than $cn^x$.  This led me to expect that the upper bound was exponential rather than polynomial...
+
+For the next example, consider any exponential $O(x^n)$ where $x$ is a constant greater than 1.  Assume $T(n) \leq cx^n$ for all $m < n$, in particular $m = n - 1$ and $m = n/2$, then $T(n-1) \leq cx^{n-1}$ and $T(n/2) \leq cx^{n/2}$.  Substituting into the recurrence gives:
+\begin{eqnarray*}
+	T(n) & \leq & cx^{n-1} + cx^{n/2} + n
+\end{eqnarray*}
+No matter what valid $x$ is chosen, the recurrence will always be less than $cx^n$ as $n \rightarrow \infty$.
+
+Searching online to find some function between polynomial and exponential gave $O(n^{\log_2 n})$ as a possibility.  Assume $T(n) \leq cn^{\log_2 n}$ for all $m < n$, in particular $m = n - 1$ and $m = n/2$, then $T(n-1) \leq c(n-1)^{\log_2(n - 1)}$ and $T(n/2) \leq c(n/2)^{\log_2 (n/2)}$.  Substituting into the recurrence gives:
+\begin{eqnarray*}
+	T(n) & \leq & c(n-1)^{\log_2(n-1)} + c(n/2)^{\log_2 (n/2)} + n \\
+	 & = & c(n-1)^{\log_2(n-1)} + c(n/2)^{\log_2 n - 1} + n \\
+	 & = & c(n-1)^{\log_2(n-1)} + c(n/2)^{\log_2 n}(n/2)^{-1} + n \\
+	 & = & c(n-1)^{\log_2(n-1)} + c\frac{n^{\log_2 n}}{n}\frac{2}{n} + n \\
+	 & = & c(n-1)^{\log_2(n-1)} + cn^{\log_2 n}(2/n^2) + n \\
+	 & = & c(n-1)^{\log_2(n-1)} + c2n^{\log_2 n - 2} + n
+\end{eqnarray*}
+
+I believe that the sum of three above terms is less than $cn^{\log_2 n}$.
+
+There are also possibilities such as $O(n^{\log_2 \log_2 n})$, but I've spent enough time on this problem for now.
+
+My guess is that the recurrence is $O(n^{\log_2 n})$.
