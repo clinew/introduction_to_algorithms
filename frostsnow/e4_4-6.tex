@@ -1,0 +1,69 @@
+\documentclass{book}
+
+\usepackage{amsmath}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{forest}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usetikzlibrary[intersections]
+\usetikzlibrary[decorations.pathreplacing]
+
+\begin{document}
+
+Assume a base case of $T(1) = 1$.  The recurrence tree then looks something like:
+
+\begin{center}
+\begin{forest}
+[$cn$,name=height0
+	[$c(n/3)$
+		[$c(n/9)$,for descendants={edge=dotted}
+			[ ]
+			[ ]
+		]
+		[$c(2n/9)$,for descendants={edge=dotted}
+			[ ]
+			[ ]
+		]
+	][$c(2n/3)$,name=height1
+		[$c(2n/9)$,for descendants={edge=dotted}
+			[ ]
+			[ ]
+		]
+		[$c(4n/9)$,for descendants={edge=dotted},name=height2
+			[ ]
+			[ ]
+		]
+	]
+]
+% Left side arrow thingy.
+\node(leftbox) at ($(current bounding box.west) - (1, 0)$){$\log_3 n + 1$};
+\path (current bounding box.north west) -- (current bounding box.north) node(lefttopline){};
+\draw[->] (leftbox) -- (leftbox |- lefttopline);
+\path (current bounding box.south west) -- (current bounding box.south) node(leftbotline){};
+\draw[->] (leftbox) -- (leftbox |- leftbotline);
+% Right side sums.
+\path ($(current bounding box.north east) + (0.5, 0)$) -- ($(current bounding box.south east) + (0.5, 0)$) node(rightline){};
+\draw[-stealth,dotted,thick] (height0) -- (height0 -| rightline) node(l0node){};
+\node at ($(l0node) + (1, 0)$){$cn$};
+\draw[-stealth,dotted,thick] (height1) -- (height1 -| rightline) node(l1node){};
+\node at ($(l1node) + (1, 0)$){$cn$};
+\draw[-stealth,dotted,thick] (height2) -- (height2 -| rightline) node(l2node){};
+\node at ($(l2node) + (1, 0)$){$cn$};
+\end{forest}
+\end{center}
+
+In order to get a lower estimate of the recurrence's total cost based on its recursion tree, use the lowest value of tree height, $\log_3 n + 1$, when computing the total cost of the recurrence.
+
+Let $f(n)$ be the total cost of the recurrence.  Prove $f(n) = \Omega(n\log_2 n)$.  By definition of $\Omega$, $f(n) = \Omega(n\log_2 n)$ if there exist positive constants $c_0$ and $n_0$ such that $f(n) \geq c_0 n \log_2 n$ for all $n \geq n_0$.  Based on the above recurrence tree, the total cost of the recurrence $f(n)$ is:
+\begin{eqnarray*}
+	cn(\log_3 n + 1) & = & cn\log_3 n + cn \\
+	 & = & \frac{cn\log_2n}{\log_23} + cn \\
+	 & = & \frac{c}{\log_23}n\log_2n + cn
+\end{eqnarray*}
+For any $c_0 \leq \frac{c}{\log_23}$:
+\begin{eqnarray*}
+	\frac{c}{\log_23}n\log_2n + cn \geq c_0n\log_2n
+\end{eqnarray*}
+Therefore, the recursion tree shows that the recurrence $(n) = T(n/3) + T(2n/3) + cn$ is $\Omega(n\log_2n)$.
+
+\end{document}
