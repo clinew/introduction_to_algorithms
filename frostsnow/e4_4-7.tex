@@ -1,0 +1,206 @@
+Assume a base case of $T(1) = 1$.  Ignoring the floor for simplicity, the recurrence tree then looks something like Figure \ref{4_4-7}.
+
+\begin{figure}
+\rotatebox{270}{
+\begin{forest}
+[$cn$,name=height0,for tree={s sep=0pt}
+	[$c\frac{n}{2}$
+		[$c\frac{n}{4}$,for descendants={edge=dotted}
+			[]
+			[]
+			[]
+			[]
+		]
+		[$c\frac{n}{4}$,for descendants={edge=dotted}
+			[]
+			[]
+			[]
+			[]
+		]
+		[$c\frac{n}{4}$,for descendants={edge=dotted}
+			[]
+			[]
+			[]
+			[]
+		]
+		[$c\frac{n}{4}$,for descendants={edge=dotted}
+			[]
+			[]
+			[]
+			[]
+		]
+	][$c\frac{n}{2}$
+		[$c\frac{n}{4}$,for descendants={edge=dotted}
+			[]
+			[]
+			[]
+			[]
+		]
+		[$c\frac{n}{4}$,for descendants={edge=dotted}
+			[]
+			[]
+			[]
+			[]
+		]
+		[$c\frac{n}{4}$,for descendants={edge=dotted}
+			[]
+			[]
+			[]
+			[]
+		]
+		[$c\frac{n}{4}$,for descendants={edge=dotted}
+			[]
+			[]
+			[]
+			[]
+		]
+	][$c\frac{n}{2}$
+		[$c\frac{n}{4}$,for descendants={edge=dotted}
+			[]
+			[]
+			[]
+			[]
+		]
+		[$c\frac{n}{4}$,for descendants={edge=dotted}
+			[]
+			[]
+			[]
+			[]
+		]
+		[$c\frac{n}{4}$,for descendants={edge=dotted}
+			[]
+			[]
+			[]
+			[]
+		]
+		[$c\frac{n}{4}$,for descendants={edge=dotted}
+			[]
+			[]
+			[]
+			[]
+		]
+	][$c\frac{n}{2}$,name=height1
+		[$c\frac{n}{4}$,for descendants={edge=dotted}
+			[]
+			[]
+			[]
+			[]
+		]
+		[$c\frac{n}{4}$,for descendants={edge=dotted}
+			[]
+			[]
+			[]
+			[]
+		]
+		[$c\frac{n}{4}$,for descendants={edge=dotted}
+			[]
+			[]
+			[]
+			[]
+		]
+		[$c\frac{n}{4}$,for descendants={edge=dotted},name=height2
+			[]
+			[]
+			[]
+			[,name=height3]
+		]
+	]
+]
+% Bottom leaves.
+% I'd rather use the bounding box's east and west x-coordinate with a hardcoded
+% spacing than hardcoded spacing and a hardcoded iteration count, but I haven't
+% figured out a way to extract the x-coordinate with \let nested within a
+% \foreach...
+\node(bottombox) at ($(current bounding box.south west) + (0.10, -1)$){};
+\tikzmath{
+	int \i;
+	for \i in {0, ..., 30, 32}{
+		real \tmp;
+		\tmp = \i*0.5;
+		{
+			\node(leaf\i) at ($(bottombox.west) + (\tmp, 0)$){$1$};
+			\draw[dotted] (leaf\i) -- +(0, 1);
+		};
+	};
+};
+\node at ($(bottombox.west) + (15.5, 0)$){\ldots};
+% Left side arrow thingy.
+\node(leftbox) at ($(current bounding box.west) - (1, 0)$){$\log_2n + 1$};
+\path (current bounding box.north west) -- (current bounding box.north) node(lefttopline){};
+\draw[->] (leftbox) -- (leftbox |- lefttopline);
+\path (current bounding box.south west) -- (current bounding box.south) node(leftbotline){};
+\draw[->] (leftbox) -- (leftbox |- leftbotline);
+% Right side sums.
+\path ($(current bounding box.north east) + (0.5, 0)$) -- ($(current bounding box.south east) + (0.5, 0)$) node(rightline){};
+\draw[-stealth,dotted,thick] (height0) -- (height0 -| rightline) node(l0node){};
+\node at ($(l0node) + (1, 0)$){$cn$};
+\draw[-stealth,dotted,thick] (height1) -- (height1 -| rightline) node(l1node){};
+\node at ($(l1node) + (1, 0)$){$2cn$};
+\draw[-stealth,dotted,thick] (height2) -- (height2 -| rightline) node(l2node){};
+\node at ($(l2node) + (1, 0)$){$4cn$};
+\path[] (height3) -- (height3 -| rightline) node(l3node){};
+\node at ($(l3node) + (1, 0)$){\vdots};
+\draw[-stealth,dotted,thick] (leaf32) -- (leaf32 -| rightline) node(leafnode){};
+\node (rightleaftotal) at ($(leafnode) + (1, 0)$){$2^icn$};
+\end{forest}
+} % rotatebox
+\caption{Recurrence tree for $T(n) = 4T(\lfloor \frac{n}{2} \rfloor) + cn$, ignoring floors.}
+\label{4_4-7}
+\end{figure}
+
+Taking the recurrence tree total gives:
+\begin{eqnarray*}
+	cn\sum_{i=0}^{\log_2n}2^i & = & cn\frac{2^{\log_2n+1} - 1}{2-1} \\
+	& = & cn \left( 2 \cdot 2^{\log_2n} - 1 \right) \\
+	& = & cn(2n - 1) \\
+	& = & 2cn^2 - cn
+\end{eqnarray*}
+Which gives a guess of $T(n) = \Theta(n^2)$.
+
+To prove this guess, start by proving $T(n) = O(n^2)$.  By definition of $O(f(n)), T(n) = O(n^2)$ if there exist positive constants $c_0$ and $n_0$ such that $T(n) \leq c_0 n^2 - 2c_0n$ for all $n \geq n_0$.  Assume that this is true for all positive $m<n$, in particular $m=\lfloor n/2 \rfloor$, giving $T(\lfloor n/2 \rfloor) \leq c_0 \lfloor n/2 \rfloor^2 - 2c_0 \lfloor n/2 \rfloor$.  Substituting into the recurrence gives:
+\begin{eqnarray*}
+	T(n) & \leq & 4(c_0 \lfloor n/2 \rfloor^2 - 2c_0 \lfloor n/2 \rfloor) + c_0n \\
+	 & \leq & 4(c_0n^2/4 - 2c_0(n/2 - 1)) + c_0 n \\
+	 & = & c_0n^2 - 4c_0n + 8c_0 + c_0n \\
+	 & = & c_0n^2 - 3c_0n + 8c_0 \\
+	 & \leq & c_0n^2 - 2c_0n \text{~// True for $n \geq 8$}
+\end{eqnarray*}
+Looking at the base cases shows:
+\begin{center}
+\begin{tabular}{c|c|c}
+	$n$ & $c_0n^2 - 2c_0n$ & $T(n)$ \\ \hline
+	$1$ & $-c_0$ & $1$ \\
+	$2$ & $0$ & $4 + 2c$ \\
+	$3$ & $3c_0$ & $4 + 3c$ \\
+	$4$ & $8c_0$ & $16 + 12c$ \\
+	$5$ & $15c_0$ & $16 + 13c$ \\
+	$6$ & $24c_0$ & $16 + 18c$ \\
+	$7$ & $35c_0$ & $16 + 19c$ \\
+	$8$ & $48c_0$ & $64 + 56c$
+\end{tabular}
+\end{center}
+The boundary conditions for $n \geq 3$ hold for $c_0 \geq 2 + 1.5c$.  Thus $T(n) = O(n^2)$.
+
+Next, prove that $T(n) = \Omega(n^2)$.  By definition of $\Omega(f(n))$, $T(n) = \Omega(n^2)$ if there exist positive constants $c_1$ and $n_1$ such that $T(n) \geq c_1n^2 + 8c_1n$ for all $n_1 \geq n$.  Assume that this is true for all $m \leq n$, in particular $m = \lfloor n/2 \rfloor$, giving $T(\lfloor n/2 \rfloor) \geq c_1\lfloor n/2 \rfloor^2 + 8c_1 \lfloor n/2 \rfloor$.  Substituting this into the recurrence then gives:
+\begin{eqnarray*}
+	T(n) & \geq & 4(c_1 \lfloor n/2 \rfloor^2 + 8c_1\lfloor n/2 \rfloor) + c_1n \\
+	& \geq & 4(c_1n^2/4 - c_1n + c_1 + 4c_1n - 8c_1) + c_1n \\
+	& = & c_1n^2 - 4c_1n + 4c_1 + 16c_1n - 32c_1 + c_1n \\
+	& = & c_1n^2 + 13c_1n - 28c_1 \\
+	& \geq & c_1n^2 + 8c_1n \text{~// True for $n \geq 5(3/5)$}
+\end{eqnarray*}
+Looking at the base cases shows:
+\begin{center}
+\begin{tabular}{c|c|c}
+	$n$ & $c_1n^2 + 8c_1n$ & $T(n)$ \\ \hline
+	$1$ & $9c_1$ & $1$ \\
+	$2$ & $20c_1$ & $4 + 2c$ \\
+	$3$ & $33c_1$ & $4 + 3c$ \\
+	$4$ & $48c_1$ & $16 + 12c$ \\
+	$5$ & $65c_1$ & $16 + 13c$ \\
+	$6$ & $84c_1$ & $16 + 18c$
+\end{tabular}
+\end{center}
+All boundary conditions hold for $c_1 \leq 1/9$.  Thus $T(n) = \Omega(n^2)$.
+
+Therefore, since $T(n) = O(n^2)$ and $T(n) = \Omega(n^2)$, $T(n) = \Theta(n^2)$.
